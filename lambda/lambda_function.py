@@ -213,7 +213,6 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_message(text="Press /start to begin")
         return
     query = update.callback_query
-    user = query.from_user
     data = query.data
     if data.startswith("SONG "):
         song_number = data.replace("SONG ", "")
@@ -249,13 +248,17 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             title = f"{song_number} {titles[song_number]}"
             if len(mp3[song_number]) > 1:
                 title += " " + str(counter)
-            await update.effective_chat.send_audio(audio=reference, caption=title)
+            await update.effective_chat.send_audio(
+                audio=reference, caption=title, protect_content=True
+            )
     elif data.startswith("PIANO "):
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "PIANO", song_title)
         reference = piano[song_title]
-        await update.effective_chat.send_audio(audio=reference, caption=song_title)
+        await update.effective_chat.send_audio(
+            audio=reference, caption=song_title, protect_content=True
+        )
     else:
         await query.answer(text="This feature is not available")
         saveLog(user, "CALLBACK_INVALID", data, None)
