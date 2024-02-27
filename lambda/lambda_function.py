@@ -200,7 +200,9 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             saveLog(user, "SEARCH_RESULTS", raw_message, f"{len(results)} results")
     else:
         if song_number:
-            saveLog(user, "SEARCH_HIT", raw_message, song_number)
+            saveLog(
+                user, "SEARCH_HIT", raw_message, f"{song_number} {titles[song_number]}"
+            )
         else:
             await update.message.reply_html(
                 "<i>No matches found</i>\n\nType /help for instructions"
