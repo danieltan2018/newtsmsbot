@@ -5,6 +5,7 @@ import os
 import re
 import traceback
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 
 import boto3
 import templates
@@ -43,7 +44,7 @@ def saveLog(user, event, request, response):
             "user_id": user.id,
             "name": user.full_name,
             "username": user.username,
-            "timestamp": int(datetime.utcnow().timestamp()),
+            "timestamp": Decimal(str(datetime.utcnow().timestamp())),
             "timestamp_iso": datetime.now(timezone(timedelta(hours=8))).isoformat(),
             "event": event,
             "request": request,
@@ -268,6 +269,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 async def tg_bot_main(bot_app, event):
     async with bot_app:
+        logger.info("PROCESSING UPDATE: %s", event)
         await bot_app.process_update(Update.de_json(event, bot_app.bot))
 
 
