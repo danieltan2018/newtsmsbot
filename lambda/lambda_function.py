@@ -1,16 +1,20 @@
 import asyncio
-import json
 import logging
 import os
 import re
 import traceback
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
+from io import BytesIO
 
 import boto3
 import templates
 from cache import chords, mp3, piano, scores, songs, titles
 from lookup import songs_lookup, titles_lookup
+from pptx import Presentation
+from pptx.dml.color import RGBColor
+from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
+from pptx.util import Inches, Pt
 from rapidfuzz import fuzz, process
 from telegram import (
     InlineKeyboardButton,
@@ -137,6 +141,7 @@ async def send_song(update: Update, song_number) -> None:
             "🎹 Piano Recording (Wilds)",
         )
     )
+    keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
     await update.effective_chat.send_message(
         text=songs.get(song_number),
         parse_mode=constants.ParseMode.HTML,
@@ -210,6 +215,84 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             saveLog(user, "SEARCH_NONE", raw_message, None)
 
 
+def make_ppt(song_number):
+    prs = Presentation()
+    prs.slide_width = Inches(16)
+    prs.slide_height = Inches(9)
+
+    title = titles[song_number]
+    text = songs[song_number]
+    text = text.split("\n\n")
+    text.pop(0)
+    text = list(filter(None, text))
+
+    originallen = len(text)
+    chorus = None
+    for i in range(originallen):
+        stanza = text[i]
+        if stanza.startswith("Chorus:") or stanza.startswith("Refrain:"):
+            chorus = i
+            break
+    if chorus:
+        i = chorus + 2
+        while True:
+            text.insert(i, stanza)
+            i += 2
+            if i > len(text):
+                break
+
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    background = slide.background
+    fill = background.fill
+    fill.solid()
+    fill.fore_color.rgb = RGBColor(0, 0, 0)
+
+    txBox = slide.shapes.add_textbox(0, 0, Inches(16), Inches(9))
+    tf = txBox.text_frame
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    p = tf.add_paragraph()
+    p.text = title + "\n(" + song_number + ")"
+    p.font.size = Pt(60)
+    p.font.bold = True
+    p.font.color.rgb = RGBColor(255, 255, 255)
+    p.alignment = PP_ALIGN.CENTER
+
+    for i in range(len(text)):
+        blank_slide_layout = prs.slide_layouts[6]
+        slide = prs.slides.add_slide(blank_slide_layout)
+        background = slide.background
+        fill = background.fill
+        fill.solid()
+        fill.fore_color.rgb = RGBColor(0, 0, 0)
+
+        txBox = slide.shapes.add_textbox(Inches(15), 0, Inches(1), Inches(1))
+        tf = txBox.text_frame
+        p = tf.add_paragraph()
+        p.text = "{}/{}".format(i + 1, len(text))
+        p.font.size = Pt(32)
+        p.font.color.rgb = RGBColor(255, 255, 255)
+
+        txBox = slide.shapes.add_textbox(0, 0, Inches(16), Inches(9))
+        tf = txBox.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.word_wrap = True
+        tf.auto_size = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
+        p = tf.add_paragraph()
+        p.text = text[i].strip()
+        p.font.size = Pt(48)
+        if song_number.startswith("C "):
+            p.font.size = Pt(32)
+        p.font.bold = True
+        p.font.color.rgb = RGBColor(255, 255, 255)
+        p.alignment = PP_ALIGN.CENTER
+    pptxfile = BytesIO()
+    pptxfile.name = song_number + ".pptx"
+    prs.save(pptxfile)
+    pptxfile.seek(0)
+    return pptxfile
+
+
 async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     if not validUser(user):
@@ -262,6 +345,12 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_audio(
             audio=reference, caption=song_title, protect_content=True
         )
+    elif data.startswith("PPT "):
+        song_number = data.replace("PPT ", "")
+        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
+        saveLog(user, "CALLBACK", "PPT", song_number)
+        ppt = make_ppt(song_number)
+        await update.effective_chat.send_document(document=ppt)
     else:
         await query.answer(text="This feature is not available")
         saveLog(user, "CALLBACK_INVALID", data, None)
