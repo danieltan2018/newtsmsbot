@@ -168,7 +168,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         alpha_only = re.compile("[^A-Z ]")
         clean_message = alpha_only.sub("", message).strip()
         if clean_message in titles_lookup:
-            results = titles_lookup.get(clean_message)
+            results = titles_lookup.get(clean_message).copy()
             song_number = results.pop(0)
         else:  # search
             if len(clean_message) > 200:
