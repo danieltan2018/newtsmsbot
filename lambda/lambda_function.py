@@ -168,7 +168,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         alpha_only = re.compile("[^A-Z ]")
         clean_message = alpha_only.sub("", message).strip()
         if clean_message in titles_lookup:
-            results = titles_lookup[clean_message]
+            results = titles_lookup.get(clean_message)
             song_number = results.pop(0)
         else:  # search
             if len(clean_message) > 200:
@@ -220,8 +220,8 @@ def make_ppt(song_number):
     prs.slide_width = Inches(16)
     prs.slide_height = Inches(9)
 
-    title = titles[song_number]
-    text = songs[song_number]
+    title = titles.get(song_number)
+    text = songs.get(song_number)
     text = text.split("\n\n")
     text.pop(0)
     text = list(filter(None, text))
