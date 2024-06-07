@@ -334,7 +334,9 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             title = f"{song_number} {titles[song_number]}"
             if len(mp3[song_number]) > 1:
                 title += " " + str(counter)
-            await update.effective_chat.send_audio(audio=reference, caption=title)
+            await update.effective_chat.send_audio(
+                audio=reference, caption=title, protect_content=True
+            )
     elif data.startswith("PIANO "):
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
