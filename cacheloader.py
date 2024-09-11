@@ -11,7 +11,7 @@ global songs
 songs = {}
 global titles
 titles = {}
-number = re.compile("^\d")
+number = re.compile("^\d+ ")
 for filename in (x.name for x in os.scandir("./books") if x.is_file()):
     filepath = "./books/" + filename
     with open(filepath, "r", encoding="UTF8") as book:
@@ -122,6 +122,28 @@ with open("./media/wilds_piano.txt", "r", encoding="UTF8") as piano_file:
         piano[number] = reference
 
 f.write("piano = " + json.dumps(piano, ensure_ascii=False) + "\n")
+
+global ca_links
+ca_links = {}
+with open("./media/ca_links.txt", "r", encoding="UTF8") as ca_links_file:
+    print("Loading CA Links")
+    song_number = None
+    links = {}
+    for line in ca_links_file:
+        line = line.strip()
+        if not line and song_number != None:
+            ca_links[song_number] = links
+            song_number = None
+            links = {}
+        elif line.isnumeric():
+            song_number = "CA " + line
+        else:
+            line = line.split("|")
+            href = line[1]
+            text = line[0]
+            links[text] = href
+
+f.write("ca_links = " + json.dumps(ca_links, ensure_ascii=False) + "\n")
 
 d = open("./lambda/lookup.py", "w", encoding="UTF-8")
 alpha = re.compile("[^a-zA-Z ]")

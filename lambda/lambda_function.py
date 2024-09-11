@@ -9,7 +9,7 @@ from io import BytesIO
 
 import boto3
 import templates
-from cache import chords, mp3, piano, scores, songs, titles
+from cache import chords, mp3, piano, scores, songs, titles, ca_links
 from lookup import songs_lookup, titles_lookup
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -148,6 +148,25 @@ async def send_song(update: Update, song_number) -> None:
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
+    if song_number in ca_links:
+        keyboard = []
+        for key, value in ca_links.get(song_number).items():
+            keyboard.extend(
+                [
+                    [
+                        InlineKeyboardButton(
+                            key,
+                            url=value,
+                        )
+                    ]
+                ]
+            )
+        await update.effective_chat.send_message(
+            text="Links provided by cityalight.com",
+            parse_mode=constants.ParseMode.HTML,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(keyboard),
+        )
 
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

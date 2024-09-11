@@ -33,4 +33,5 @@ Search by typing any of the following:
 <b>The Wilds Songbook (9th ed.)</b> (WILDS 1-209)
 <b>Children's Ministry</b> (CM 1-73)
 <b>Word in Song (2023)</b> (WIS 1-196)
+<b>CityAlight</b> (CA)
 """
