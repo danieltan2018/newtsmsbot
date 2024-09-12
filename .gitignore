@@ -2,3 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Lambda files
+lambda/cache.py
+lambda/lookup.py
