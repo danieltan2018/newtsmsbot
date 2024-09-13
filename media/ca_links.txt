@@ -213,6 +213,14 @@ Buy on iTunes|https://music.apple.com/au/album/jesus-strong-and-kind-feat-colin-
 Listen on Spotify|https://open.spotify.com/track/7lE9AsH8YADFeykexnXK4u?si=e6-bOeKGSoK8pC6lvfJ40Q
 
 28
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/06/Your-Will-Be-Done_PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2022/06/Your-Will-Be-Done_LS.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/Your-Will-Be-Done_LCC.pdf
+Watch The Video|https://music.youtube.com/watch?v=YllJH6lPP0o&feature=share
+Buy on iTunes|https://music.apple.com/us/album/your-will-be-done/1639686894?i=1639687088
+Listen on Spotify|https://open.spotify.com/track/5Co8hoW0om2Z4w5t4eYpC4?si=78b5560a0f3a40b6
+
+29
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/06/It-Was-Finished-Upon-That-Cross_PVG.pdf
 Lead Sheet|https://cityalight.com/wp-content/uploads/2022/06/It-Was-Finished-Upon-That-Cross_LS.pdf
 Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/It-Was-Finished-Upon-That-Cross_LCC.pdf
@@ -220,7 +228,7 @@ Watch The Video|https://youtu.be/PUGQNYm44hk
 Buy on iTunes|https://music.apple.com/au/album/it-was-finished-upon-that-cross-single/1556796892
 Listen on Spotify|https://open.spotify.com/album/13fLJWbPSUGeynlQgesroz?highlight=spotify:track:5nOkU3cO8SVK6oz9Eq1DBj
 
-29
+30
 Viola|https://cityalight.com/wp-content/uploads/2022/06/Night-Song-Viola.pdf
 Violin 1|https://cityalight.com/wp-content/uploads/2022/06/Night-Song-Violin-I.pdf
 Violin 2|https://cityalight.com/wp-content/uploads/2022/06/Night-Song-Violin-II.pdf
@@ -231,21 +239,13 @@ Watch The Video|https://youtu.be/tBraI_mU1O4
 Buy on iTunes|https://music.apple.com/au/album/the-night-song-single/1599510786
 Listen on Spotify|https://open.spotify.com/album/1n3gewvIm21VPSshZZfDdl
 
-30
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/09/In-The-Valley_PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2022/09/In-The-Valley_LS.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/In-The-Valley_LCC.pdf
-Watch The Video|https://www.youtube.com/watch?v=mM1nMD_Mjos&ab_channel=CityAlight
-Buy on iTunes|https://music.apple.com/us/album/in-the-valley-bless-the-lord-single/1645104951
-Listen on Spotify|https://open.spotify.com/album/55nQrYPBS2o1aCKHjc3d3d
-
 31
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_LS.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_LCC.pdf
-Watch The Video|https://music.youtube.com/watch?v=-Q-jT_x-pCU&feature=share
-Buy on iTunes|https://music.apple.com/us/album/every-step/1639686894?i=1639686895
-Listen on Spotify|https://open.spotify.com/track/53eg1hpX9sJQLtcRAdgwk7?si=a99d61f26b814b61
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/06/This-Is-The-Day_PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2022/06/This-Is-The-Day_LS.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/This-Is-The-Day_LCC.pdf
+Watch The Video|https://music.youtube.com/watch?v=fGNwBZ73Z4A&feature=share
+Buy on iTunes|https://music.apple.com/us/album/this-is-the-day/1639686894?i=1639687081
+Listen on Spotify|https://open.spotify.com/track/31Me1p4Tjlh9IWKb8KsrBS?si=129f2d08c32c40d5
 
 32
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/07/There-Is-One-Gospel_PVG.pdf
@@ -256,6 +256,22 @@ Buy on iTunes|https://music.apple.com/us/album/there-is-one-gospel-live/16396868
 Listen on Spotify|https://open.spotify.com/track/6sMBR9BcAe1mLxzJszJ1qL?si=70124e0f096445af
 
 33
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/09/In-The-Valley_PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2022/09/In-The-Valley_LS.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/In-The-Valley_LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=mM1nMD_Mjos&ab_channel=CityAlight
+Buy on iTunes|https://music.apple.com/us/album/in-the-valley-bless-the-lord-single/1645104951
+Listen on Spotify|https://open.spotify.com/album/55nQrYPBS2o1aCKHjc3d3d
+
+34
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_LS.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/08/Every-Step_LCC.pdf
+Watch The Video|https://music.youtube.com/watch?v=-Q-jT_x-pCU&feature=share
+Buy on iTunes|https://music.apple.com/us/album/every-step/1639686894?i=1639686895
+Listen on Spotify|https://open.spotify.com/track/53eg1hpX9sJQLtcRAdgwk7?si=a99d61f26b814b61
+
+35
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/08/On-That-Day_PVG.pdf
 Lead Sheet|https://cityalight.com/wp-content/uploads/2022/08/On-That-Day_LS.pdf
 Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/08/On-That-Day_LCC.pdf
@@ -263,7 +279,7 @@ Watch The Video|https://music.youtube.com/watch?v=4Yf9b4Z7XIA&feature=share
 Buy on iTunes|https://music.apple.com/us/album/on-that-day/1639686894?i=1639687074
 Listen on Spotify|https://open.spotify.com/track/06uQpt2As8w8qYUfJUwSOv?si=5ad2dafce09f40ae
 
-34
+36
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/08/Psalm-42_PVG.pdf
 Lead Sheet|https://cityalight.com/wp-content/uploads/2022/08/Psalm-42_LS.pdf
 Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/08/Psalm-42_LCC.pdf
@@ -271,29 +287,13 @@ Watch The Video|https://music.youtube.com/watch?v=aprJ9WhFF7s&feature=share
 Buy on iTunes|https://music.apple.com/us/album/psalm-42-i-will-praise-him-again/1639686894?i=1639687078
 Listen on Spotify|https://open.spotify.com/track/6CF3poWIBzTdzuxaXSM2LQ?si=33731fa89d934a6a
 
-35
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/06/This-Is-The-Day_PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2022/06/This-Is-The-Day_LS.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/This-Is-The-Day_LCC.pdf
-Watch The Video|https://music.youtube.com/watch?v=fGNwBZ73Z4A&feature=share
-Buy on iTunes|https://music.apple.com/us/album/this-is-the-day/1639686894?i=1639687081
-Listen on Spotify|https://open.spotify.com/track/31Me1p4Tjlh9IWKb8KsrBS?si=129f2d08c32c40d5
-
-36
+37
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/08/Known-And-Loved_PVG.pdf
 Lead Sheet|https://cityalight.com/wp-content/uploads/2022/08/Known-And-Loved_LS.pdf
 Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/08/Known-And-Loved_LCC.pdf
 Watch The Video|https://music.youtube.com/watch?v=kOIGGRsgkrs&feature=share
 Buy on iTunes|https://music.apple.com/us/album/known-and-loved/1639686894?i=1639687085
 Listen on Spotify|https://open.spotify.com/track/6E1SodsNkDQVqzFqNnrRVM?si=3d4b00d23aa34752
-
-37
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/06/Your-Will-Be-Done_PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2022/06/Your-Will-Be-Done_LS.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2022/11/Your-Will-Be-Done_LCC.pdf
-Watch The Video|https://music.youtube.com/watch?v=YllJH6lPP0o&feature=share
-Buy on iTunes|https://music.apple.com/us/album/your-will-be-done/1639686894?i=1639687088
-Listen on Spotify|https://open.spotify.com/track/5Co8hoW0om2Z4w5t4eYpC4?si=78b5560a0f3a40b6
 
 38
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2022/11/There-Is-Hope_PVG.pdf
@@ -310,20 +310,20 @@ Buy on iTunes|https://music.apple.com/us/album/there-is-hope/1639686894?i=163968
 Listen on Spotify|https://open.spotify.com/track/7pvXm30N7nGq072Y8xybe2?si=79195b892ab549e9
 
 39
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_LS.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_LCC.pdf
-Watch The Video|https://www.youtube.com/watch?v=2PpiezP6xRM
-Buy on iTunes|https://music.apple.com/us/album/he-calls-me-friend-single/1695262503
-Listen on Spotify|https://open.spotify.com/album/22VvLGmescoVzuxUOj5M1G?si=0v6rfA5wTFG-dDEU2OMm7A
-
-40
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2023/06/My-God-Is-All-I-Need_PVG.pdf
 Lead Sheet|https://cityalight.com/wp-content/uploads/2023/06/My-God-Is-All-I-Need_LS.pdf
 Chords & Lyrics|https://cityalight.com/wp-content/uploads/2023/06/My-God-Is-All-I-Need_LCC.pdf
 Watch The Video|https://youtu.be/-fBeckPieds
 Buy on iTunes|https://music.apple.com/us/album/my-god-is-all-i-need-my-god-is-so-big-single/1693943211
 Listen on Spotify|https://open.spotify.com/track/5ztiWWvyJzsU3j807rLF8n?si=bb1dda9927d04758
+
+40
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_LS.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2023/07/He-Calls-Me-Friend_LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=2PpiezP6xRM
+Buy on iTunes|https://music.apple.com/us/album/he-calls-me-friend-single/1695262503
+Listen on Spotify|https://open.spotify.com/album/22VvLGmescoVzuxUOj5M1G?si=0v6rfA5wTFG-dDEU2OMm7A
 
 41
 Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2023/07/The-Lord-Is-By-My-Side_PVG.pdf
@@ -378,4 +378,32 @@ Chords & Lyrics|https://cityalight.com/wp-content/uploads/2024/05/His-Glory-And-
 Watch on Youtube|https://www.youtube.com/watch?v=d5nUTO4m9oA
 Listen on Apple Music|https://music.apple.com/au/album/his-glory-and-my-good-live-single/1738113040
 Listen on Spotify|https://open.spotify.com/album/0LgquntGmCBffmmAEBl83U?si=jDlCAJ4WQe6v1xl7tdIWOg
+
+47
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2024/09/Rise-My-Soul-the-Lord-is-Risen-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2024/09/Rise-My-Soul-the-Lord-is-Risen-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2024/09/Rise-My-Soul-the-Lord-is-Risen-LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=fFgFaHGfDx8
+Listen on Spotify|https://open.spotify.com/track/5ldoZlE4atXkgOFndz0Wbz?si=3ef5a1530671459d
+
+48
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2024/09/The-Battle-And-The-Blessing-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2024/09/The-Battle-And-The-Blessing-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2024/09/The-Battle-And-The-Blessing-LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=solHPv3DRe8
+Listen on Spotify|https://open.spotify.com/track/50ZSYLAnCqIi1fnUVMMagG?si=73590ac21d254076
+
+49
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2024/09/The-Way-The-Truth-and-The-Life-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2024/09/The-Way-The-Truth-and-The-Life-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2024/09/The-Way-The-Truth-and-The-Life-LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=Ej88Q21bcN8
+Listen on Spotify|https://open.spotify.com/track/0tX5YlVmNGIWw4I4wda425?si=8178adfd043147bd
+
+50
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2024/09/Welcome-Home-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2024/09/Welcome-Home-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2024/09/Welcome-Home-LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=J4P0xvq_pPU
+Listen on Spotify|https://open.spotify.com/track/2AXA7jjXQe3wc21dgyzj2y?si=3ea12912fbf54d79
 
