@@ -7,9 +7,10 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
 
+import ai
 import boto3
 import templates
-from cache import chords, mp3, piano, scores, songs, titles, ca_links
+from cache import ca_links, chords, mp3, piano, scores, songs, titles
 from lookup import songs_lookup, titles_lookup
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -25,6 +26,7 @@ from telegram import (
     Update,
     constants,
 )
+from telegram.constants import ParseMode
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -48,7 +50,7 @@ def saveLog(user, event, request, response):
             "user_id": user.id,
             "name": user.full_name,
             "username": user.username,
-            "timestamp": Decimal(str(datetime.utcnow().timestamp())),
+            "timestamp": Decimal(str(datetime.now(datetime.timezone.utc).timestamp())),
             "timestamp_iso": datetime.now(timezone(timedelta(hours=8))).isoformat(),
             "event": event,
             "request": request,
@@ -57,9 +59,26 @@ def saveLog(user, event, request, response):
     )
 
 
-def validUser(user):
+def getDbUser(user):
     dbUser = dynamodb.Table("tsms_users").get_item(Key={"id": user.id})
-    return bool(dbUser)
+    return dbUser
+
+
+async def updateState(update):
+    user = update.effective_user
+    dbUser = getDbUser(update.effective_user)
+    phone = dbUser["Item"]["phone"].lstrip("+")
+    state = dbUser["Item"]["state"]
+    if state != templates.current_version:
+        dynamodb.Table("tsms_users").update_item(
+            Key={"id": user.id},
+            UpdateExpression="SET phone = :phone, state = :state",
+            ExpressionAttributeValues={
+                ":phone": phone,
+                ":state": templates.current_version,
+            },
+        )
+        update.message.reply_html(templates.changelog)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -77,14 +96,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     contact = update.message.contact
-    phone = contact.phone_number
+    phone = contact.phone_number.lstrip("+")
     if user.id == contact.user_id and phone.startswith(templates.allowed_phone):
         dynamodb.Table("tsms_users").put_item(
             Item={
                 "id": user.id,
                 "name": user.full_name,
                 "phone": phone,
-                "state": "v1",
+                "state": templates.current_version,
             }
         )
         await update.message.reply_html(
@@ -101,7 +120,7 @@ async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not validUser(user):
+    if not getDbUser(user):
         await update.effective_chat.send_message("Press /start to begin")
         return
     await update.message.reply_html(
@@ -142,6 +161,7 @@ async def send_song(update: Update, song_number) -> None:
         )
     )
     keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
+    keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     await update.effective_chat.send_message(
         text=songs.get(song_number),
         parse_mode=constants.ParseMode.HTML,
@@ -171,7 +191,7 @@ async def send_song(update: Update, song_number) -> None:
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not validUser(user):
+    if not getDbUser(user):
         await update.effective_chat.send_message("Press /start to begin")
         return
     raw_message = update.message.text
@@ -205,6 +225,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             results = [t[2] for t in query]
     if song_number:
         await send_song(update, song_number)
+        saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {titles[song_number]}")
     if results:
         keyboard = []
         for number in results:
@@ -222,16 +243,12 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 reply_markup=InlineKeyboardMarkup(keyboard),
             )
             saveLog(user, "SEARCH_RESULTS", raw_message, f"{len(results)} results")
-    else:
-        if song_number:
-            saveLog(
-                user, "SEARCH_HIT", raw_message, f"{song_number} {titles[song_number]}"
-            )
-        else:
-            await update.message.reply_html(
-                "<i>No matches found</i>\n\nType /help for instructions"
-            )
-            saveLog(user, "SEARCH_NONE", raw_message, None)
+    elif not song_number:
+        await update.message.reply_html(
+            "<i>No matches found</i>\n\nType /help for instructions"
+        )
+        saveLog(user, "SEARCH_NONE", raw_message, None)
+    updateState(update)
 
 
 def make_ppt(song_number):
@@ -314,7 +331,7 @@ def make_ppt(song_number):
 
 async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not validUser(user):
+    if not getDbUser(user):
         await update.effective_chat.send_message(text="Press /start to begin")
         return
     query = update.callback_query
@@ -370,6 +387,14 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         saveLog(user, "CALLBACK", "PPT", song_number)
         ppt = make_ppt(song_number)
         await update.effective_chat.send_document(document=ppt)
+    elif data.startswith("EXPLAIN "):
+        song_number = data.replace("EXPLAIN ", "")
+        await update.effective_chat.send_action(constants.ChatAction.TYPING)
+        saveLog(user, "CALLBACK", "EXPLAIN", song_number)
+        response = ai.explainSong(songs.get(song_number))
+        await update.effective_chat.send_message(
+            response, parse_mode=ParseMode.MARKDOWN_V2
+        )
     else:
         await query.answer(text="This feature is not available")
         saveLog(user, "CALLBACK_INVALID", data, None)

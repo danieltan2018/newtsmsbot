@@ -2,3 +2,4 @@ python-telegram-bot
 unidecode
 rapidfuzz
 python-pptx
+google-generativeai

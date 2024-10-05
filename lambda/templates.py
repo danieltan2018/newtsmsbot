@@ -4,7 +4,17 @@ start = """
 In order to prevent the distribution of copyright material, your phone number will be collected for automated user verification. It will never be shared or used for any other purpose.
 """
 
-allowed_phone = ("+65", "65", "+61", "61", "+60", "60")
+allowed_phone = ("65", "61", "60")
+
+current_version = 2
+
+changelog = """
+<b>Welcome back to the TSMS bot!</b>
+
+We've made some changes since your last use. This latest version includes:
+- New songs & content
+- Added experimental AI features
+"""
 
 welcome = """
 <b>Welcome to the TSMS bot!</b>
@@ -31,7 +41,7 @@ Search by typing any of the following:
 <b>Revival Hymns & Choruses</b> (RHC 1-567)
 <b>Hymns of Grace</b> (HOG 1-444)
 <b>The Wilds Songbook (9th ed.)</b> (WILDS 1-209)
-<b>Children's Ministry</b> (CM 1-73)
-<b>Word in Song (2023)</b> (WIS 1-196)
+<b>Children's Ministry</b> (CM 1-80)
+<b>Word in Song (Bukit Arang)</b> (WIS 1-196)
 <b>CityAlight</b> (CA)
 """
