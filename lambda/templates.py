@@ -12,8 +12,8 @@ changelog = """
 <b>Welcome back to the TSMS bot!</b>
 
 We've made some changes since your last use. This latest version includes:
+
 - New songs & content
-- Added experimental AI features
 """
 
 welcome = """

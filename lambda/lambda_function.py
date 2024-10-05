@@ -7,10 +7,12 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
 
-import ai
+# import ai
 import boto3
 import templates
 from cache import ca_links, chords, mp3, piano, scores, songs, titles
+from datetime import datetime, timezone
+from decimal import Decimal
 from lookup import songs_lookup, titles_lookup
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -50,7 +52,7 @@ def saveLog(user, event, request, response):
             "user_id": user.id,
             "name": user.full_name,
             "username": user.username,
-            "timestamp": Decimal(str(datetime.now(datetime.timezone.utc).timestamp())),
+            "timestamp": Decimal(str(datetime.now(timezone.utc).timestamp())),
             "timestamp_iso": datetime.now(timezone(timedelta(hours=8))).isoformat(),
             "event": event,
             "request": request,
@@ -64,7 +66,7 @@ def getDbUser(user):
     return dbUser
 
 
-async def updateState(update):
+async def updateState(update: Update) -> None:
     user = update.effective_user
     dbUser = getDbUser(update.effective_user)
     phone = dbUser["Item"]["phone"].lstrip("+")
@@ -72,13 +74,14 @@ async def updateState(update):
     if state != templates.current_version:
         dynamodb.Table("tsms_users").update_item(
             Key={"id": user.id},
-            UpdateExpression="SET phone = :phone, state = :state",
+            UpdateExpression="SET phone = :phone, #st = :state",
             ExpressionAttributeValues={
                 ":phone": phone,
                 ":state": templates.current_version,
             },
+            ExpressionAttributeNames={"#st": "state"},
         )
-        update.message.reply_html(templates.changelog)
+        await update.message.reply_html(templates.changelog)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -161,7 +164,7 @@ async def send_song(update: Update, song_number) -> None:
         )
     )
     keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
-    keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
+    # keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     await update.effective_chat.send_message(
         text=songs.get(song_number),
         parse_mode=constants.ParseMode.HTML,
@@ -248,7 +251,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             "<i>No matches found</i>\n\nType /help for instructions"
         )
         saveLog(user, "SEARCH_NONE", raw_message, None)
-    updateState(update)
+    await updateState(update)
 
 
 def make_ppt(song_number):
@@ -391,7 +394,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("EXPLAIN ", "")
         await update.effective_chat.send_action(constants.ChatAction.TYPING)
         saveLog(user, "CALLBACK", "EXPLAIN", song_number)
-        response = ai.explainSong(songs.get(song_number))
+        # response = ai.explainSong(songs.get(song_number))
         await update.effective_chat.send_message(
             response, parse_mode=ParseMode.MARKDOWN_V2
         )
