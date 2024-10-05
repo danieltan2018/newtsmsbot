@@ -11,8 +11,6 @@ import ai
 import boto3
 import templates
 from cache import ca_links, chords, mp3, piano, scores, songs, titles
-from datetime import datetime, timezone
-from decimal import Decimal
 from lookup import songs_lookup, titles_lookup
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -28,7 +26,6 @@ from telegram import (
     Update,
     constants,
 )
-from telegram.constants import ParseMode
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -396,7 +393,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         saveLog(user, "CALLBACK", "EXPLAIN", song_number)
         response = ai.explainSong(songs.get(song_number))
         await update.effective_chat.send_message(
-            response, parse_mode=ParseMode.MARKDOWN
+            response, parse_mode=constants.ParseMode.HTML
         )
     else:
         await query.answer(text="This feature is not available")
