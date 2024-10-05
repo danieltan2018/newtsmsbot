@@ -14,6 +14,7 @@ changelog = """
 We've made some changes since your last use. This latest version includes:
 
 - New songs & content
+- Added experimental AI features
 """
 
 welcome = """

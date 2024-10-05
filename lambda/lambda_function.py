@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
 
-# import ai
+import ai
 import boto3
 import templates
 from cache import ca_links, chords, mp3, piano, scores, songs, titles
@@ -164,7 +164,7 @@ async def send_song(update: Update, song_number) -> None:
         )
     )
     keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
-    # keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
+    keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     await update.effective_chat.send_message(
         text=songs.get(song_number),
         parse_mode=constants.ParseMode.HTML,
@@ -394,9 +394,9 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("EXPLAIN ", "")
         await update.effective_chat.send_action(constants.ChatAction.TYPING)
         saveLog(user, "CALLBACK", "EXPLAIN", song_number)
-        # response = ai.explainSong(songs.get(song_number))
+        response = ai.explainSong(songs.get(song_number))
         await update.effective_chat.send_message(
-            response, parse_mode=ParseMode.MARKDOWN_V2
+            response, parse_mode=ParseMode.MARKDOWN
         )
     else:
         await query.answer(text="This feature is not available")
