@@ -411,6 +411,8 @@ async def tg_bot_main(bot_app, event):
 
 
 def lambda_handler(event, context):
+    if "healthCheck" in event:
+        return {"statusCode": 200}    
     try:
         asyncio.run(tg_bot_main(app, event))
     except Exception as e:
