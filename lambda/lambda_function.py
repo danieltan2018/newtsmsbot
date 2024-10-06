@@ -201,12 +201,49 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if message.isnumeric():  # handle default book
         message = int(message)
         message = "TSMS " + str(message)
+    alpha_only = re.compile("[^A-Z ]")
+
+    # AI search feature
+    if message.startswith("FIND SONGS "):
+        if message.count(" ") > 20:
+            await update.message.reply_html("<i>Please shorten your search</i>")
+            saveLog(user, "SEARCH_TOO_LONG", raw_message, None)
+            return
+        await update.message.reply_chat_action(constants.ChatAction.TYPING)
+        tv = titles.values()
+        results = ai.findSongs(message, str(tv))
+        response = ""
+        keyboard = []
+        counter = 1
+        if len(results) == 0:
+            response = "Sorry, I could not find any relevant songs.\n"
+            saveLog(user, "SEARCH_NONE", raw_message, None)
+        else:
+            response = "Here are the results:\n"
+            for k, v in results.items():
+                if k in tv:
+                    response += f"\n{str(counter)}. <b>{k}</b> - {v}\n"
+                    number = titles_lookup.get(
+                        alpha_only.sub("", unidecode(k).strip().upper())
+                    )[0]
+                    keyboard.extend(
+                        make_button(number, True, "SONG", f"{number} {titles[number]}")
+                    )
+                    counter += 1
+            saveLog(user, "SEARCH_AI", raw_message, str(counter) + " results")
+        response += ai.disclaimer
+        await update.message.reply_html(
+            response,
+            reply_markup=InlineKeyboardMarkup(keyboard),
+        )
+        await updateState(update)
+        return
+
     song_number = None
     results = []
     if message in songs:  # match song number
         song_number = message
     else:  # match title
-        alpha_only = re.compile("[^A-Z ]")
         clean_message = alpha_only.sub("", message).strip()
         if clean_message in titles_lookup:
             results = titles_lookup.get(clean_message).copy()
@@ -225,6 +262,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 limit=10,
             )
             results = [t[2] for t in query]
+
     if song_number:
         await send_song(update, song_number)
         saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {titles[song_number]}")
@@ -412,7 +450,7 @@ async def tg_bot_main(bot_app, event):
 
 def lambda_handler(event, context):
     if "healthCheck" in event:
-        return {"statusCode": 200}    
+        return {"statusCode": 200}
     try:
         asyncio.run(tg_bot_main(app, event))
     except Exception as e:
