@@ -1,5 +1,5 @@
-from bs4 import BeautifulSoup, SoupStrainer
 import requests
+from bs4 import BeautifulSoup
 from unidecode import unidecode
 
 baseurl = "https://cityalight.com"
