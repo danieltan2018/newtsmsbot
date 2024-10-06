@@ -160,10 +160,12 @@ async def send_song(update: Update, song_number) -> None:
             "🎹 Piano Recording (Wilds)",
         )
     )
-    keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
-    keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
+    lyrics = songs.get(song_number)
+    if lyrics.count("\n\n") > 0:
+        keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
+        keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     await update.effective_chat.send_message(
-        text=songs.get(song_number),
+        text=lyrics,
         parse_mode=constants.ParseMode.HTML,
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(keyboard),
