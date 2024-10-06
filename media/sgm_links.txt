@@ -374,7 +374,7 @@ Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-
 Lead Sheet - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821174356/behold-our-god-wg22-lead-rec_c.pdf
 Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821174356/behold-our-god-wg22-score-rec_c.pdf
 Spotify|https://open.spotify.com/track/4hQy5mspN7mLiQokKsR4WT?si=2929957511d64de1
-YouTube: (Live at WorshipGod) | Official Video|https://www.youtube.com/watch?v=67TvJwTTdxA
+YouTube: (Live at WorshipGod)  Official Video|https://www.youtube.com/watch?v=67TvJwTTdxA
 YouTube: (feat. The Village Church) - Official Lyric Video|https://www.youtube.com/watch?v=Oywl4NTYtVE
 YouTube: Yang Wang Wo Men Shen  [Behold Our God] Simplified Chinese Translation|https://www.youtube.com/watch?v=0JmeBPEVGtw
 YouTube: Lyric Video|https://www.youtube.com/watch?v=lIUGUPEopbI
@@ -2003,7 +2003,7 @@ BUY ORCHESTRATION (BROWNLEE)|https://sovereigngracemusic.bandcamp.com/album/o-co
 BUY ORCHESTRATION (GRASSI)|https://sovereigngracemusic.bandcamp.com/album/o-come-all-you-unfaithful-orchestration-grassi
 Spotify|https://open.spotify.com/album/0vtHWf69VplWq8pHiVC00u
 YouTube: Official Video|https://www.youtube.com/watch?v=C-QHbpYjuIg
-YouTube: | Sovereign Grace Music|https://www.youtube.com/watch?v=q8VZf8XK4wM
+YouTube: Sovereign Grace Music|https://www.youtube.com/watch?v=q8VZf8XK4wM
 
 283
 Guitar Chart - Recorded Key (Cm)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181655/o_come_o_come_emmanuel-rec_Cm-guitar.pdf
@@ -2550,7 +2550,7 @@ ALBUM LEAD SHEET - RECORDED KEY (A)|https://sovereigngracemusic.s3.amazonaws.com
 BASIC LEAD SHEET - RECORDED KEY (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175101/the-first-noel-born-is-the-king-hhc-rec-a-basic-lead.pdf
 PIANO SCORE - RECORDED KEY (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175100/the-first-noel-born-is-the-king-hhc-rec-a-score.pdf
 Spotify|https://open.spotify.com/track/2mH6nswysbEDWEKNAT48XK
-YouTube: | Sovereign Grace Music|https://www.youtube.com/watch?v=MwYVriFqMZo
+YouTube: Sovereign Grace Music|https://www.youtube.com/watch?v=MwYVriFqMZo
 
 353
 Guitar Chart - Recorded Key (F)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181400/the_glories_of_calvary-30-rec_f-guitar.pdf

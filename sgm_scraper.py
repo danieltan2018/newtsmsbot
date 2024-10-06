@@ -87,7 +87,10 @@ for song, soup in song_links.items():
             links += (
                 "\n"
                 + "YouTube: "
-                + unidecode(link.attrs.get("title")).lstrip(base_title).strip("* []")
+                + unidecode(link.attrs.get("title"))
+                .replace("|", "")
+                .lstrip(base_title)
+                .strip("* []")
                 + "|"
                 + "https://www.youtube.com/watch?v="
                 + video_id
