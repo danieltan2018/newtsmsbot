@@ -35,6 +35,8 @@ def findSongs(query, titles):
                 response_mime_type="application/json"
             ),
         ).text
-        return json.loads(response)
+        data = json.loads(response)
+        data.pop("", None)
+        return data
     except:
         return {}
