@@ -46,4 +46,5 @@ Search by typing any of the following:
 <b>Children's Ministry</b> (CM 1-80)
 <b>Word in Song (Bukit Arang)</b> (WIS 1-196)
 <b>CityAlight</b> (CA)
+<b>Sovereign Grace Music</b> (SGM)
 """

@@ -145,6 +145,28 @@ with open("./media/ca_links.txt", "r", encoding="UTF8") as ca_links_file:
 
 f.write("ca_links = " + json.dumps(ca_links, ensure_ascii=False) + "\n")
 
+global sgm_links
+sgm_links = {}
+with open("./media/sgm_links.txt", "r", encoding="UTF8") as sgm_links_file:
+    print("Loading SGM Links")
+    song_number = None
+    links = {}
+    for line in sgm_links_file:
+        line = line.strip()
+        if not line and song_number != None:
+            sgm_links[song_number] = links
+            song_number = None
+            links = {}
+        elif line.isnumeric():
+            song_number = "SGM " + line
+        else:
+            line = line.split("|")
+            href = line[1]
+            text = line[0]
+            links[text] = href
+
+f.write("sgm_links = " + json.dumps(sgm_links, ensure_ascii=False) + "\n")
+
 d = open("./lambda/lookup.py", "w", encoding="UTF-8")
 alpha = re.compile("[^a-zA-Z ]")
 titles_decoded = defaultdict(list)

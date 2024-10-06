@@ -10,7 +10,7 @@ from io import BytesIO
 import ai
 import boto3
 import templates
-from cache import ca_links, chords, mp3, piano, scores, songs, titles
+from cache import ca_links, sgm_links, chords, mp3, piano, scores, songs, titles
 from lookup import songs_lookup, titles_lookup
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -185,6 +185,25 @@ async def send_song(update: Update, song_number) -> None:
             )
         await update.effective_chat.send_message(
             text="Links provided by cityalight.com",
+            parse_mode=constants.ParseMode.HTML,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(keyboard),
+        )
+    if song_number in sgm_links:
+        keyboard = []
+        for key, value in sgm_links.get(song_number).items():
+            keyboard.extend(
+                [
+                    [
+                        InlineKeyboardButton(
+                            key,
+                            url=value,
+                        )
+                    ]
+                ]
+            )
+        await update.effective_chat.send_message(
+            text="Links provided by sovereigngracemusic.com",
             parse_mode=constants.ParseMode.HTML,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(keyboard),
