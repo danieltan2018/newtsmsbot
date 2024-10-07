@@ -36,8 +36,8 @@ for filename in (x.name for x in os.scandir("./books") if x.is_file()):
         song_lyrics = song_lyrics.strip()
         songs[song_number] = song_lyrics
 
-f.write("titles = " + json.dumps(titles, ensure_ascii=False) + "\n")
-f.write("songs = " + json.dumps(songs, ensure_ascii=False) + "\n")
+f.write("TITLES = " + json.dumps(titles, ensure_ascii=False) + "\n")
+f.write("SONGS = " + json.dumps(songs, ensure_ascii=False) + "\n")
 
 global chords
 chords = {}
@@ -78,7 +78,7 @@ with open("./media/cm_chords.txt", "r", encoding="UTF8") as cm_chords_file:
     song_lyrics = song_lyrics.strip()
     chords[song_number] = song_lyrics
 
-f.write("chords = " + json.dumps(chords, ensure_ascii=False) + "\n")
+f.write("CHORDS = " + json.dumps(chords, ensure_ascii=False) + "\n")
 
 global scores
 scores = {}
@@ -93,7 +93,7 @@ with open("./media/scores.txt", "r", encoding="UTF8") as scores_file:
         number = line[0]
         scores.setdefault(number, []).append(reference)
 
-f.write("scores = " + json.dumps(scores, ensure_ascii=False) + "\n")
+f.write("SCORES = " + json.dumps(scores, ensure_ascii=False) + "\n")
 
 global mp3
 mp3 = {}
@@ -108,7 +108,7 @@ with open("./media/mp3.txt", "r", encoding="UTF8") as mp3_file:
         number = line[0]
         mp3.setdefault(number, []).append(reference)
 
-f.write("mp3 = " + json.dumps(mp3, ensure_ascii=False) + "\n")
+f.write("MP3 = " + json.dumps(mp3, ensure_ascii=False) + "\n")
 
 global piano
 piano = {}
@@ -121,7 +121,7 @@ with open("./media/wilds_piano.txt", "r", encoding="UTF8") as piano_file:
         number = line[0]
         piano[number] = reference
 
-f.write("piano = " + json.dumps(piano, ensure_ascii=False) + "\n")
+f.write("PIANO = " + json.dumps(piano, ensure_ascii=False) + "\n")
 
 global ca_links
 ca_links = {}
@@ -143,7 +143,7 @@ with open("./media/ca_links.txt", "r", encoding="UTF8") as ca_links_file:
             text = line[0]
             links[text] = href
 
-f.write("ca_links = " + json.dumps(ca_links, ensure_ascii=False) + "\n")
+f.write("CA_LINKS = " + json.dumps(ca_links, ensure_ascii=False) + "\n")
 
 global sgm_links
 sgm_links = {}
@@ -165,7 +165,7 @@ with open("./media/sgm_links.txt", "r", encoding="UTF8") as sgm_links_file:
             text = line[0]
             links[text] = href
 
-f.write("sgm_links = " + json.dumps(sgm_links, ensure_ascii=False) + "\n")
+f.write("SGM_LINKS = " + json.dumps(sgm_links, ensure_ascii=False) + "\n")
 
 d = open("./lambda/lookup.py", "w", encoding="UTF-8")
 alpha = re.compile("[^a-zA-Z ]")
@@ -183,5 +183,5 @@ for song_number, song_lyrics in songs.items():
     lyrics = alpha.sub("", lyrics)
     songs_decoded[song_number] = lyrics
 
-d.write("titles_lookup = " + json.dumps(titles_decoded, ensure_ascii=False) + "\n")
-d.write("songs_lookup = " + json.dumps(songs_decoded, ensure_ascii=False) + "\n")
+d.write("TITLES_LOOKUP = " + json.dumps(titles_decoded, ensure_ascii=False) + "\n")
+d.write("SONGS_LOOKUP = " + json.dumps(songs_decoded, ensure_ascii=False) + "\n")

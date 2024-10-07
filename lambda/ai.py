@@ -19,24 +19,3 @@ def explainSong(lyrics):
     except:
         return error_message
     return response
-
-
-def findSongs(query, titles):
-    try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(
-            [
-                "Using only this list of hymn titles, return in order of relevance a selection of up to 10 hymns based on the query below. If the query seems irrelevant, return an empty json.",
-                titles,
-                "Query: " + query,
-                "In the response json, key is the hymn title, value is a brief explanation for your choice.",
-            ],
-            generation_config=genai.GenerationConfig(
-                response_mime_type="application/json"
-            ),
-        ).text
-        data = json.loads(response)
-        data.pop("", None)
-        return data
-    except:
-        return {}

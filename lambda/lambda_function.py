@@ -10,8 +10,8 @@ from io import BytesIO
 import ai
 import boto3
 import templates
-from cache import ca_links, sgm_links, chords, mp3, piano, scores, songs, titles
-from lookup import songs_lookup, titles_lookup
+from cache import CA_LINKS, SGM_LINKS, CHORDS, MP3, PIANO, SCORES, SONGS, TITLES
+from lookup import SONGS_LOOKUP, TITLES_LOOKUP
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
@@ -144,23 +144,23 @@ def make_button(song_number, option, callback_prefix, button_text):
 async def send_song(update: Update, song_number) -> None:
     keyboard = []
     keyboard.extend(
-        make_button(song_number, song_number in chords, "CHORDS", "🎸 Guitar Chords")
+        make_button(song_number, song_number in CHORDS, "CHORDS", "🎸 Guitar Chords")
     )
     keyboard.extend(
-        make_button(song_number, song_number in scores, "SCORE", "🎼 Piano Score")
+        make_button(song_number, song_number in SCORES, "SCORE", "🎼 Piano Score")
     )
     keyboard.extend(
-        make_button(song_number, song_number in mp3, "MP3", "🔊 MIDI Soundtrack")
+        make_button(song_number, song_number in MP3, "MP3", "🔊 MIDI Soundtrack")
     )
     keyboard.extend(
         make_button(
-            titles[song_number],
-            titles[song_number] in piano,
+            TITLES[song_number],
+            TITLES[song_number] in PIANO,
             "PIANO",
             "🎹 Piano Recording (Wilds)",
         )
     )
-    lyrics = songs.get(song_number)
+    lyrics = SONGS.get(song_number)
     if lyrics.count("\n\n") > 0:
         keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
         keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
@@ -170,9 +170,9 @@ async def send_song(update: Update, song_number) -> None:
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
-    if song_number in ca_links:
+    if song_number in CA_LINKS:
         keyboard = []
-        for key, value in ca_links.get(song_number).items():
+        for key, value in CA_LINKS.get(song_number).items():
             keyboard.extend(
                 [
                     [
@@ -189,9 +189,9 @@ async def send_song(update: Update, song_number) -> None:
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(keyboard),
         )
-    if song_number in sgm_links:
+    if song_number in SGM_LINKS:
         keyboard = []
-        for key, value in sgm_links.get(song_number).items():
+        for key, value in SGM_LINKS.get(song_number).items():
             keyboard.extend(
                 [
                     [
@@ -220,52 +220,15 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if message.isnumeric():  # handle default book
         message = int(message)
         message = "TSMS " + str(message)
-    alpha_only = re.compile("[^A-Z ]")
-
-    # AI search feature
-    if message.startswith("FIND SONGS "):
-        if message.count(" ") > 20:
-            await update.message.reply_html("<i>Please shorten your search</i>")
-            saveLog(user, "SEARCH_TOO_LONG", raw_message, None)
-            return
-        await update.message.reply_chat_action(constants.ChatAction.TYPING)
-        tv = titles.values()
-        results = ai.findSongs(message, str(tv))
-        response = ""
-        keyboard = []
-        counter = 1
-        if len(results) == 0:
-            response = "Sorry, I could not find any relevant songs.\n"
-            saveLog(user, "SEARCH_NONE", raw_message, None)
-        else:
-            response = "Here are the results:\n"
-            for k, v in results.items():
-                if k in tv:
-                    response += f"\n{str(counter)}. <b>{k}</b> - {v}\n"
-                    number = titles_lookup.get(
-                        alpha_only.sub("", unidecode(k).strip().upper())
-                    )[0]
-                    keyboard.extend(
-                        make_button(number, True, "SONG", f"{number} {titles[number]}")
-                    )
-                    counter += 1
-            saveLog(user, "SEARCH_AI", raw_message, str(counter) + " results")
-        response += ai.disclaimer
-        await update.message.reply_html(
-            response,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-        )
-        await updateState(update)
-        return
-
     song_number = None
     results = []
-    if message in songs:  # match song number
+    if message in SONGS:  # match song number
         song_number = message
     else:  # match title
+        alpha_only = re.compile("[^A-Z ]")
         clean_message = alpha_only.sub("", message).strip()
-        if clean_message in titles_lookup:
-            results = titles_lookup.get(clean_message).copy()
+        if clean_message in TITLES_LOOKUP:
+            results = TITLES_LOOKUP.get(clean_message).copy()
             song_number = results.pop(0)
         else:  # search
             if len(clean_message) > 200:
@@ -275,7 +238,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             await update.message.reply_chat_action(constants.ChatAction.TYPING)
             query = process.extract(
                 clean_message,
-                songs_lookup,
+                SONGS_LOOKUP,
                 scorer=fuzz.partial_ratio,
                 score_cutoff=85,
                 limit=10,
@@ -284,12 +247,12 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     if song_number:
         await send_song(update, song_number)
-        saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {titles[song_number]}")
+        saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {TITLES[song_number]}")
     if results:
         keyboard = []
         for number in results:
             keyboard.extend(
-                make_button(number, True, "SONG", f"{number} {titles[number]}")
+                make_button(number, True, "SONG", f"{number} {TITLES[number]}")
             )
         if song_number:
             await update.message.reply_html(
@@ -315,8 +278,8 @@ def make_ppt(song_number):
     prs.slide_width = Inches(16)
     prs.slide_height = Inches(9)
 
-    title = titles.get(song_number)
-    text = songs.get(song_number)
+    title = TITLES.get(song_number)
+    text = SONGS.get(song_number)
     text = text.split("\n\n")
     text.pop(0)
     text = list(filter(None, text))
@@ -402,7 +365,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     elif data.startswith("CHORDS "):
         song_number = data.replace("CHORDS ", "")
         await update.effective_chat.send_message(
-            text=f"<pre>{chords[song_number]}</pre>",
+            text=f"<pre>{CHORDS[song_number]}</pre>",
             parse_mode=constants.ParseMode.HTML,
         )
         saveLog(user, "CALLBACK", "CHORDS", song_number)
@@ -411,10 +374,10 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
         saveLog(user, "CALLBACK", "SCORE", song_number)
         counter = 1
-        for i in range(len(scores[song_number])):
-            reference = scores[song_number][i]
-            title = f"{song_number} {titles[song_number]}"
-            if len(scores[song_number]) > 1:
+        for i in range(len(SCORES[song_number])):
+            reference = SCORES[song_number][i]
+            title = f"{song_number} {TITLES[song_number]}"
+            if len(SCORES[song_number]) > 1:
                 title += " " + str(counter)
             await update.effective_chat.send_photo(
                 photo=reference, caption=title, protect_content=True
@@ -424,10 +387,10 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "MP3", song_number)
         counter = 1
-        for i in range(len(mp3[song_number])):
-            reference = mp3[song_number][i]
-            title = f"{song_number} {titles[song_number]}"
-            if len(mp3[song_number]) > 1:
+        for i in range(len(MP3[song_number])):
+            reference = MP3[song_number][i]
+            title = f"{song_number} {TITLES[song_number]}"
+            if len(MP3[song_number]) > 1:
                 title += " " + str(counter)
             await update.effective_chat.send_audio(
                 audio=reference, caption=title, protect_content=True
@@ -436,7 +399,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "PIANO", song_title)
-        reference = piano[song_title]
+        reference = PIANO[song_title]
         await update.effective_chat.send_audio(
             audio=reference, caption=song_title, protect_content=True
         )
@@ -450,7 +413,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("EXPLAIN ", "")
         await update.effective_chat.send_action(constants.ChatAction.TYPING)
         saveLog(user, "CALLBACK", "EXPLAIN", song_number)
-        response = ai.explainSong(songs.get(song_number))
+        response = ai.explainSong(SONGS.get(song_number))
         await update.effective_chat.send_message(
             response, parse_mode=constants.ParseMode.HTML
         )
