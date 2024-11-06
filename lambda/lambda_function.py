@@ -379,9 +379,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             title = f"{song_number} {TITLES[song_number]}"
             if len(SCORES[song_number]) > 1:
                 title += " " + str(counter)
-            await update.effective_chat.send_photo(
-                photo=reference, caption=title, protect_content=True
-            )
+            await update.effective_chat.send_photo(photo=reference, caption=title)
     elif data.startswith("MP3 "):
         song_number = data.replace("MP3 ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
@@ -392,9 +390,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             title = f"{song_number} {TITLES[song_number]}"
             if len(MP3[song_number]) > 1:
                 title += " " + str(counter)
-            await update.effective_chat.send_audio(
-                audio=reference, caption=title, protect_content=True
-            )
+            await update.effective_chat.send_audio(audio=reference, caption=title)
     elif data.startswith("PIANO "):
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)

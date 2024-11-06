@@ -44,7 +44,7 @@ def populate_song_content(song):
     song_links[song] = soup
 
 
-with ThreadPoolExecutor(max_workers=50) as executor:
+with ThreadPoolExecutor(max_workers=10) as executor:
     for song in song_links.keys():
         executor.submit(populate_song_content, song)
 

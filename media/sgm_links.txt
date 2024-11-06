@@ -214,10 +214,11 @@ Piano Score - Recorded Key (F)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 
 29
 Guitar Chart - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411170019/All-Things_GUITAR_D.pdf
-Guitar Chart - Alterinate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411170017/All-Things_GUITAR_C.pdf
-Lead Sheet - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411233550/All-Things_PIANO-LEAD_D.pdf
-Lead Sheet - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411233547/All-Things_PIANO-LEAD_C.pdf
+Guitar Chart - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411170017/All-Things_GUITAR_C.pdf
+Piano/Vocal - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411233550/All-Things_PIANO-LEAD_D.pdf
+Piano/Vocal - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411233547/All-Things_PIANO-LEAD_C.pdf
 Simple Lead - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240411233554/All-Things_SIMPLE-LEAD_D.pdf
+Simple Lead - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20241025144323/All-Things_SIMPLE-LEAD_C-C.pdf
 Spotify|https://open.spotify.com/track/04zTZbv3WwRWmpe7sHoyck?si=2eebb3fa572c40e8
 YouTube: (Official Video)|https://www.youtube.com/watch?v=nYNy0MSJnsA
 
@@ -360,14 +361,9 @@ PIANO SCORE - ALTERNATE KEY (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-
 BASIC LEAD SHEET - ALTERNATE KEY (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821174433/before_the_skies-phr-rec_A-lead.pdf
 
 49
-Guitar Chart - Recorded Key (B)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175158/before_the_throne_of_god_above-30-rec_Bb-chart.pdf
-Guitar Chart (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175158/before_the_throne_of_god_above-30-c-chart.pdf
-Lead Sheet - Recorded Key (B)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175158/before_the_throne_of_god_above-30-rec_Bb-lead-1.pdf
-Lead Sheet (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175159/before_the_throne_of_god_above-30-c-lead-1.pdf
-Piano Score - Recorded Key (B)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181404/before_the_throne_of_god_above-30-rec_Bb-score.pdf
-Piano Score (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181404/before_the_throne_of_god_above-30-c-score.pdf
-Piano Score (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175652/before_the_throne_of_god_above-D-score.pdf
-YouTube: (feat. Kristyn Getty) - Official Lyric Video|https://www.youtube.com/watch?v=LULK2nZ6sCc
+Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20241024132126/Before-the-Throne-of-God-Above_WG22_GUITAR_C.pdf
+Spotify|https://open.spotify.com/album/05XHRZJkSM1mhjAxPquJrn?si=bb273b47c41049c8
+YouTube: (Live at WorshipGod)|https://www.youtube.com/watch?v=765E7b7dv9I
 
 50
 Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821174357/behold-our-god-wg22-chart-rec_c.pdf
@@ -471,13 +467,13 @@ YouTube: The Glorious Christ Live|https://www.youtube.com/watch?v=ojGdgYHwxyU
 63
 Guitar Chart - Recorded Key (Bb-C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150207/Christ-Our-Wisdom_GUITAR_Bb-C-1.pdf
 Guitar Chart - Alternate Key (C-D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150245/Christ-Our-Wisdom_GUITAR_C-D-1.pdf
-Guitar Chart - Capo 3 (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150319/Christ-Our-Wisdom_GUITAR_G-A-1.pdf
+Guitar Chart - Capo 3 (G-A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150319/Christ-Our-Wisdom_GUITAR_G-A-1.pdf
 Guitar Chart - Simple (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150351/Christ-Our-Wisdom_GUITAR_C-Simple-1.pdf
-Lead Sheet - Recorded Key (Bb-C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150442/Christ-Our-Wisdom_LEAD_Bb-C-1.pdf
-Lead Sheet - Alternate Key (C-D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150517/Christ-Our-Wisdom_LEAD_C-D-1.pdf
-Lead Sheet - Simple (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150559/Christ-Our-Wisdom_LEAD_C-Simple-1.pdf
-Piano Score - Recorded Key (Bb-C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150631/Christ-Our-Wisdom_PIANO_Bb-C-1.pdf
-Piano Score - Alternate Key (C-D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150659/Christ-Our-Wisdom_PIANO_C-D-1.pdf
+Album Lead - Recorded Key (Bb-C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150442/Christ-Our-Wisdom_LEAD_Bb-C-1.pdf
+Album Lead - Alternate Key (C-D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150517/Christ-Our-Wisdom_LEAD_C-D-1.pdf
+Simple Lead - (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150559/Christ-Our-Wisdom_LEAD_C-Simple-1.pdf
+Piano/Vocal - Recorded Key (Bb-C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150631/Christ-Our-Wisdom_PIANO_Bb-C-1.pdf
+Piano/Vocal - Alternate Key (C-D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240313150659/Christ-Our-Wisdom_PIANO_C-D-1.pdf
 Spotify|https://open.spotify.com/track/1Kgr0o5i7GOBufM0ki9ipM?si=626ac1dc6c68433f
 Spotify|https://open.spotify.com/track/1Kgr0o5i7GOBufM0ki9ipM?si=fa17689e21cc487c
 YouTube: (Official Video)|https://www.youtube.com/watch?v=ixLXQz8b4n4
@@ -516,7 +512,7 @@ Lead Sheet - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-co
 Lead Sheet - Alternate Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181700/come_all_ye_faithful-g-lead.pdf
 Piano Score - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181659/come_all_ye_faithful-rec_a-score.pdf
 Piano Score - Alternate Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181700/come_all_ye_faithful-g-score.pdf
-buy orchestration|https://sovereigngracemusic.bandcamp.com/album/come-all-ye-faithful-orchestration
+Buy Orchestration|https://sovereigngracemusic.bandcamp.com/album/come-all-ye-faithful-orchestration
 
 69
 
@@ -1193,8 +1189,10 @@ Piano Score - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 Guitar Chart - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211740/Help-Us-See-Christ_GUITAR_A.pdf
 Guitar Chart - Alternate Key (Bb)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211741/Help-Us-See-Christ_GUITAR_Bb.pdf
 Guitar Chart - Capo 2 (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211744/Help-Us-See-Christ_GUITAR_G.pdf
-Lead Sheet - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211747/Help-Us-See-Christ_PIANO-LEAD_A.pdf
+Piano/Vocal - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211747/Help-Us-See-Christ_PIANO-LEAD_A.pdf
+Piano/Vocal - Alternate Key (Bb)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20241025143113/Help-Us-See-Christ_PIANO-VOCAL_Bb.pdf
 Simple Lead - Recorded Key (A)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240613211750/Help-Us-See-Christ_SIMPLE-LEAD_A.pdf
+Simple Lead - Alternate Key (Bb)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20241025143401/Help-Us-See-Christ_SIMPLE-LEAD_Bb.pdf
 Spotify|https://open.spotify.com/track/02nIEKXN3xOrJr0I2ObiJn?si=c96552821b3640f1
 YouTube: (Official Video)|https://www.youtube.com/watch?v=mEzfxAGegU4
 
@@ -1537,10 +1535,10 @@ Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 219
 Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221043/It-Is-Finished_GUITAR_C.pdf
 Guitar Chart - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221047/It-Is-Finished_GUITAR_D.pdf
-Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215942/It-Is-Finished_SIMPLE-LEAD_C.pdf
-Simple Lead - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215945/It-Is-Finished_SIMPLE-LEAD_D.pdf
 Piano/Vocal - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215937/It-Is-Finished_PIANO-VOCAL_C.pdf
 Piano/Vocal - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215940/It-Is-Finished_PIANO-VOCAL_D.pdf
+Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215942/It-Is-Finished_SIMPLE-LEAD_C.pdf
+Simple Lead - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711215945/It-Is-Finished_SIMPLE-LEAD_D.pdf
 Spotify|https://open.spotify.com/track/6JLnmZ7kiCDt0mrcsEwnPj?si=e04f4b4188834ecb
 YouTube: (Official Video)|https://www.youtube.com/watch?v=oNCLvCeDYVg
 
@@ -1642,10 +1640,10 @@ Piano Score - Recorded Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 234
 Guitar Chart - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510000644/Jesus-Our-Judge-and-Our-Savior_GUITAR_D.pdf
 Guitar Chart - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510000642/Jesus-Our-Judge-and-Our-Savior_GUITAR_C.pdf
+Piano/Vocal - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091652/Jesus-Our-Judge-and-Our-Savior_PIANO-SCORE_D-1.pdf
+Piano/Vocal - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091649/Jesus-Our-Judge-and-Our-Savior_PIANO-SCORE_C.pdf
 Simple Lead - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091646/Jesus-Our-Judge-and-Our-Savior_LEAD_D.pdf
 Simple Lead - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091644/Jesus-Our-Judge-and-Our-Savior_LEAD_C.pdf
-Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091652/Jesus-Our-Judge-and-Our-Savior_PIANO-SCORE_D-1.pdf
-Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240510091649/Jesus-Our-Judge-and-Our-Savior_PIANO-SCORE_C.pdf
 Spotify|https://open.spotify.com/album/3ZTTfrRIvo8lBDX1BeOsAk?si=7A1-0PBdQpqyFOra2EO-Pw
 YouTube: (Official Video)|https://www.youtube.com/watch?v=-LdOV5iG91M
 
@@ -2107,6 +2105,7 @@ Lead Sheet - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 Guitar Chart - Recorded Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181401/oh_the_deep_deep_love-30-rec_g-guitar.pdf
 Lead Sheet - Recorded Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181401/oh_the_deep_deep_love-30-rec_g-lead.pdf
 Piano Score - Recorded Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181401/oh_the_deep_deep_love-30-rec_g-score.pdf
+YouTube: T4G Live [Official Lyric Video|https://www.youtube.com/watch?v=p6R3K7Yfg8k
 YouTube: The Deep Deep Love (feat. Aaron Keyes) - Official Lyric Video|https://www.youtube.com/watch?v=mSu-YOR4eRI
 
 295
@@ -2714,8 +2713,8 @@ Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 
 375
 Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711220328/The-Steadfast-Love-of-Christ_GUITAR_C.pdf
-Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711220333/The-Steadfast-Love-of-Christ_SIMPLE-LEAD_C.pdf
 Piano/Vocal - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711220330/The-Steadfast-Love-of-Christ_PIANO-VOCAL_C.pdf
+Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711220333/The-Steadfast-Love-of-Christ_SIMPLE-LEAD_C.pdf
 Album Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711220324/The-Steadfast-Love-of-Christ_ALBUM-LEAD_C.pdf
 Spotify|https://open.spotify.com/track/4mEAENneuNqj8TlTWsPlid?si=c297daf7baeb4d1a
 YouTube: (Official Video)|https://www.youtube.com/watch?v=Jj7YIquU4b0
@@ -2895,12 +2894,12 @@ Piano Score - Alternate Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-
 397
 Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221156/We-Are-Yours-Forever_GUITAR_C.pdf
 Guitar Chart - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221158/We-Are-Yours-Forever_GUITAR_D.pdf
-Album Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224423/We-Are-Yours-Forever_ALBUM-LEAD_C.pdf
-Album Lead - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224426/We-Are-Yours-Forever_ALBUM-LEAD_D.pdf
 Piano/Vocal - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224429/We-Are-Yours-Forever_PIANO-VOCAL_C.pdf
 Piano/Vocal - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224431/We-Are-Yours-Forever_PIANO-VOCAL_D.pdf
 Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224433/We-Are-Yours-Forever_SIMPLE-LEAD_C.pdf
 Simple Lead - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224436/We-Are-Yours-Forever_SIMPLE-LEAD_D.pdf
+Album Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224423/We-Are-Yours-Forever_ALBUM-LEAD_C.pdf
+Album Lead - Alternate Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711224426/We-Are-Yours-Forever_ALBUM-LEAD_D.pdf
 Spotify|https://open.spotify.com/track/2ZGOUrDN1UybHfPvWJfhI0?si=bffb2ab89fdf4ed0
 YouTube: (Official Video)|https://www.youtube.com/watch?v=W3CD_Zssh0s
 
@@ -3212,8 +3211,8 @@ Guitar Chart - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-
 Guitar Chart - Alternate Key (F)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221540/You-Are-Unchanging_GUITAR_F.pdf
 Guitar Chart - Capo 2 (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221536/You-Are-Unchanging_GUITAR_Dc2.pdf
 Piano/Vocal - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221542/You-Are-Unchanging_PIANO-VOCAL_E.pdf
-Album Lead - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221533/You-Are-Unchanging_ALBUM-LEAD_E.pdf
 Simple Lead - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711225327/You-Are-Unchanging_SIMPLE-LEAD_E.pdf
+Album Lead - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240711221533/You-Are-Unchanging_ALBUM-LEAD_E.pdf
 Spotify|https://open.spotify.com/track/7GgCsILxIQb5X7cNv1q8A1?si=7560c5ec7e7745d6
 YouTube: (Official Video)|https://www.youtube.com/watch?v=lD87WISfvZk
 
