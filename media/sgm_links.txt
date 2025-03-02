@@ -102,10 +102,10 @@ Recorded Lead Sheet - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.
 Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821181701/all_about_jesus-rec_c-score.pdf
 
 15
-Guitar Chart (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175207/all_creatures-pots-rec_c-chart.pdf
-Lead Sheet - Basic (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180016/all-creatures_c_basic-lead.pdf
-Lead Sheet - Album (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175207/all_creatures-pots-rec_c-lead.pdf
-Piano Score (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180112/all-creatures_c_piano-vocal-score.pdf
+Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175207/all_creatures-pots-rec_c-chart.pdf
+Simple Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180016/all-creatures_c_basic-lead.pdf
+Album Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175207/all_creatures-pots-rec_c-lead.pdf
+Piano/ Vocal - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180112/all-creatures_c_piano-vocal-score.pdf
 Buy Orchestration (McMinn)|https://sovereigngracemusic.bandcamp.com/album/all-creatures-of-our-god-and-king-orchestration-2
 Download Orchestration (Brownlee)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175500/AllCreaturesOfOurGodAndKing.pdf
 Spotify|https://open.spotify.com/track/673vWJJ7UZC1twPDvrL9Tp?si=ta3Kn_bzTb-X9L7CJnf9GQ
@@ -158,7 +158,8 @@ Lead Sheet - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-co
 Guitar Chart - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130530/All-I-Have-Is-Christ_WG22_GUITAR_D_BE_080523.docx.pdf
 Guitar Chart - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130527/All-I-Have-Is-Christ_WG22_GUITAR_C_BE_080523.docx.pdf
 Guitar Chart - Alternate Key (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130532/All-I-Have-Is-Christ_WG22_GUITAR_G_BE_080523.docx.pdf
-Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130522/All-I-Have-Is-Christ-WG22_PIANO-LEAD_D_BE_081423-BK-PIANO-VOCAL.pdf
+Piano/Vocal - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130522/All-I-Have-Is-Christ-WG22_PIANO-LEAD_D_BE_081423-BK-PIANO-VOCAL.pdf
+Piano/Vocal - Alternate Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130519/All-I-Have-Is-Christ-WG22_PIANO-LEAD_C.pdf
 Strings - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130525/All-I-Have-Is-Christ-WG22_STRINGS_D_BE_101623-BK-Full-Score.pdf
 ChordPro|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208130517/All-I-Have-Is-Christ-WG22.txt
 Spotify|https://open.spotify.com/album/0MWJBYfY1Vp7G2b96vsCKj?si=Z5KbqFhXSD-vNFRJNm4s3w
@@ -314,7 +315,7 @@ Piano Score - Alternate Key (Em)|https://sovereigngracemusic.s3.amazonaws.com/wp
 2-Staff Piano Arrangement - Recorded Key (Em)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180545/be_praised_in_all_the_earth-2staff.pdf
 
 43
-Guitar Chart (D|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180100/be-ready_d_album-chart.pdf
+Guitar Chart (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180100/be-ready_d_album-chart.pdf
 Lead Sheet - Basic (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180054/be-ready_d_basic-lead.pdf
 Lead Sheet - Album (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180032/be-ready_d_album-lead.pdf
 Piano Score - Album (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180030/be-ready_d_album-score.pdf
@@ -372,7 +373,6 @@ Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-c
 Spotify|https://open.spotify.com/track/4hQy5mspN7mLiQokKsR4WT?si=2929957511d64de1
 YouTube: (Live at WorshipGod)  Official Video|https://www.youtube.com/watch?v=67TvJwTTdxA
 YouTube: (feat. The Village Church) - Official Lyric Video|https://www.youtube.com/watch?v=Oywl4NTYtVE
-YouTube: Yang Wang Wo Men Shen  [Behold Our God] Simplified Chinese Translation|https://www.youtube.com/watch?v=0JmeBPEVGtw
 YouTube: Lyric Video|https://www.youtube.com/watch?v=lIUGUPEopbI
 YouTube: Notre Dieu (Behold our God de Sovereign Grace Music)|https://www.youtube.com/watch?v=xU_zkheZ1tY
 YouTube: - World Edition (Lyric Video)|https://www.youtube.com/watch?v=bA96oPEJis4
@@ -1315,6 +1315,7 @@ VIOLIN 2 - RECORDED KEY (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-cont
 VIOLIN CELLO - RECORDED KEY (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821174644/How-Long-O-Lord-How-Long_VIOLINCELLO_C.pdf
 Spotify|https://open.spotify.com/track/4288MPaZtBE15NAShFg1Ai?si=e604a51df9be4b34
 YouTube: Official Video|https://www.youtube.com/watch?v=KdUnNIktxxI
+YouTube: - Cover by AIM - {Zhu yoitsumade}|https://www.youtube.com/watch?v=CfovvtFKNU8
 
 182
 CHORD CHART - RECORDED KEY (Am)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175106/how-low-was-our-redeemer-brought-hhc-rec-Am-chart.pdf
@@ -1495,7 +1496,8 @@ YouTube: Official Lyric Video|https://www.youtube.com/watch?v=02cdShYExIo
 212
 Guitar Chart - Recorded Key (Dm)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180642/in_my_heart-rec_dm-guitar.pdf
 Lead Sheet - Recorded Key (Dm)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180642/in_my_heart-rec_dm-lead.pdf
-2-Staff Piano Arrangement - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180554/in_my_heart-2staff.pdf
+Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180554/in_my_heart-2staff.pdf
+Alternate Piano Score - Recorded Key (D)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20241218120921/In-My-Heart-alternate-arrangement.pdf
 
 213
 Guitar Chart - Recorded Key (F#m)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821180738/in_the_presence-rec_fm-guitar.pdf
@@ -1580,7 +1582,6 @@ Lead Sheet - Recorded Key (E)|https://sovereigngracemusic.s3.amazonaws.com/wp-co
 226
 Chord Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175448/its_at_the_cross-bog-rec_c-chart.pdf
 Album Lead Sheet - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175447/its_at_the_cross-bog-rec_c-album_lead.pdf
-Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20230821175447/i_will_sing_your_praise_alone-bog-rec_a-score-1.pdf
 Spotify|https://open.spotify.com/track/7i4lShgATepO2JjSSj3v0n?si=a10b156453324b6a
 
 227
@@ -2422,10 +2423,10 @@ YouTube: (Official Lyric Video)|https://www.youtube.com/watch?v=iUNMNNzFRkI
 
 336
 Guitar Chart - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240205103909/Sing_KG_CHART_REC_C.pdf
-Lead Sheet - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240205103933/Sing_KG_LEAD_REC_C.pdf
-Piano Score - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240205103951/Sing_KG_SCORE_REC_C.pdf
 Guitar Chart - Alternate Key (Bb)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208123142/Sing_GUITAR_Bb.pdf
 Guitar Chart - Capo 3 (G)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240208123452/Sing_GUITAR_Gc3.pdf
+Piano/ Vocal - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240205103951/Sing_KG_SCORE_REC_C.pdf
+Album Lead - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240205103933/Sing_KG_LEAD_REC_C.pdf
 SATB Vocals - Recorded Key (C)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240913141725/Sing-SATB-Vocals-C.pdf
 SATB Vocals - Alternate Key (Bb)|https://sovereigngracemusic.s3.amazonaws.com/wp-content/uploads/20240913141722/Sing-SATB-Vocals-Bb.pdf
 Spotify|https://open.spotify.com/track/3qcEDT85hn5vpNCxaBFHim?si=ec547481d82e4f95
