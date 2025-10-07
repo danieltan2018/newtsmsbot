@@ -10,7 +10,7 @@ def explainSong(lyrics):
     response = ""
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.5-flash-lite",
             contents=["Explain this hymn in up to 7 lines", lyrics],
         ).text
         response += disclaimer
