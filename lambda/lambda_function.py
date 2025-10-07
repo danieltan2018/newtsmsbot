@@ -427,6 +427,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("EXPLAIN ", "")
         await update.effective_chat.send_action(constants.ChatAction.TYPING)
         saveLog(user, "CALLBACK", "EXPLAIN", song_number)
+        await query.answer(text="Thinking...")
         response = ai.explainSong(SONGS.get(song_number))
         await update.effective_chat.send_message(
             response, parse_mode=constants.ParseMode.HTML
