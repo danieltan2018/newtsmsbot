@@ -20,6 +20,8 @@ from rapidfuzz import fuzz, process
 from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
+    InputMediaAudio,
+    InputMediaPhoto,
     KeyboardButton,
     ReplyKeyboardMarkup,
     ReplyKeyboardRemove,
@@ -384,14 +386,16 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("SCORE ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
         saveLog(user, "CALLBACK", "SCORE", song_number)
-        for photo in SCORES[song_number]:
-            await update.effective_chat.send_photo(photo=photo)
+        media_list = SCORES[song_number]
+        media = [InputMediaPhoto(media=p) for p in media_list]
+        await update.effective_chat.send_media_group(media=media)
     elif data.startswith("MP3 "):
         song_number = data.replace("MP3 ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "MP3", song_number)
-        for audio in MP3[song_number]:
-            await update.effective_chat.send_audio(audio=audio)
+        media_list = MP3[song_number]
+        media = [InputMediaAudio(media=a) for a in media_list]
+        await update.effective_chat.send_media_group(media=media)
     elif data.startswith("PIANO "):
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
