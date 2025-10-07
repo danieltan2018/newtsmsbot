@@ -384,32 +384,20 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         song_number = data.replace("SCORE ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
         saveLog(user, "CALLBACK", "SCORE", song_number)
-        counter = 1
-        for i in range(len(SCORES[song_number])):
-            reference = SCORES[song_number][i]
-            title = f"{song_number} {TITLES[song_number]}"
-            if len(SCORES[song_number]) > 1:
-                title += " " + str(counter)
-            await update.effective_chat.send_photo(photo=reference, caption=title)
+        for photo in SCORES[song_number]:
+            await update.effective_chat.send_photo(photo=photo)
     elif data.startswith("MP3 "):
         song_number = data.replace("MP3 ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "MP3", song_number)
-        counter = 1
-        for i in range(len(MP3[song_number])):
-            reference = MP3[song_number][i]
-            title = f"{song_number} {TITLES[song_number]}"
-            if len(MP3[song_number]) > 1:
-                title += " " + str(counter)
-            await update.effective_chat.send_audio(audio=reference, caption=title)
+        for audio in MP3[song_number]:
+            await update.effective_chat.send_audio(audio=audio)
     elif data.startswith("PIANO "):
         song_title = data.replace("PIANO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
         saveLog(user, "CALLBACK", "PIANO", song_title)
         reference = PIANO[song_title]
-        await update.effective_chat.send_audio(
-            audio=reference, caption=song_title, protect_content=True
-        )
+        await update.effective_chat.send_audio(audio=reference, protect_content=True)
     elif data.startswith("VIDEO "):
         song_title = data.replace("VIDEO ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_VIDEO)
@@ -420,7 +408,9 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         count = 1
         for obj in objects:
             video = VIDEOS_S3_BUCKET + obj
-            caption = f"{song_title} {count}" if total > 1 else song_title
+            caption = (
+                f"{song_title.title()} {count}" if total > 1 else song_title.title()
+            )
             await update.effective_chat.send_video(video=video, caption=caption)
             count += 1
     elif data.startswith("PPT "):
