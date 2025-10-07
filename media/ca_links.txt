@@ -161,7 +161,7 @@ Listen on Spotify|https://open.spotify.com/album/6V9McGDBA1AyixtEDIrEyQ
 Full Score|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Full-Score.pdf
 Chords Chart|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Chord-Chart.pdf
 Guitar - Chord Chart|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Guitar-Chord-Chart.pdf
-Guitar - No Meldoy|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Guitar-No-Melody.pdf
+Guitar - No Melody|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Guitar-No-Melody.pdf
 Guitar|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Guitar.pdf
 Leads Sheet|https://cityalight.com/wp-content/uploads/2022/06/Yet-Not-I-But-Through-Christ-In-Me-Lead-Sheet.pdf
 Watch The Video|https://youtu.be/hwc2d1Xt8gM
@@ -408,9 +408,9 @@ Watch The Video|https://www.youtube.com/watch?v=J4P0xvq_pPU
 Listen on Spotify|https://open.spotify.com/track/2AXA7jjXQe3wc21dgyzj2y?si=3ea12912fbf54d79
 
 51
-Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2025/02/Hear-The-Hallelujahs-Roar-PVG.pdf
-Lead Sheet|https://cityalight.com/wp-content/uploads/2025/02/Hear-The-Hallelujahs-Roar-Lead-Sheet.pdf
-Chords & Lyrics|https://cityalight.com/wp-content/uploads/2025/02/Hear-The-Hallelujahs-Roar-LCC.pdf
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2025/03/Hear-The-Hallelujahs-Roar-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2025/03/Hear-The-Hallelujahs-Roar-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2025/03/Hear-The-Hallelujahs-Roar-LCC.pdf
 Watch The Video|https://www.youtube.com/watch?v=9e_MRWXV08Q&list=PLGmESOwbFkMXBHXK_IReTeGsYY9M-4FHx&index=1&pp=iAQB8AUB
 Buy on iTunes|https://music.apple.com/ph/song/hear-the-hallelujahs-roar-live/1791959267
 Listen on Spotify|https://open.spotify.com/track/6lQ8ojQxf3pUffmnkuW5Cm?si=534bb8aed5f94798
@@ -446,4 +446,11 @@ Chords & Lyrics|https://cityalight.com/wp-content/uploads/2025/03/All-To-Honour-
 Watch The Video|https://www.youtube.com/watch?v=QwGnEwFxwH8&list=PLGmESOwbFkMXBHXK_IReTeGsYY9M-4FHx&index=5&pp=iAQB8AUB
 Buy on iTunes|https://music.apple.com/ph/song/all-to-honour-jesus-live/1791959998
 Listen on Spotify|https://open.spotify.com/track/0M2Ylus8QDNmnyIeNQwAkE?si=bc576976b87f4652
+
+56
+Piano, Vocal, Guitar|https://cityalight.com/wp-content/uploads/2025/08/The-God-We-Love-PVG.pdf
+Lead Sheet|https://cityalight.com/wp-content/uploads/2025/08/The-God-We-Love-Lead-Sheet.pdf
+Chords & Lyrics|https://cityalight.com/wp-content/uploads/2025/08/The-God-We-Love-LCC.pdf
+Watch The Video|https://www.youtube.com/watch?v=4vUjxxmve-o&ab_channel=CityAlight
+Listen on Spotify|https://open.spotify.com/track/2LU91DsCfLhZo1omJBOHqe?si=c47cdd551a1d4408
 

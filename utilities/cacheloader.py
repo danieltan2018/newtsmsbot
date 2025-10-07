@@ -123,6 +123,19 @@ with open("./media/wilds_piano.txt", "r", encoding="UTF8") as piano_file:
 
 f.write("PIANO = " + json.dumps(piano, ensure_ascii=False) + "\n")
 
+global videos
+videos = {}
+with open('./media/videos.txt', 'r', encoding='UTF8') as videos_file:
+    print("Loading Videos")
+    for line in videos_file:
+        line = line.strip()
+        line = line.split('@')
+        reference = line[1]
+        number = line[0].upper().strip('0123456789-')
+        videos.setdefault(number, []).append(reference)
+
+f.write("VIDEOS = " + json.dumps(videos, ensure_ascii=False) + "\n")
+
 global ca_links
 ca_links = {}
 with open("./media/ca_links.txt", "r", encoding="UTF8") as ca_links_file:

@@ -10,7 +10,7 @@ from io import BytesIO
 import ai
 import boto3
 import templates
-from cache import CA_LINKS, SGM_LINKS, CHORDS, MP3, PIANO, SCORES, SONGS, TITLES
+from cache import CA_LINKS, CHORDS, MP3, PIANO, SCORES, SGM_LINKS, SONGS, TITLES, VIDEOS
 from lookup import SONGS_LOOKUP, TITLES_LOOKUP
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -39,7 +39,10 @@ from unidecode import unidecode
 logger = logging.getLogger()
 logger.setLevel("INFO")
 
-app = Application.builder().token(os.getenv("BOT_TOKEN")).build()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+VIDEOS_S3_BUCKET = os.getenv("VIDEOS_S3_BUCKET")
+
+app = Application.builder().token(BOT_TOKEN).build()
 dynamodb = boto3.resource("dynamodb")
 
 
@@ -158,6 +161,14 @@ async def send_song(update: Update, song_number) -> None:
             TITLES[song_number] in PIANO,
             "PIANO",
             "🎹 Piano Recording (Wilds)",
+        )
+    )
+    keyboard.extend(
+        make_button(
+            TITLES[song_number],
+            TITLES[song_number] in VIDEOS,
+            "VIDEO",
+            "🎤  Choir Recording (Lyric Video)",
         )
     )
     lyrics = SONGS.get(song_number)
@@ -399,6 +410,19 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_audio(
             audio=reference, caption=song_title, protect_content=True
         )
+    elif data.startswith("VIDEO "):
+        song_title = data.replace("VIDEO ", "")
+        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_VIDEO)
+        saveLog(user, "CALLBACK", "VIDEO", song_title)
+        objects = VIDEOS[song_title]
+        total = len(objects)
+        await query.answer(text=f"Loading {str(total)} video(s), please wait...")
+        count = 1
+        for obj in objects:
+            video = VIDEOS_S3_BUCKET + obj
+            caption = f"{song_title} {count}" if total > 1 else song_title
+            await update.effective_chat.send_video(video=video, caption=caption)
+            count += 1
     elif data.startswith("PPT "):
         song_number = data.replace("PPT ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)

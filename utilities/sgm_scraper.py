@@ -83,6 +83,8 @@ for song, soup in song_links.items():
         videos = video_box.find_all("iframe")
         for link in videos:
             video_url = re.search(r"embed\/(.+)\?", link.attrs.get("src"))
+            if not video_url:
+                continue
             video_id = video_url.group(1)
             links += (
                 "\n"

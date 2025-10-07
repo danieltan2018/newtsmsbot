@@ -933,7 +933,41 @@ You're the Author of my story
 You are faithful, You are for me
 I will praise You, I will praise You
 
-30 ALL THINGS (ALTROGGE)
+30 ALL THINGS (ACOUSTIC)
+
+VERSE 1
+When my heart was cold and lifeless
+And I wandered in my blindness
+You pursued me
+And before the world was breathing
+You had chosen to redeem me
+For You loved me, Lord, You love me
+
+CHORUS
+I know You are working
+You are working all things
+All things for Your glory and my good
+Lord, You will accomplish
+Everything You promised
+All things for Your glory and my good
+
+VERSE 2
+Though the enemy is mighty
+And a thousand fall beside me
+You defend me
+When the wilderness seems endless
+And I feel the weight of darkness
+You are with me, You are with me
+
+VERSE 3
+Til the day You come in power
+Or I reach my final hour
+You will keep me
+You're the Author of my story
+You are faithful, You are for me
+I will praise You, I will praise You
+
+31 ALL THINGS (ALTROGGE)
 
 VERSE 1
 Your faithfulness and love
@@ -963,7 +997,7 @@ In Jesus mighty name
 Will make Your glory shine
 That much brighter
 
-31 ALMIGHTY
+32 ALMIGHTY
 
 VERSE 1
 Praise to the Lord Almighty, Ruler of the earth
@@ -1004,7 +1038,7 @@ Come and praise the Lord!
 Let the Amen sound from His people again
 Give Him all the glory
 
-32 ALMIGHTY CREATOR
+33 ALMIGHTY CREATOR
 
 VERSE 1
 Almighty Creator
@@ -1034,7 +1068,7 @@ And you shed your blood for
 Our salvation
 So You could make us anew
 
-33 ALMIGHTY MAKER
+34 ALMIGHTY MAKER
 
 VERSE 1   
 Who but the Lord set the bound'ries of light
@@ -1072,7 +1106,7 @@ All things are for You
 All things are to You
 O God, the great I AM
 
-34 ALWAYS FORGIVEN
+35 ALWAYS FORGIVEN
 
 VERSE 1
 I don't deserve to be Your servant
@@ -1099,7 +1133,7 @@ As if I'd never done any wrong
 Always forgiven, always accepted
 No fear of judgment before Your throne
 
-35 AND CAN IT BE THAT I SHOULD GAIN
+36 AND CAN IT BE THAT I SHOULD GAIN
 
 VERSE 1
 And can it be that I should gain
@@ -1141,7 +1175,7 @@ And claim the crown, through Christ my own
 Amazing love! How can it be
 That Thou my God, shouldst die for me?
 
-36 ARISE, MY SOUL, ARISE
+37 ARISE, MY SOUL, ARISE
 
 VERSE 1
 Arise, my soul, arise; shake off thy guilty fears
@@ -1171,7 +1205,7 @@ With confidence I now draw nigh
 With confidence I now draw nigh
 And "Father, Abba, Father" cry
 
-37 AS LONG AS I HAVE BREATH
+38 AS LONG AS I HAVE BREATH
 
 VERSE 1
 How do I thank You, O Lord
@@ -1196,7 +1230,7 @@ For how You have changed me forever?
 For giving me power, a hope and a future
 With favor and gladness and every good thing
 
-38 AS LONG AS YOU ARE GLORIFIED
+39 AS LONG AS YOU ARE GLORIFIED
 
 VERSE 1
 Shall I take from Your hand Your blessings
@@ -1229,7 +1263,7 @@ So quiet my restless heart
 Quiet my restless heart
 Quiet my restless heart in You
 
-39 AS YOU GO
+40 AS YOU GO
 
 VERSE 1
 As you go, may you know the love of Christ
@@ -1255,7 +1289,7 @@ The ones with less, the blind and lost
 As you leave, may you be the light of Christ
 And show our hope is in the cross
 
-40 AT THE FOOT OF THE CROSS
+41 AT THE FOOT OF THE CROSS
 
 VERSE 1
 Beneath the Cross of Jesus
@@ -1287,7 +1321,7 @@ Yet greater still Your grace
 And I will glory in the Cross
 Throughout the ages
 
-41 AWAY IN A MANGER (ALL GLORY TO JESUS)
+42 AWAY IN A MANGER (ALL GLORY TO JESUS)
 
 Verse 1
 Away in a manger a baby is born
@@ -1319,7 +1353,7 @@ We lift high the name of our Savior
 All glory to Jesus forever
 We lift high the name of our Savior
 
-42 BE PRAISED IN ALL THE EARTH
+43 BE PRAISED IN ALL THE EARTH
 
 VERSE 1
 You are the One who spoke and worlds became
@@ -1345,7 +1379,7 @@ You are our fullness, You are all we need
 The first and last, our ransom
 And our righteousness, our only love
 
-43 BE READY
+44 BE READY
 
 Based on Matthew 25:1-30
 
@@ -1385,7 +1419,7 @@ We should always watch and pray
 And we'll be glad when the Lord comes back
 If we're trusting Him today
 
-44 BE STILL, BE STILL, MY SOUL (PSALM 46)
+45 BE STILL, BE STILL, MY SOUL (PSALM 46)
 
 VERSE 1
 Should mountains melt into the roaring oceans
@@ -1430,7 +1464,7 @@ O, Prince of Peace, we will not be abandoned
 Be still, be still, my soul
 Be still, be still, my soul
 
-45 BE THOU MY VISION
+46 BE THOU MY VISION
 
 VERSE 1
 Be Thou my vision, O Lord of my heart;
@@ -1456,7 +1490,7 @@ May I reach heaven's joys, O bright heaven's Sun!
 Heart of my own heart, whatever befall,
 Still be my vision, O Ruler of all.
 
-46 BECAUSE YOU FIRST LOVED ME
+47 BECAUSE YOU FIRST LOVED ME
 
 VERSE 1
 Love is patient, love is kind
@@ -1489,7 +1523,7 @@ Stuck here I'm tied in knots
 I need a Savior
 Jesus, set me free to love You more than me
 
-47 BEFORE THE CROSS
+48 BEFORE THE CROSS
 
 VERSE 1
 My Savior's sacrifice paid for all my sin
@@ -1513,7 +1547,7 @@ The One who pleads for me
 My heart is filled with faith in You
 Here at Calvary on my knees
 
-48 BEFORE THE SKIES
+49 BEFORE THE SKIES
 
 VERSE 1
 Before the skies were stretched abroad
@@ -1548,7 +1582,7 @@ So our lips could gladly tell
 Christ, the Word, has come to us
 Our Lord, Immanuel
 
-49 BEFORE THE THRONE OF GOD ABOVE
+50 BEFORE THE THRONE OF GOD ABOVE
 
 VERSE 1
 Before the throne of God above
@@ -1583,7 +1617,7 @@ My life is hid with Christ on high
 With Christ my Savior and my God
 With Christ my Savior and my God
 
-50 BEHOLD OUR GOD
+51 BEHOLD OUR GOD
 
 VERSE 1
 Who has held the oceans in His hands?
@@ -1613,7 +1647,7 @@ TAG
 Men: You will reign forever
 Women: Let Your glory fill the earth
 
-51 BEHOLD THE LAMB
+52 BEHOLD THE LAMB
 
 VERSE 1
 Behold the Lamb
@@ -1644,7 +1678,7 @@ But look again
 The cross stands empty now
 And He is risen
 
-52 BETTER BY FAR
+53 BETTER BY FAR
 
 CHORUS
 Better by far is Your presence
@@ -1673,7 +1707,7 @@ Better by far
 That You work in my life
 To the praise of Your glory and grace
 
-53 BLESS THE LORD, O MY SOUL (PSALM 103)
+54 BLESS THE LORD, O MY SOUL (PSALM 103)
 
 VERSE 1
 My God is slow to anger when I go astray
@@ -1711,7 +1745,7 @@ And every living creature here below
 Oh praise the Father, praise the Son, and Holy Ghost
 Bless the Lord, O my soul
 
-54 BLESSED ASSURANCE
+55 BLESSED ASSURANCE
 
 VERSE 1
 Come, Holy Spirit, my soul assure
@@ -1745,7 +1779,7 @@ Born of Spirit, washed in Blood
 This my story, this my song
 In my Savior I belong
 
-55 BLESSED IS THE ONE
+56 BLESSED IS THE ONE
 
 VERSE 1
 Blessed is the one whose sins are overcome
@@ -1764,7 +1798,7 @@ I find my refuge in His sovereign care
 When the waters rise, God will hear my cries
 His steadfast love will hold me safely there
 
-56 BRICK AFTER BRICK
+57 BRICK AFTER BRICK
 
 VERSE 1
 God used to dwell
@@ -1804,7 +1838,7 @@ And they build each other up
 As they share the bread and cup
 To remember their Savior
 
-57 BY THIS WE KNOW LOVE
+58 BY THIS WE KNOW LOVE
 
 VERSE 1
 God of all Creation, Lord of heaven's light
@@ -1824,7 +1858,7 @@ You willingly surrendered for my sin
 Scornfully derided, yet in silence stumbling on
 Bearing wrath for all that I've done wrong
 
-58 BY YOUR WOUNDS
+59 BY YOUR WOUNDS
 
 CHORUS
 By Your wounds I am healed
@@ -1844,7 +1878,7 @@ New strength new delight
 Where sin once enslaved me
 There's freedom and power and light
 
-59 CHRIST BE EXALTED
+60 CHRIST BE EXALTED
 
 CHORUS
 Christ be exalted over all things
@@ -1872,7 +1906,7 @@ Than Jesus on the tree
 To bear our curse and show His grace
 To set the sinner free
 
-60 CHRIST EXALTED IS OUR SONG
+61 CHRIST EXALTED IS OUR SONG
 
 Verse 1
 Christ exalted is our song
@@ -1914,7 +1948,7 @@ Crowned with countless praises
 Christ exalted we will sing
 Throughout unending ages!
 
-61 CHRIST OUR GLORY
+62 CHRIST OUR GLORY
 
 VERSE 1
 Our rest is in heaven, our rest is not here
@@ -1953,7 +1987,7 @@ Christ our glory, Christ our hope, Christ our King forevermore
 Come joy or come sorrow, whatever befalls
 The light of the Savior will outshine them all
 
-62 CHRIST OUR TREASURE
+63 CHRIST OUR TREASURE
 
 Verse 1
 Lord, our feet have wandered all the earth unsatisfied
@@ -1985,7 +2019,7 @@ Jesus, You satisfy our souls
 Author, Perfecter, Keeper, Sustainer
 Jesus, You satisfy our souls
 
-63 CHRIST OUR WISDOM
+64 CHRIST OUR WISDOM (ACOUSTIC)
 
 VERSE 1
 Christ our wisdom, we are humbled
@@ -2027,7 +2061,7 @@ Of Your humble heart to save
 Christ our wisdom, Christ our glory
 You are God forever praised
 
-64 CHRIST THE LORD IS BORN TODAY
+65 CHRIST THE LORD IS BORN TODAY
 
 VERSE 1
 How my happy heart rejoices
@@ -2060,11 +2094,11 @@ Purchasing our joy forever
 Let the earth rejoice
 O come and lift your voices
 
-65 CHRIST THE SURE AND STEADY ANCHOR
+66 CHRIST THE SURE AND STEADY ANCHOR
 
 For song lyrics and resources visit MessengerHymns.com.
 
-66 CHRIST WILL BE MY HIDEAWAY
+67 CHRIST WILL BE MY HIDEAWAY
 
 VERSE 1
 I will dwell within the shelter of the God who reigns above
@@ -2088,7 +2122,7 @@ Evil shall not have the vict'ry while the Lord is at my side
 God in power raised my Savior, I no longer fear the grave
 Through this fragile life and evermore, Christ will be my hideaway
 
-67 CLING TO CHRIST
+68 CLING TO CHRIST
 
 VERSE 1
 Father, I can come to You
@@ -2126,7 +2160,7 @@ Will never satisfy
 You alone are endless joy
 So, I cling to Christ
 
-68 COME ALL YE FAITHFUL
+69 COME ALL YE FAITHFUL
 
 VERSE 1
 Come, all ye faithful, joyful and triumphant
@@ -2149,7 +2183,7 @@ True God of true God, Light from Light eternal
 Humbly, He enters the virgin's womb
 Son of the Father, begotten, not created
 
-69 COME BEHOLD THE WONDROUS MYSTERY
+70 COME BEHOLD THE WONDROUS MYSTERY
 
 Find song lyrics and resources visit PraiseCharts.com.
 
@@ -2159,7 +2193,7 @@ More songs from Matt Boswell
 
 More songs from Michael Bleecker
 
-70 COME FOR US
+71 COME FOR US
 
 Verse 1
 You made us sinless, reflecting Your image
@@ -2197,7 +2231,7 @@ Chorus 3
 Come from heaven, our Messiah
 Lord hear our prayer and come for us
 
-71 COME NOW ALMIGHTY KING
+72 COME NOW ALMIGHTY KING
 
 VERSE 1
 Come now almighty King
@@ -2239,7 +2273,7 @@ May we in glory see
 And to eternity
 Love and adore
 
-72 COME PRAISE AND GLORIFY
+73 COME PRAISE AND GLORIFY
 
 VERSE 1
 Come praise and glorify our God
@@ -2277,7 +2311,7 @@ Until redemption's done
 Until we join in endless praise
 To God, the Three in One
 
-73 COME, LORD JESUS
+74 COME, LORD JESUS
 
 VERSE 1
 When the war is over and the battles are done
@@ -2301,7 +2335,7 @@ BRIDGE
 Now we see in part, then we'll see in full
 Your glory, Jesus, will satisfy our souls
 
-74 COME, O SINNER
+75 COME, O SINNER
 
 Verse 1
 Come, O sinner, come and see
@@ -2333,7 +2367,7 @@ That all who draw near may know His peace
 Come, O sinner, come rejoice
 Through the death of Christ death is destroyed
 
-75 COME, THOU FOUNT OF EVERY BLESSING
+76 COME, THOU FOUNT OF EVERY BLESSING
 
 VERSE 1
 Come, Thou Fount of every blessing
@@ -2375,7 +2409,7 @@ Bring Thy promises to pass
 For I know Thy pow'r will keep me
 Till I'm home with Thee at last
 
-76 COME, YE SINNERS, POOR AND NEEDY
+77 COME, YE SINNERS, POOR AND NEEDY
 
 VERSE 1
 Come, ye sinners, poor and needy,
@@ -2407,7 +2441,7 @@ Pleads the merit of His blood;
 Venture on Him, venture wholly;
 Let no other trust intrude.
 
-77 COMPLETELY DONE
+78 COMPLETELY DONE
 
 VERSE 1
 What reason have I to doubt
@@ -2435,7 +2469,7 @@ You are my confidence
 You'll keep me to the end
 I'm leaving my fears behind me now
 
-78 COUNT IT ALL JOY
+79 COUNT IT ALL JOY
 
 VERSE 1
 Lord I'll count it all joy
@@ -2469,7 +2503,7 @@ BRIDGE
 Who can separate us
 From You and Your great love
 
-79 COVENANT OF GRACE
+80 COVENANT OF GRACE
 
 CHORUS
 The wonder of Your mercy Lord
@@ -2501,7 +2535,7 @@ Has opened heaven's doors
 We can enter in free from all our sin
 By Your cleansing sacrifice
 
-80 CREATE IN ME
+81 CREATE IN ME
 
 VERSE 1
 Please have mercy on me, O God
@@ -2530,7 +2564,7 @@ But that You shed Your blood for me
 And You bid me come
 O Lamb of God, I come
 
-81 DEAR REFUGE OF MY WEARY SOUL
+82 DEAR REFUGE OF MY WEARY SOUL
 
 VERSE 1
 Dear refuge of my weary soul,
@@ -2572,7 +2606,7 @@ Here let my soul retreat;
 With humble hope attend Thy will,
 And wait beneath Thy feet.
 
-82 DEPTH OF MERCY
+83 DEPTH OF MERCY
 
 VERSE 1
 Depth of mercy can there be
@@ -2594,7 +2628,7 @@ Holding forth His wounded hands
 Scars which ever cry for me
 Once condemned but now set free
 
-83 DO NOT FEAR
+84 DO NOT FEAR
 
 Verse 1
 Humble virgin, arise and take heart
@@ -2629,7 +2663,7 @@ Do not fear, do not fear
 The God who redeems you and ever will keep you is near
 Do not fear
 
-84 DRAW NEAR TO YOU
+85 DRAW NEAR TO YOU
 
 VERSE 1
 You say come you weary
@@ -2658,7 +2692,7 @@ You say come and feast
 Upon Me Who fills
 Every heart that is open wide
 
-85 EMMANUEL (GLORY IN THE HIGHEST)
+86 EMMANUEL (GLORY IN THE HIGHEST)
 
 Verse 1
 The Light of Life descended to the world He made
@@ -2690,7 +2724,7 @@ All the glory be to Jesus
 Love has sought us, grace has reached us
 All the glory be to Jesus
 
-86 EMMANUEL, EMMANUEL
+87 EMMANUEL, EMMANUEL
 
 VERSE 1
 We have come today to worship
@@ -2728,7 +2762,7 @@ Would lie down upon a tree
 Fastened there with nails for sinners
 Would bleed and die to set us free
 
-87 ENDLESS PRAISES
+88 ENDLESS PRAISES
 
 VERSE 1
 Look upon this fearful scene
@@ -2760,7 +2794,7 @@ Forever we will sing
 Redemption's song
 And of the victory You've won
 
-88 EVERLASTING
+89 EVERLASTING
 
 VERSE 1
 Oh God our Redeemer
@@ -2793,7 +2827,7 @@ All sinners washed
 In Your precious blood
 Forever we will sing
 
-89 EVERY DAY
+90 EVERY DAY
 
 VERSE 1
 In Your grace, You know where I walk
@@ -2820,7 +2854,7 @@ BRIDGE
 In my uncertainty, Your Word is all I need
 To know You're with me every day
 
-90 EVERY GOOD THING
+91 EVERY GOOD THING
 
 VERSE 1
 Every good thing You've given me
@@ -2846,7 +2880,7 @@ Every blessing in the heavenlies
 I'm adopted and I'll reign
 With You in life forever
 
-91 EVERY TONGUE
+92 EVERY TONGUE
 
 VERSE 1
 Oh gather around the throne of grace
@@ -2876,7 +2910,7 @@ The fruit of all Your pain
 Enjoy Your glory formed in us
 You suffered not in vain
 
-92 EVERYBODY NEEDS YOU
+93 EVERYBODY NEEDS YOU
 
 Based on Luke 18:9-14
 
@@ -2904,7 +2938,7 @@ There's no other Savior that I need
 You paid my debt, You conquered death
 Help me to believe
 
-93 FATHER, HOW SWEET
+94 FATHER, HOW SWEET
 
 VERSE 1
 Father, how sweet must be the pleasure
@@ -2946,7 +2980,7 @@ In us, Your daughters and Your sons
 We will delight in You forever
 In Jesus You have made us one
 
-94 FATHER'S HEART OF LOVE
+95 FATHER'S HEART OF LOVE
 
 VERSE 1
 What drew You to me when I was filled
@@ -2977,7 +3011,7 @@ Out of hopelessness and death
 What unlocked my heart and
 Sent upon my soul the Spirit's breath
 
-95 FEAST AT YOUR TABLE
+96 FEAST AT YOUR TABLE
 
 VERSE 1
 Spirit how we hunger
@@ -3017,7 +3051,7 @@ With great anticipation
 Knowing how You love
 Our celebration overflows
 
-96 FOR ME
+97 FOR ME
 
 VERSE 1
 For a good man someone might die
@@ -3047,7 +3081,7 @@ I pour out my love to You
 And praise Your holy name
 For all the things You've done
 
-97 FOR YOU ARE HOLY
+98 FOR YOU ARE HOLY
 
 VERSE 1
 O God, there's none like You
@@ -3077,7 +3111,7 @@ Only You cannot be tempted
 Only You can never die
 Lord, there is none like You
 
-98 FOR YOUR GLORY ALONE
+99 FOR YOUR GLORY ALONE
 
 VERSE 1
 For every heart Your Cross redeemed
@@ -3108,7 +3142,7 @@ For grace that's working in us
 And bringing forth good fruit
 For forming in us Your glorious Son
 
-99 FOREVER GOD
+100 FOREVER GOD
 
 VERSE 1
 You were God all yesterday, always
@@ -3134,7 +3168,7 @@ Forever You remain unchanged
 And though all else will fade
 You will be the same
 
-100 FORGIVEN
+101 FORGIVEN
 
 VERSE 1
 Lord, forgive us for our pride
@@ -3171,7 +3205,7 @@ For the fear we don't belong
 Give us eyes to see each other
 Through Your only Son
 
-101 FROM EVERLASTING (PSALM 90)
+102 FROM EVERLASTING (PSALM 90)
 
 VERSE 1
 O God, before the mountains were brought forth
@@ -3201,7 +3235,7 @@ So satisfy us in our numbered days
 Establish every effort while we wait
 From everlasting, You are God
 
-102 GENEROUS KING
+103 GENEROUS KING
 
 VERSE 1
 You spoke and our hearts began to beat
@@ -3234,7 +3268,7 @@ BRIDGE
 Thank You for Your goodness
 Poured on us through Jesus
 
-103 GENTLE LIKE JESUS
+104 GENTLE LIKE JESUS
 
 VERSE 1 
 Tenderly You care for me
@@ -3259,7 +3293,7 @@ Help me follow You my God
 Teach me how to be
 Just like Christ my King
 
-104 GIVE ME JESUS
+105 GIVE ME JESUS
 
 VERSE 1
 Take the world, but give me Jesus
@@ -3292,7 +3326,7 @@ In His cross my trust shall be
 Take this world and give me Jesus
 Till that day my Lord I see
 
-105 GIVE ME SELF-CONTROL
+106 GIVE ME SELF-CONTROL
 
 VERSE 1 
 Your Word tells me I have a need
@@ -3321,7 +3355,7 @@ And time goes by so slow
 I need the Holy Spirit's power
 To give me self-control
 
-106 GIVE TO OUR GOD IMMORTAL PRAISE
+107 GIVE TO OUR GOD IMMORTAL PRAISE
 
 VERSE 1
 Give to our God immortal praise;
@@ -3353,7 +3387,7 @@ And leads us to His heav'nly seat;
 His mercies ever shall endure
 When this our world shall be no more.
 
-107 GIVERS LIKE GOD
+108 GIVERS LIKE GOD
 
 Based on Luke 12:22-34
 
@@ -3393,7 +3427,7 @@ It's so much better to consider
 The joy of being givers
 Like Jesus Christ
 
-108 GLADLY WOULD I LEAVE BEHIND ME
+109 GLADLY WOULD I LEAVE BEHIND ME
 
 VERSE 1
 Gladly would I leave behind me
@@ -3439,7 +3473,7 @@ All affection, everything
 For the washing of His mercy
 Makes my ransomed heart to sing
 
-109 GLORIOUS
+110 GLORIOUS
 
 Verse 1
 You slept beneath the stars You named and numbered
@@ -3477,7 +3511,7 @@ The Word of Life was silenced by the grave
 But doors of death could not contain Your glory
 Our God rolled the stone away
 
-110 GLORIOUS (ALTROGGE)
+111 GLORIOUS (ALTROGGE)
 
 VERSE 1
 How great You are
@@ -3515,7 +3549,7 @@ To live and die for sinners
 So I will trust
 And hope in You, my King
 
-111 GLORIOUS AND MIGHTY
+112 GLORIOUS AND MIGHTY
 
 VERSE 1
 Majesty, Your glory is shining
@@ -3541,7 +3575,7 @@ When You come again in the clouds
 Every knee will bow down and worship
 The one true God
 
-112 GLORIOUS CHRIST
+113 GLORIOUS CHRIST
 
 VERSE 1
 The radiance of the Father
@@ -3582,7 +3616,7 @@ You're coming back again
 And all will be made right when You appear
 And all will be made right when You appear
 
-113 GLORY AWAITS
+114 GLORY AWAITS
 
 VERSE 1   
 Blood-bought children who are suff'ring
@@ -3614,7 +3648,7 @@ It won't be long, It won't be long
 Tears will vanish when we see Him
 It won't be long, It won't be long
 
-114 GLORY BE TO GOD
+115 GLORY BE TO GOD
 
 VERSE 1
 Glory be to God on high
@@ -3652,7 +3686,7 @@ The Lamb of God has come
 Hosanna, hosanna
 He is the promised One
 
-115 GLORY IN THE DARKEST PLACE
+116 GLORY IN THE DARKEST PLACE
 
 Verse 1
 Out of the depths of silent night
@@ -3682,7 +3716,7 @@ And bear our curse of death alone
 You came to share our suffering
 So in our sorrow we could sing
 
-116 GLORY TO
+117 GLORY TO
 
 VERSE 1
 Father, we love Your sovereignty
@@ -3711,7 +3745,7 @@ From the Father's wrath
 Hallelujah
 We lift up our hands, we lift up our voice
 
-117 GLORY TO GOD IN THE HIGHEST
+118 GLORY TO GOD IN THE HIGHEST
 
 VERSE 1
 Hear the angels sing of the King of kings
@@ -3736,7 +3770,7 @@ He's the ruler of all
 Let us worship our humble King
 Adoration we humbly bring
 
-118 GOD ALWAYS KEEPS HIS PROMISES
+119 GOD ALWAYS KEEPS HIS PROMISES
 
 VERSE 1
 Oh, God He always keeps His promises
@@ -3772,7 +3806,7 @@ Through His death at Calvary
 He suffered in our place
 And then He rose up from the grave
 
-119 GOD DELIGHTS IN YOU
+120 GOD DELIGHTS IN YOU
 
 VERSE 1
 Calling every daughter
@@ -3810,7 +3844,7 @@ In spite of all we have done
 You gave Your beloved Son to die for us
 To make us daughters and sons
 
-120 GOD IS FAITHFUL (PSALM 114)
+121 GOD IS FAITHFUL (PSALM 114)
 
 VERSE 1
 God brought out His people with a strong and mighty hand
@@ -3844,7 +3878,7 @@ You are faithful, You are faithful to Your own
 
  
 
-121 GOD IS OUR REFUGE
+122 GOD IS OUR REFUGE
 
 VERSE 1
 The heavens shake, the mountains quake
@@ -3876,7 +3910,7 @@ If You are for us, we'll never be ashamed
 If You are for us, who can be against us
 If You are for us, we'll never be ashamed
 
-122 GOD MADE LOW
+123 GOD MADE LOW
 
 VERSE 1
 Prophets promised long ago
@@ -3908,7 +3942,7 @@ To make us sons of God on high
 Let every heart prepare Him room
 The promises have all come true
 
-123 GOD MOVES
+124 GOD MOVES
 
 VERSE 1
 God moves in a mysterious way
@@ -3952,7 +3986,7 @@ And scan His work in vain
 God is His own interpreter
 And He will make it plain
 
-124 GOD OVER ALL
+125 GOD OVER ALL
 
 VERSE 1
 God over all
@@ -3985,7 +4019,7 @@ Then we'll bow down
 Praise You forever at Your throne
 Yes, we will sing of Your love
 
-125 GOD SHALL ARISE
+126 GOD SHALL ARISE
 
 VERSE 1
 Father of the orphan, Helper of the poor
@@ -4011,7 +4045,7 @@ Let every kingdom sing praise
 Let all the nations say You are awesome
 Let every kingdom sing praise
 
-126 GOD'S GREAT FAMILY
+127 GOD'S GREAT FAMILY
 
 VERSE 1
 When the Father made us
@@ -4043,7 +4077,7 @@ We are His forever
 He will never let you go
 He will never let you go
 
-127 GONNA TRUST IN GOD
+128 GONNA TRUST IN GOD
 
 CHORUS
 I'm gonna trust in God
@@ -4069,7 +4103,7 @@ I'm gonna lift my hands
 To the One who'll help me
 To the One who holds my crown
 
-128 GOOD AND FAITHFUL SHEPHERD
+129 GOOD AND FAITHFUL SHEPHERD
 
 Based on Psalm 23 and John 10:1-33
 
@@ -4109,7 +4143,7 @@ To seek and rescue the lost
 To bring us back to His Father
 He gave His life on the cross
 
-129 GOOD AND GRACIOUS
+130 GOOD AND GRACIOUS
 
 Good and gracious (in everything You do)
 Good and gracious (in everything You do)
@@ -4138,7 +4172,7 @@ BRIDGE
 Good and gracious
 Good and gracious
 
-130 GOTTA WAIT
+131 GOTTA WAIT
 
 VERSE 1
 When I don't get what I want (whoa)
@@ -4167,7 +4201,7 @@ For my brothers, sisters, and others
 Wait, wait, gotta wait, wait, gotta wait
 'Cause I want to be more like You
 
-131 GRACE AND PEACE
+132 GRACE AND PEACE
 
 VERSE 1   
 Grace and peace, oh how can this be
@@ -4210,7 +4244,7 @@ Oh, what an amazing love I see
 What an amazing love I see
 That Your grace has come to me
 
-132 GRACE GREATER THAN ALL OUR SIN
+133 GRACE GREATER THAN ALL OUR SIN
 
 VERSE 1
 Marvelous grace of our loving Lord,
@@ -4236,7 +4270,7 @@ Freely bestowed on all who believe,
 All who are longing to see His face,
 Will you this moment His grace receive?
 
-133 GRACE UNMEASURED
+134 GRACE UNMEASURED
 
 VERSE 1
 Grace unmeasured, vast and free
@@ -4268,7 +4302,7 @@ You'll give me strength to run this race
 And when my years on earth are through
 The praise will all belong to You
 
-134 GRACIOUS INVITATION
+135 GRACIOUS INVITATION
 
 Based on Luke 14:16-24
 
@@ -4317,7 +4351,7 @@ Love and joy are waiting
 And He says, "Come!"
 So, we will come!
 
-135 GREAT AND PRECIOUS PROMISES
+136 GREAT AND PRECIOUS PROMISES
 
 VERSE 1
 What a hope You've treasured up for us
@@ -4341,7 +4375,7 @@ You who did not spare Your Son
 But gave Him for us all
 You will surely give us all other things
 
-136 GREAT IS YOUR FAITHFULNESS
+137 GREAT IS YOUR FAITHFULNESS
 
 VERSE 1
 Faithful are Your mercies Lord
@@ -4376,7 +4410,7 @@ You take the oil of gladness
 And pour it out on
 You pour it out on me
 
-137 GREAT ONE IN THREE
+138 GREAT ONE IN THREE
 
 VERSE 1
 Come now, Almighty King
@@ -4411,7 +4445,7 @@ You're the fountain of our hope
 Our assurance here below
 Spirit of the Son
 
-138 GREAT THINGS
+139 GREAT THINGS
 
 VERSE 1
 To God be the glory, great things He has done
@@ -4438,7 +4472,7 @@ We share in His death and we're hid in His life
 We stand in His righteousness, never our own
 And sit with Him now on His heavenly throne
 
-139 GREATER ARE YOU
+140 GREATER ARE YOU
 
 VERSE 1
 Greater are You who lives in me
@@ -4463,7 +4497,7 @@ Greater are You than all my trials
 They are but tools in Your hand
 To make me like Christ and
 
-140 GREATER LOVE
+141 GREATER LOVE
 
 VERSE 1
 You are the mighty Warrior, Lord
@@ -4489,7 +4523,7 @@ Why should you notice me
 Yet so much tender mercy
 For helpless sinners fills your heart
 
-141 GREATER THAN WE CAN IMAGINE
+142 GREATER THAN WE CAN IMAGINE
 
 VERSE 1
 Every day we'll bless You and praise Your name
@@ -4511,7 +4545,7 @@ To bear the sins of those He came to save
 You fill our hearts with wonder
 We'll worship You forever
 
-142 GREATLY REJOICE
+143 GREATLY REJOICE
 
 VERSE 1
 Blessed be the God and Father
@@ -4550,7 +4584,7 @@ This greatest glory awaits
 Through faith
 We are saved, we are saved
 
-143 GUIDE ME, O MY GREAT REDEEMER
+144 GUIDE ME, O MY GREAT REDEEMER
 
 VERSE 1
 Guide me, O my great Redeemer
@@ -4588,7 +4622,7 @@ Bid my anxious fears subside
 For I know Your hand will keep me
 Til I'm safe on Canaan's side
 
-144 HAIL THE DAY
+145 HAIL THE DAY
 
 VERSE 1
 Hail the day that Christ arose
@@ -4614,7 +4648,7 @@ His redeemed are on His heart
 Even now He intercedes
 Jesus cares for all our needs
 
-145 HALLELUJAH, WHAT A SAVIOR
+146 HALLELUJAH, WHAT A SAVIOR
 
 VERSE 1
 "Man of Sorrows" what a name
@@ -4650,7 +4684,7 @@ All His ransomed home to bring
 Then anew this song we'll sing
 Hallelujah, what a Savior
 
-146 HALLOWED BE YOUR NAME
+147 HALLOWED BE YOUR NAME
 
 VERSE 1
 Who is like You, Father
@@ -4692,7 +4726,7 @@ Who was and is to come
 Father, Son, and Spirit
 Most holy Three-in-One
 
-147 HARK! THE HERALD ANGELS SING
+148 HARK! THE HERALD ANGELS SING
 
 VERSE 1
 Hark! the herald angels sing
@@ -4731,7 +4765,7 @@ Born that man no more may die
 Born to raise the sons of earth
 Born to give them second birth
 
-148 HAVE MERCY ON ME
+149 HAVE MERCY ON ME
 
 VERSE 1
 I am a sinner; You're blameless, Lord
@@ -4758,7 +4792,7 @@ To make atonement for wrongs I have done
 What You required, Jesus fulfilled
 I don't deserve it-- I never will
 
-149 HAVE YOU HEARD
+150 HAVE YOU HEARD
 
 VERSE 1
 Have you heard about Jesus?
@@ -4788,7 +4822,7 @@ He will wash us clean
 And when we stand before His throne
 He will shout, "Welcome in!"
 
-150 HAVE YOUR WAY WITH ME
+151 HAVE YOUR WAY WITH ME
 
 VERSE 1 
 Have Your way with me, O God
@@ -4832,7 +4866,7 @@ Be praised and glorified
 
 [[Available on Special Edition]]
 
-151 HAVEN'T YOU BEEN GOOD
+152 HAVEN'T YOU BEEN GOOD
 
 VERSE 1
 Thank You for the cross
@@ -4858,7 +4892,7 @@ And heaven's arms enfolding me
 Haven't You been good?
 Haven't You been so good?
 
-152 HE HAS RISEN
+153 HE HAS RISEN
 
 VERSE 1
 Come see the mournful grave
@@ -4892,7 +4926,7 @@ Our hope cannot be shaken
 Because God raised Him up
 We cannot be forsaken
 
-153 HE IS JESUS
+154 HE IS JESUS
 
 VERSE 1
 There's a treasure great in beauty
@@ -4924,7 +4958,7 @@ Will through every age ascend
 It is Jesus, King forever
 Whose wondrous rule will never end
 
-154 HE IS OUR GOD
+155 HE IS OUR GOD
 
 VERSE 1
 Who can light the fires
@@ -4962,7 +4996,7 @@ Now to the King on the throne
 Who was and is to come
 And to the Lamb Who was slain be glory
 
-155 HE IS WORTHY
+156 HE IS WORTHY
 
 Verse 1
 Holy, holy is the Son of God
@@ -4994,7 +5028,7 @@ Worthy is Your Name
 Holy, holy, none beside You
 Greatly to be praised
 
-156 HE LEADETH ME
+157 HE LEADETH ME
 
 VERSE 1
 He leadeth me; O blessed thought!
@@ -5026,7 +5060,7 @@ When, by Thy grace, the victory's won,
 E'en death's cold wave I will not flee,
 Since God through Jordan leadeth me.
 
-157 HE WHO IS MIGHTY
+158 HE WHO IS MIGHTY
 
 VERSE 1
 Oh, the mercy our God has shown
@@ -5055,11 +5089,11 @@ I rejoice in the God Who saves
 I will trust His unfailing love
 I will sing His praises all my days
 
-158 HE WILL HOLD ME FAST
+159 HE WILL HOLD ME FAST
 
 For song lyrics and resources visit GettyMusic.com.
 
-159 HEALING IN YOUR WINGS
+160 HEALING IN YOUR WINGS
 
 VERSE 1
 Though the clouds may hide the sun
@@ -5090,7 +5124,7 @@ So I will say it's good that You afflicted me
 That I might learn Your holy ways
 And to trust in You at all times
 
-160 HEAVEN HAS COME TO US
+161 HEAVEN HAS COME TO US
 
 Verse 1
 Unto us from on high
@@ -5114,7 +5148,7 @@ Here to seek and bring the sinner home
 Lived to die, rose to reign
 Son of Man the Lamb for sinners slain
 
-161 HEAVENLY FATHER, BEAUTIFUL SON
+162 HEAVENLY FATHER, BEAUTIFUL SON
 
 VERSE 1
 Father, You loved me
@@ -5145,7 +5179,7 @@ Open hand is outstretched
 Spirit, You're in me, You intercede
 And help in my need
 
-162 HELP US SEE CHRIST
+163 HELP US SEE CHRIST
 
 VERSE 1
 Holy Spirit, breath of God
@@ -5172,7 +5206,34 @@ Of the redemption Christ has won
 Promised helper, be our strength
 Until this race on earth is run
 
-163 HERE AT THE THRONE
+164 HELP US SEE CHRIST (ACOUSTIC)
+
+VERSE 1
+Holy Spirit, breath of God
+Witness to all that Christ has done
+Great Revealer, radiant light
+One with the Father and the Son
+
+CHORUS
+Open our eyes, help us see Christ
+May we behold His majesty
+Open our eyes, Spirit we cry
+Show us the glory of our King
+Help us see Christ
+
+VERSE 2
+Holy Spirit, voice of truth
+Speaking the Word of God to us
+Sent from heaven to our hearts
+That we might know the Father's love
+
+VERSE 3
+Holy Spirit, guarantee
+Of the redemption Christ has won
+Promised helper, be our strength
+Until this race on earth is run
+
+165 HERE AT THE THRONE
 
 VERSE 1
 How can I ever begin to thank You
@@ -5200,7 +5261,7 @@ All holiness and strength
 And You have loved me Lord
 With an everlasting love
 
-164 HERE IS LOVE
+166 HERE IS LOVE
 
 VERSE 1
 Here is love vast as the ocean,
@@ -5251,7 +5312,7 @@ We are called to feast forever on a love beyond our time;
 Glorious Father, Son, and Spirit
 Now with man are intertwined.
 
-165 HERE IS LOVE (COOKS)
+167 HERE IS LOVE (COOKS)
 
 VERSE 1
 Here is love wide as the ocean
@@ -5289,7 +5350,7 @@ Nothing in the world I see
 You have cleansed and sanctified me
 You Yourself have set me free
 
-166 HIDE AWAY IN THE LOVE OF JESUS
+168 HIDE AWAY IN THE LOVE OF JESUS
 
 VERSE 1
 Come, weary saints, though tired and weak
@@ -5321,7 +5382,7 @@ Hide away in the love of Jesus
 For ten thousand joys await you there
 Hide away in the love of Jesus
 
-167 HIGH ABOVE ALL THINGS
+169 HIGH ABOVE ALL THINGS
 
 VERSE 1
 Give me a passion to see Your glory
@@ -5349,7 +5410,7 @@ Purchased by Your great sacrifice
 So we join our voices to sing Your praises
 Our one desire is to
 
-168 HIS FOREVER
+170 HIS FOREVER
 
 VERSE 1
 Jesus, friend of sinners
@@ -5381,13 +5442,13 @@ Can ever separate me
 O love that will not let me go
 Yes, I am His forever
 
-169 HIS MERCY IS MORE
+171 HIS MERCY IS MORE
 
 Find song resources at doxologyandtheology.com/music
 
  
 
-170 HIS NAME IS JESUS
+172 HIS NAME IS JESUS
 
 VERSE 1
 All hail the power of Jesus' name
@@ -5420,7 +5481,7 @@ Crown Him Lord of all
 To Him all majesty ascribe and
 Crown Him Lord of all
 
-171 HOLY, HOLY, HOLY
+173 HOLY, HOLY, HOLY
 
 VERSE 1
 Holy, holy, holy! Lord God Almighty!
@@ -5446,7 +5507,7 @@ All Thy works shall praise Thy name in earth and sky and sea;
 Holy, holy, holy, merciful and mighty!
 God in three Persons, blessed Trinity!
 
-172 HOPE HAS COME
+174 HOPE HAS COME
 
 VERSE 1
 Let us join with the angel voices
@@ -5475,7 +5536,7 @@ He has come to set us free
 Hope was born that glorious hour
 Christ the mighty King
 
-173 HOPE OF THE AGES
+175 HOPE OF THE AGES
 
 Verse 1
 The prophets had glimpsed and the angels had watched with awe
@@ -5505,7 +5566,7 @@ Who cried, "It is finished!" and rose from the grave
 The Father's great gift and the proof of His love
 Hope of the Ages, our God here with us
 
-174 HOW DEEP
+176 HOW DEEP
 
 VERSE 1
 You were broken that I might be healed
@@ -5526,11 +5587,11 @@ Wept great tears that mine might be dried
 Stripped of glory that I might be clothed
 Crushed by Your Father to call me Your own
 
-175 HOW DEEP THE FATHER'S LOVE FOR US
+177 HOW DEEP THE FATHER'S LOVE FOR US
 
 Visit PraiseCharts.com to purchase sheet music for this song.
 
-176 HOW FIRM A FOUNDATION (KAUFLIN)
+178 HOW FIRM A FOUNDATION (KAUFLIN)
 
 VERSE 1
 How firm a foundation
@@ -5592,7 +5653,7 @@ No never forsake
 I'll never no never
 No never forsake
 
-177 HOW FIRM A FOUNDATION (TRADITIONAL)
+179 HOW FIRM A FOUNDATION (TRADITIONAL)
 
 VERSE 1
 How firm a foundation, ye saints of the Lord
@@ -5624,7 +5685,7 @@ I will not, I will not desert to its foes
 That soul, though all hell should endeavor to shake
 I'll never, no never, no never forsake
 
-178 HOW GREAT YOU ARE
+180 HOW GREAT YOU ARE
 
 VERSE 1
 Our God is great
@@ -5655,7 +5716,7 @@ To claim His blood-washed bride
 He'll rend the skies, descending in His glory
 And in an instant faith will turn to sight
 
-179 HOW HIGH AND HOW WIDE
+181 HOW HIGH AND HOW WIDE
 
 VERSE 1
 No eye has seen and no ear has heard
@@ -5681,7 +5742,7 @@ And the wonder of knowing Your voice
 You are our treasure and our great reward
 Our hope and our glorious King
 
-180 HOW LONG, O LORD
+182 HOW LONG, O LORD
 
 VERSE 1
 Every valley will be lifted high
@@ -5713,7 +5774,7 @@ How long, O Lord, how long?
 TAG
 How long, O Lord? (How long, O Lord?)
 
-181 HOW LONG, O LORD, HOW LONG? (PSALM 13)
+183 HOW LONG, O LORD, HOW LONG? (PSALM 13)
 
 VERSE 1
 O Lord, our God, to You we come
@@ -5745,7 +5806,7 @@ Your grace will be our song
 You bring new mercies with ev'ry rising sun
 How long, O Lord, how long?
 
-182 HOW LOW WAS OUR REDEEMER BROUGHT
+184 HOW LOW WAS OUR REDEEMER BROUGHT
 
 Verse 1
 How low was our Redeemer brought, the King who held the stars
@@ -5769,7 +5830,7 @@ And now the highest praise of all belongs to Jesus' name
 The Healer wounded on a tree to bear our grief and sin
 The King gave up His crown so we could ever reign with Him
 
-183 HOW MAJESTIC
+185 HOW MAJESTIC
 
 VERSE 1
 When I see the stars in heaven
@@ -5801,11 +5862,11 @@ Yet You sent Your Son to die
 His blood has paid the price
 For all our sin
 
-184 HOW RICH A TREASURE WE POSSESS
+186 HOW RICH A TREASURE WE POSSESS
 
 For song lyrics and resources visit MessengerHymns.com.
 
-185 HOW SWEET AND AWEFUL IS THE PLACE
+187 HOW SWEET AND AWEFUL IS THE PLACE
 
 VERSE 1
 How sweet and aweful is the place
@@ -5843,7 +5904,7 @@ That all the chosen race
 May with one voice and heart and soul
 Sing Thy redeeming grace
 
-186 HOW SWEET THE DAY
+188 HOW SWEET THE DAY
 
 VERSE 1
 How sweet the day when Christ was born
@@ -5872,7 +5933,7 @@ Our hearts will burst with songs of praise
 BRIDGE
 Come, Lord Jesus, come
 
-187 HOW VAST THE LOVE
+189 HOW VAST THE LOVE
 
 VERSE 1
 Come gaze upon your Savior
@@ -5908,7 +5969,7 @@ His promises our hope
 Thus far His love has led us!
 His love will lead us home!
 
-188 I ASKED THE LORD THAT I MIGHT GROW
+190 I ASKED THE LORD THAT I MIGHT GROW
 
 VERSE 1
 I asked the Lord that I might grow
@@ -5952,7 +6013,7 @@ From self and pride to set thee free
 And break thy schemes of earthly joy
 That thou may'st find thy all in Me."
 
-189 I BOW DOWN
+191 I BOW DOWN
 
 VERSE 1
 Around You such beauty
@@ -5985,7 +6046,7 @@ How I love You Lord
 And as I behold this mercy
 I'm undone
 
-190 I COME BY THE BLOOD
+192 I COME BY THE BLOOD
 
 VERSE 1
 You are the perfect and righteous God
@@ -6017,7 +6078,7 @@ And ascended to Your side
 Through Him, through Jesus alone
 I boldly come
 
-191 I COME RUNNING
+193 I COME RUNNING
 
 VERSE 1
 Jesus, I am blind, be my light
@@ -6052,7 +6113,7 @@ You pour heaven into my soul
 Your wondrous love, it overflows
 And I marvel how You love me
 
-192 I DON'T HAVE TO HIDE
+194 I DON'T HAVE TO HIDE
 
 VERSE 1
 When I have done something
@@ -6085,7 +6146,7 @@ We don't have to be afraid
 We'll want to run from sin
 And follow Jesus every day
 
-193 I GREET THEE, WHO MY SURE REDEEMER ART
+195 I GREET THEE, WHO MY SURE REDEEMER ART
 
 VERSE 1
 I greet Thee, who my sure Redeemer art,
@@ -6111,7 +6172,7 @@ Our faith is built upon Thy promise free;
 Lord, give us peace and make us calm and sure,
 That in Thy strength we evermore endure.
 
-194 I HAVE A SHELTER
+196 I HAVE A SHELTER
 
 VERSE 1
 I have a shelter in the storm
@@ -6143,7 +6204,7 @@ The One who bears my burdens
 With faithful hands that cannot fail
 You'll bring me home to heaven
 
-195 I HEAR THE WORDS OF LOVE
+197 I HEAR THE WORDS OF LOVE
 
 VERSE 1
 I hear the words of love,
@@ -6175,7 +6236,7 @@ The Christ can never die;
 His love, not mine, the resting place,
 His truth, not mine, the tie.
 
-196 I LAY IT ALL
+198 I LAY IT ALL
 
 VERSE 1
 When troubles come, when darkness crowds
@@ -6207,7 +6268,7 @@ All my cares I cast on You
 TAG
 I lay it all, I lay it all on Jesus
 
-197 I LOOK TO THE CROSS
+199 I LOOK TO THE CROSS
 
 VERSE 1
 How do I know You love me
@@ -6237,7 +6298,7 @@ And Your face is hid from sight
 I won't doubt Your love
 For I fix my eyes
 
-198 I LOOK UP
+200 I LOOK UP
 
 VERSE 1
 When I look all around me
@@ -6271,7 +6332,7 @@ I will claim all Your sacrifice
 Purchased for me
 By Your death I will stand justified
 
-199 I LOVE THE CROSS
+201 I LOVE THE CROSS
 
 VERSE 1
 All my sins forgiven
@@ -6296,7 +6357,7 @@ Every debt is paid in full
 Though my sins were scarlet
 Now I'm clean as a fresh fallen snow
 
-200 I MUST HAVE YOU
+202 I MUST HAVE YOU
 
 VERSE 1
 I drink deep from
@@ -6335,7 +6396,7 @@ Do I need the air to breathe
 Do I need for my heart to beat
 Not as much as I need You
 
-201 I STAND IN AWE
+203 I STAND IN AWE
 
 VERSE 1
 You are beautiful beyond description
@@ -6363,7 +6424,7 @@ Who can fathom this mercy so free?
 You are beautiful beyond description
 Lamb of God who died for me
 
-202 I SURRENDER ALL
+204 I SURRENDER ALL
 
 CHORUS
 I surrender all
@@ -6380,7 +6441,7 @@ He purchased my freedom
 And made me an heir
 Now I belong to Him
 
-203 I SURRENDER ALL (REPRISE)
+205 I SURRENDER ALL (REPRISE)
 
 CHORUS
 I surrender all
@@ -6397,7 +6458,7 @@ He purchased my freedom
 And made me an heir
 Now I belong to Him
 
-204 I WANT TO BE WHERE YOU ARE
+206 I WANT TO BE WHERE YOU ARE
 
 VERSE 1
 How sweet the place where You dwell, O Lord
@@ -6423,7 +6484,7 @@ Those who trust in You are filled with joy
 Those who follow You go from strength to strength
 Those who trust in You are filled with joy
 
-205 I WILL BOAST IN THE CROSS
+207 I WILL BOAST IN THE CROSS
 
 VERSE 1
 God did not call us
@@ -6453,7 +6514,7 @@ His one precious Son
 To bear all the cost of my sin
 Is a wonder I can't comprehend
 
-206 I WILL CAST MY CARES
+208 I WILL CAST MY CARES
 
 VERSE 1
 Jesus, I'm frail, I'm so very weak
@@ -6474,7 +6535,7 @@ You hear every cry and You lift my head
 I'm desperate for grace and mercy anew
 I must have Your strength, Oh I must have You
 
-207 I WILL GLORY IN MY REDEEMER
+209 I WILL GLORY IN MY REDEEMER
 
 VERSE 1
 I will glory in my Redeemer
@@ -6509,7 +6570,7 @@ And when He calls me, it will be paradise
 His face forever to behold
 His face forever to behold
 
-208 I WILL SING YOUR PRAISE ALONE
+210 I WILL SING YOUR PRAISE ALONE
 
 VERSE 1
 I am not ashamed
@@ -6540,7 +6601,7 @@ VAMP
 Be glorified, I will praise you, I will praise you
 With all my life, I will praise you, I will praise you
 
-209 I'M CALLING OUT
+211 I'M CALLING OUT
 
 VERSE 1
 When this world is filled with change
@@ -6569,7 +6630,7 @@ To lift me again
 Your faithfulness remains
 Your faithfulness remains
 
-210 IMMOVABLE OUR HOPE REMAINS
+212 IMMOVABLE OUR HOPE REMAINS
 
 VERSE 1
 Immovable our hope remains
@@ -6615,11 +6676,11 @@ To God the Spirit, Three-in-one
 Be songs of praise forevermore
 We'll sing Your praise forevermore
 
-211 IN CHRIST ALONE
+213 IN CHRIST ALONE
 
 Visit PraiseCharts.com to purchase sheet music for this song.
 
-212 IN MY HEART
+214 IN MY HEART
 
 VERSE 1
 In my heart there is a stirring
@@ -6647,7 +6708,7 @@ Tie me to His wondrous Cross
 I'll fix my eyes upon the Savior
 All other things I count as loss
 
-213 IN THE PRESENCE
+215 IN THE PRESENCE
 
 VERSE 1
 In the presence of Your infinite might
@@ -6674,7 +6735,7 @@ All my crowns lie in the dust
 You are righteous in Your judgments, Lord
 You are faithful true and just
 
-214 IN THE VALLEY
+216 IN THE VALLEY
 
 VERSE 1
 When You lead me to the valley of vision
@@ -6702,7 +6763,7 @@ So let me learn that my losses are my gain
 To be broken is to heal
 That the valley's where Your power is revealed
 
-215 IN YOU
+217 IN YOU
 
 VERSE 1
 In You is grace and perfect rest
@@ -6723,7 +6784,7 @@ A fount of life that I may drink
 A perfect peace when storms surround
 For You are always near
 
-216 IN YOU ALONE
+218 IN YOU ALONE
 
 VERSE 1
 This storm-tossed heart
@@ -6750,7 +6811,7 @@ Oh sing the mercies of
 Our mighty Savior and our King
 Great love of God in flesh revealed
 
-217 ISAIAH 53
+219 ISAIAH 53
 
 VERSE 1
 No majesty or beauty
@@ -6788,7 +6849,7 @@ TAG
 Oh He has come
 Oh see His love
 
-218 ISN'T HE GOOD
+220 ISN'T HE GOOD
 
 VERSE 1
 Your goodness
@@ -6818,7 +6879,7 @@ Keeps us till the hour
 Every knee will bow and
 Worship Christ alone
 
-219 IT IS FINISHED
+221 IT IS FINISHED
 
 VERSE 1
 You looked into the endless void
@@ -6864,7 +6925,7 @@ And You'll say, "Come and rest"
 As my heart bears witness
 It is finished
 
-220 IT IS NOT DEATH TO DIE
+222 IT IS NOT DEATH TO DIE
 
 VERSE 1
 It is not death to die
@@ -6893,7 +6954,7 @@ The key unlock the door
 That sets us free from mortal years
 To praise You evermore
 
-221 IT IS WELL WITH MY SOUL
+223 IT IS WELL WITH MY SOUL
 
 VERSE 1
 When peace like a river attendeth my way
@@ -6924,7 +6985,7 @@ The clouds be rolled back as a scroll
 The trump shall resound, and the Lord shall descend
 Even so, it is well with my soul
 
-222 IT SHOULD HAVE BEEN ME
+224 IT SHOULD HAVE BEEN ME
 
 VERSE 1
 It should have been me Lord
@@ -6952,7 +7013,7 @@ But You took my shame
 To clothe me in Your own righteousness
 That I might reign
 
-223 IT WAS LOVE
+225 IT WAS LOVE
 
 VERSE 1
 It was love that brought You from above
@@ -6982,7 +7043,7 @@ Around me everywhere
 The shining sun, a gentle rain
 Remind me of Your care
 
-224 IT WAS YOUR GRACE
+226 IT WAS YOUR GRACE
 
 VERSE 1
 It was Your grace that drew me to the cross
@@ -7016,7 +7077,7 @@ Give me more grace
 And new mercies every morning
 Give me new mercies
 
-225 IT'S ALL FOR YOU
+227 IT'S ALL FOR YOU
 
 VERSE 1
 It's all for You
@@ -7049,7 +7110,7 @@ They're all for You, our suffering
 Our patience, Lord, it's all for You
 All to bring You glory
 
-226 IT'S AT THE CROSS
+228 IT'S AT THE CROSS
 
 VERSE 1
 Back to the cross we come again
@@ -7081,7 +7142,7 @@ One day will fade away
 Drowned in the everlasting joy
 Of seeing our Savior's face
 
-227 IT'S YOUR GRACE
+229 IT'S YOUR GRACE
 
 VERSE 1   
 You will save whom You will save
@@ -7124,7 +7185,7 @@ Christ has overcome the grave
 And for our sins He died
 And when He comes back His glory will shine
 
-228 JESUS CAME TO EARTH
+230 JESUS CAME TO EARTH
 
 VERSE
 Jesus came to earth
@@ -7143,11 +7204,11 @@ You left Your throne of grace
 To suffer in our place
 So we praise You, Jesus Christ
 
-229 JESUS IS MINE
+231 JESUS IS MINE
 
 For song lyrics and resources visit MattMerkerMusic.com.
 
-230 JESUS LIVES
+232 JESUS LIVES
 
 VERSE 1
 I no longer fear the grave
@@ -7177,7 +7238,7 @@ Not death nor any power of hell
 Can separate me from the love
 The love of my Savior
 
-231 JESUS PAID IT ALL
+233 JESUS PAID IT ALL
 
 VERSE 1
 I hear the Savior say,
@@ -7208,7 +7269,7 @@ I stand in Him complete,
 "Jesus died my soul to save,"
 My lips shall still repeat.
 
-232 JESUS THE SHEPHERD OF MY SOUL (PSALM 23)
+234 JESUS THE SHEPHERD OF MY SOUL (PSALM 23)
 
 VERSE 1
 Jesus the shepherd of my soul, all of my needs supplies
@@ -7232,7 +7293,7 @@ TAG
 When I behold Him face to face, then I will look and see
 Goodness and mercy from His hand surely have followed me
 
-233 JESUS, MY ONLY HOPE
+235 JESUS, MY ONLY HOPE
 
 VERSE 1
 I come into Your presence
@@ -7270,7 +7331,7 @@ By grace this love springs forth
 Love for You and Your Kingdom
 Joy in Your glory, Lord
 
-234 JESUS, OUR JUDGE AND OUR SAVIOR
+236 JESUS, OUR JUDGE AND OUR SAVIOR
 
 CHORUS
 Call now, O sinner, on your coming Judge
@@ -7302,7 +7363,7 @@ To be here even now as your Savior
 Fall now, O sinner, on the mercy and grace
 Of Jesus, our Judge and our Savior
 
-235 JESUS, THANK YOU
+237 JESUS, THANK YOU
 
 VERSE 1
 The mystery of the cross I cannot comprehend
@@ -7328,7 +7389,7 @@ BRIDGE
 Lover of my soul
 I want to live for You
 
-236 JESUS, THERE'S NO ONE LIKE YOU
+238 JESUS, THERE'S NO ONE LIKE YOU
 
 VERSE 1
 There is no song we could sing
@@ -7355,7 +7416,7 @@ All we want is You
 
  
 
-237 JESUS, YOU ARE BEAUTIFUL
+239 JESUS, YOU ARE BEAUTIFUL
 
 VERSE 1
 Son of God You saved me
@@ -7375,7 +7436,7 @@ Your great love knows no measure
 Though I sin continually
 Lord, Your kindness follows me
 
-238 JESUS, YOU'RE MY HOPE
+240 JESUS, YOU'RE MY HOPE
 
 VERSE 1
 Jesus, You were tempted
@@ -7400,7 +7461,7 @@ Help me to obey, Lord
 Follow in Your way, Lord
 Jesus, give me self-control
 
-239 JESUS, YOUR MERCY
+241 JESUS, YOUR MERCY
 
 Verse 1
 Jesus, Your mercy is all my plea
@@ -7432,7 +7493,7 @@ Forever I'll lift my heart and my voice
 To sing of a treasure no pow'r can destroy
 Jesus, your mercy is all my joy
 
-240 JOIN ALL THE GLORIOUS NAMES
+242 JOIN ALL THE GLORIOUS NAMES
 
 VERSE 1
 Join all the glorious names
@@ -7468,7 +7529,7 @@ Your pure and precious blood
 For all my sin atoned
 And now it pleads before the throne
 
-241 JOY
+243 JOY
 
 VERSE 1
 When I am lonely or feeling bad
@@ -7502,7 +7563,7 @@ No one else can save me
 That's the way You made me
 You alone can give me joy!
 
-242 JOY IN MY MORNING
+244 JOY IN MY MORNING
 
 VERSE 1
 When darkness falls
@@ -7533,7 +7594,7 @@ You're growing my faith
 And I'm learning to lean
 On You all of my days
 
-243 JOY TO THE WORLD (OUR GOD REIGNS)
+245 JOY TO THE WORLD (OUR GOD REIGNS)
 
 VERSE 1
 Joy to the world! The Lord is come
@@ -7566,7 +7627,7 @@ And wonders of His love
 TAG
 Let heaven and nature sing (Our God reigns)
 
-244 JUDGE OF THE SECRETS
+246 JUDGE OF THE SECRETS
 
 VERSE 1   
 O holy Judge, here is my heart
@@ -7604,7 +7665,7 @@ What can I say to You?
 I will not run, I will not hide
 I know I'm safe with You
 
-245 JUST THE WAY GOD WANTED US TO BE
+247 JUST THE WAY GOD WANTED US TO BE
 
 VERSE 1
 God made the earth and filled it full
@@ -7637,7 +7698,7 @@ He wants each one to play a part
 To show the world the Father's heart
 To have a family
 
-246 KING OF GRACE
+248 KING OF GRACE
 
 VERSE 1
 We have come to a throne of grace
@@ -7664,7 +7725,7 @@ Has bought and saved
 Where saints and angels
 Sing eternal praise
 
-247 KNOW YOU
+249 KNOW YOU
 
 VERSE 1
 Come and shine Your Spirit's light
@@ -7691,7 +7752,7 @@ For I consider everything in this world as a loss
 Compared to You my treasure and delight
 Lord how I am longing
 
-248 LAMB OF GOD
+250 LAMB OF GOD
 
 VERSE 1
 O Lamb of God, all worlds obeyed Your will
@@ -7723,7 +7784,7 @@ You'll call Your Bride to take her place
 Victorious King, Creation's waiting
 For Your redeemed to see Your face
 
-249 LAZY BONES
+251 LAZY BONES
 
 VERSE 1
 Have you heard about Mr. Lazy Bones?
@@ -7751,7 +7812,7 @@ No one has to tell them how to stay alive
 Getting ready for winter days ahead
 Gathering their food until the times comes to rest
 
-250 LEANING ON THE EVERLASTING ARMS
+252 LEANING ON THE EVERLASTING ARMS
 
 VERSE 1
 What a fellowship, what a joy divine,
@@ -7777,7 +7838,7 @@ Leaning on the everlasting arms?
 I have blessed peace with my Lord so near,
 Leaning on the everlasting arms.
 
-251 LET YOUR KINGDOM COME
+253 LET YOUR KINGDOM COME
 
 VERSE 1
 Your glorious cause, O God
@@ -7805,7 +7866,7 @@ Lord use us as You want, whatever the test
 By grace we'll preach Your gospel
 Till our dying breath
 
-252 LIFT HIGH THE CROSS
+254 LIFT HIGH THE CROSS
 
 VERSE 1
 A wasted life, a brutal death
@@ -7844,7 +7905,7 @@ There is no other name
 By which we must be saved
 Only Jesus, only Jesus
 
-253 LIFT UP YOUR EYES
+255 LIFT UP YOUR EYES
 
 VERSE 1
 Lift up your eyes
@@ -7886,7 +7947,7 @@ And rest in His love
 And take heart
 He will love us forever
 
-254 LIKE A RIVER GLORIOUS
+256 LIKE A RIVER GLORIOUS
 
 VERSE 1
 Like a river glorious is God's perfect peace
@@ -7911,7 +7972,7 @@ Traced upon our dial by the Sun of Love
 We may trust Him fully all for us to do
 They who trust Him wholly find Him wholly true
 
-255 LISTEN UP!
+257 LISTEN UP!
 
 Based on Matthew 13:1-23
 
@@ -7945,7 +8006,7 @@ The gospel, the gospel
 Jesus died and rose to forgive all those
 Who believe in Him
 
-256 LORD, HAVE MERCY
+258 LORD, HAVE MERCY
 
 VERSE 1
 O God, we come before Your throne
@@ -7980,7 +8041,7 @@ We have no other Savior
 Our great Redeemer, God and King
 Jesus, Redeemer, God and King
 
-257 LORD, HELP US FORGIVE
+259 LORD, HELP US FORGIVE
 
 Based on Matthew 18:21-35 and Luke 7:41-50
 
@@ -8036,7 +8097,7 @@ There's no pretending
 But we've been changed by a grace
 That's never ending
 
-258 LORD, YOU ARE GRACIOUS
+260 LORD, YOU ARE GRACIOUS
 
 VERSE 1
 You do not treat us
@@ -8065,7 +8126,7 @@ His mercies never come to an end
 The steadfast love of the Lord never ceases
 His mercies never come to an end
 
-259 LOST IS FOUND
+261 LOST IS FOUND
 
 Based on Luke 15
 
@@ -8110,7 +8171,7 @@ By their loving King and
 As they turn from all their sin
 Listen, you can hear the angels sing:
 
-260 LOVE LIKE YOU
+262 LOVE LIKE YOU
 
 Based on Luke 10:25-37
 
@@ -8152,7 +8213,7 @@ When there was nothing we could do
 You loved us, loved us
 So we could be like You, You loved us
 
-261 MAKE HIS PRAISE
+263 MAKE HIS PRAISE
 
 VERSE 1
 Make His praise
@@ -8179,7 +8240,7 @@ And we make Your praise
 We make Your praise
 We make Your praise glorious
 
-262 MAKE ME FAITHFUL
+264 MAKE ME FAITHFUL
 
 VERSE 1 
 Jesus, You came a servant
@@ -8211,7 +8272,7 @@ BRIDGE
 Jesus, You're my faithful friend
 You will help me till the end
 
-263 MAKE ME WISE
+265 MAKE ME WISE
 
 VERSE 1
 Solomon was a young man
@@ -8241,7 +8302,7 @@ When we call upon His name
 He gives His grace to the humble (yes, He does)
 Who, just like Solomon, pray
 
-264 MERCIES ANEW
+266 MERCIES ANEW
 
 VERSE 1
 Every morning that breaks
@@ -8277,7 +8338,7 @@ When Your throne fills my view
 I will sing of Your mercies anew
 I will sing of Your mercies anew
 
-265 MIGHTY FORTRESS
+267 MIGHTY FORTRESS
 
 VERSE 1
 A mighty fortress is our God
@@ -8302,7 +8363,7 @@ Who holds the worlds in place
 He fights for us, the sovereign Lord of hosts
 From age to age the triumph's His alone
 
-266 MIGHTY MIGHTY SAVIOR
+268 MIGHTY MIGHTY SAVIOR
 
 VERSE 1
 No one is good
@@ -8331,7 +8392,7 @@ I need someone to save me
 But I'm so glad You died and rose again
 For helpless sinners like me
 
-267 MORE THAN LIFE ITSELF
+269 MORE THAN LIFE ITSELF
 
 VERSE 1
 My soul finds rest in You alone
@@ -8354,7 +8415,7 @@ You are my fountain of delights
 The mention of Your matchless name
 Causes my heart to soar on high
 
-268 MY GLORIOUS HOPE
+270 MY GLORIOUS HOPE
 
 VERSE 1
 Though waves of troubles come
@@ -8391,11 +8452,11 @@ My glorious hope
 You're my glorious hope
 You're my glorious hope
 
-269 MY HEART IS FILLED WITH THANKFULNESS
+271 MY HEART IS FILLED WITH THANKFULNESS
 
 For song lyrics and resources visit GettyMusic.com.
 
-270 MY HOPE IS BUILT ON NOTHING LESS
+272 MY HOPE IS BUILT ON NOTHING LESS
 
 VERSE 1
 My hope is built on nothing less
@@ -8426,7 +8487,7 @@ Oh may I then in Him be found
 Dressed in His righteousness alone
 Faultless to stand before the throne
 
-271 MY LIFE IS AN OFFERING
+273 MY LIFE IS AN OFFERING
 
 VERSE 1   
 This life is an altar
@@ -8455,7 +8516,7 @@ BRIDGE
 I choose to lose my life, Lord
 And find it in You
 
-272 MY REDEEMER'S LOVE
+274 MY REDEEMER'S LOVE
 
 VERSE 1
 My Redeemer's love is deeper
@@ -8500,7 +8561,7 @@ On the day I see His face
 I will love Him back forever
 And forever sing His praise
 
-273 MY SONG IS LOVE UNKNOWN
+275 MY SONG IS LOVE UNKNOWN
 
 VERSE 1
 My song is love unknown, my Savior's love to me
@@ -8544,7 +8605,7 @@ Never was love, dear King! never was grief like Thine
 This is my Friend, in whose sweet praise
 I all my days could gladly spend
 
-274 NAME ABOVE ALL NAMES
+276 NAME ABOVE ALL NAMES
 
 VERSE 1
 From the brightness of His glory
@@ -8581,7 +8642,7 @@ Our knees will bow
 Our tongues proclaim
 That You are Lord of all
 
-275 NEW AND LIVING WAY
+277 NEW AND LIVING WAY
 
 CHORUS 1
 We come into Your presence, Lord, today
@@ -8611,13 +8672,13 @@ Savior, Keeper, Redeemer, New and Living Way
 Alpha, Omega, Jesus, New and Living Way
 Jesus, Jesus, Jesus, New and Living Way
 
-276 NOT IN ME
+278 NOT IN ME
 
 For song information and resources, visit ThousandTongues.org.
 
  
 
-277 NOTHING BETTER THAN JESUS
+279 NOTHING BETTER THAN JESUS
 
 CHORUS
 There's nothing better than Jesus
@@ -8651,7 +8712,7 @@ Forever and always, Jesus is better
 Better than anything that you can imagine
 Jesus is better than all
 
-278 NOTHING IN ALL THE EARTH
+280 NOTHING IN ALL THE EARTH
 
 VERSE 1   
 What shall separate us from Your love?
@@ -8682,7 +8743,7 @@ Nothing in all the earth
 Could ever tear us from
 Your everlasting love
 
-279 NOTHING THAT MY HANDS CAN DO
+281 NOTHING THAT MY HANDS CAN DO
 
 VERSE 1
 There's nothing that my hands can do
@@ -8726,7 +8787,7 @@ What glory that will be
 To look upon my Savior's scars
 And know they were for me
 
-280 NOW WHY THIS FEAR
+282 NOW WHY THIS FEAR
 
 VERSE 1
 Now why this fear and unbelief?
@@ -8762,7 +8823,7 @@ Rely then on His precious blood
 Don't fear your banishment from God
 Since Jesus sets you free
 
-281 NUGGETS OF GOLD
+283 NUGGETS OF GOLD
 
 CHORUS
 Your Word's got nuggets of gold
@@ -8789,7 +8850,7 @@ Your Word's got nuggets, nuggets of gold
 Your Word's got nuggets, nuggets of gold
 Your Word's got nuggets, nuggets of gold
 
-282 O COME, ALL YOU UNFAITHFUL
+284 O COME, ALL YOU UNFAITHFUL
 
 Verse 1
 O come, all you unfaithful
@@ -8826,7 +8887,7 @@ So come, though you have nothing
 Come, He is the offering
 Come, see what your God has done
 
-283 O COME, O COME, EMMANUEL
+285 O COME, O COME, EMMANUEL
 
 VERSE 1
 O come, O come, Emmanuel
@@ -8868,7 +8929,7 @@ Rejoice! Rejoice! Emmanuel
 Rejoice! Rejoice! Emmanuel
 Shall come again with us to dwell
 
-284 O FAITHFUL GOD
+286 O FAITHFUL GOD
 
 VERSE 1
 I will praise You all my life
@@ -8887,7 +8948,7 @@ You dry my eyes
 You're always near
 You're a faithful God
 
-285 O FOR A THOUSAND TONGUES TO SING
+287 O FOR A THOUSAND TONGUES TO SING
 
 VERSE 1
 Oh for a thousand tongues to sing
@@ -8931,7 +8992,7 @@ Be ever, ever given
 By saints below and saints above
 The church in earth and heaven
 
-286 O GOD OF MERCY, HEAR OUR PLEA
+288 O GOD OF MERCY, HEAR OUR PLEA
 
 VERSE 1
 O God, we've seen Your faithfulness
@@ -8957,7 +9018,7 @@ To take Your ransomed children home
 For then the eyes of all will see
 The God of mercy hears our plea
 
-287 O GOD, OUR HELP IN AGES PAST
+289 O GOD, OUR HELP IN AGES PAST
 
 VERSE 1
 O God, our help in ages past
@@ -8995,7 +9056,7 @@ One day is like a thousand years
 To You, Eternal One
 To You, Eternal One
 
-288 O GREAT GOD
+290 O GREAT GOD
 
 VERSE 1
 O great God of highest heaven
@@ -9027,7 +9088,7 @@ With my every thought and deed
 O great God of highest heaven
 Glorify Your Name through me
 
-289 O HOLY NIGHT (HEAR THE GOSPEL STORY)
+291 O HOLY NIGHT (HEAR THE GOSPEL STORY)
 
 VERSE 1
 O holy night, the stars are brightly shining,
@@ -9060,7 +9121,7 @@ Fall on your knees! Receive the Gift of heaven!
 O night divine, O night when Christ was born
 O night, O holy night when Christ was born
 
-290 O LORD, MY ROCK AND MY REDEEMER
+292 O LORD, MY ROCK AND MY REDEEMER
 
 VERSE 1
 O Lord, my Rock and my Redeemer
@@ -9092,7 +9153,7 @@ You broke my bonds of sin and shame
 O Lord, my Rock and my Redeemer
 May all my days bring glory to Your Name
 
-291 O MOST HIGH
+293 O MOST HIGH
 
 VERSE
 I will give thanks
@@ -9111,7 +9172,7 @@ Those who know You trust You
 And You will not forsake the ones
 Who seek Your face
 
-292 O MY SOUL, ARISE
+294 O MY SOUL, ARISE
 
 VERSE 1
 Arise, my soul, arise
@@ -9159,7 +9220,7 @@ With confidence I now draw nigh
 With confidence I now draw nigh
 And "Father, Abba, Father," cry
 
-293 O WONDROUS LOVE
+295 O WONDROUS LOVE
 
 VERSE 1
 O wondrous love that will not let me go
@@ -9193,7 +9254,7 @@ I can't escape this river's glorious flow
 You overwhelm my days with good
 Your wondrous love will never let me go
 
-294 OH THE DEEP, DEEP LOVE
+296 OH THE DEEP, DEEP LOVE
 
 VERSE 1
 Oh the deep, deep love of Jesus
@@ -9230,7 +9291,7 @@ Mighty Savior, precious Friend
 You will bring us home to glory
 Where Your love will never end
 
-295 OH, WHAT A DAY
+297 OH, WHAT A DAY
 
 VERSE 1
 Let the joy begin, let our songs ring out
@@ -9258,7 +9319,7 @@ When the glorious One we love appears
 He will take us home with Him forever
 He will finally wipe away our tears
 
-296 ONCE UPON
+298 ONCE UPON
 
 Verse 1
 Once upon a midnight clear
@@ -9288,7 +9349,7 @@ Christ the Conqueror was raised
 Heaven and nature sing
 "Praise to the King of kings!"
 
-297 ONE STEP AT A TIME
+299 ONE STEP AT A TIME
 
 VERSE 1
 It seems like it was just yesterday
@@ -9317,7 +9378,7 @@ God gives us power to say "No" to sin
 He changes our lives and opens our eyes
 So we can bring glory to Christ
 
-298 ONE STILL NIGHT
+300 ONE STILL NIGHT
 
 VERSE 1
 One still night, Mary awoke
@@ -9347,7 +9408,7 @@ VERSE 3
 One still night, a light was shown
 That all the darkness could never overcome
 
-299 ONE THING
+301 ONE THING
 
 VERSE 1
 Jesus, You came to the earth
@@ -9379,7 +9440,7 @@ Has captured my heart and devotion
 My life has been paid for, I know I was made for
 This one thing, this one thing
 
-300 ONLY IN THE CROSS
+302 ONLY IN THE CROSS
 
 VERSE 1
 When I look upon the cross
@@ -9404,7 +9465,7 @@ For there the sinless Holy One
 Was made to be sin for me
 Then He declared me righteous
 
-301 ONLY JESUS
+303 ONLY JESUS
 
 VERSE 1
 Father of grace, You've sacrificed
@@ -9432,7 +9493,7 @@ BRIDGE
 Jesus, our great Savior,
 Lord of heaven, Son of God
 
-302 ONLY YOU FOR ME
+304 ONLY YOU FOR ME
 
 VERSE 1
 When the cares of life
@@ -9471,7 +9532,7 @@ There's only You for me
 And I'll fully know
 That You're all I need
 
-303 OUR GOOD FATHER
+305 OUR GOOD FATHER
 
 Based on Luke 11:1-13
 
@@ -9509,11 +9570,11 @@ Keep knockin', it'll open
 Keep prayin', keep seekin'
 God knows just what we're needin'
 
-304 OUR GREAT GOD
+306 OUR GREAT GOD
 
 For song lyrics and resources visit FernandoOrtega.com.
 
-305 OUR HELP
+307 OUR HELP
 
 VERSE 1
 Jesus, when You left
@@ -9541,7 +9602,7 @@ And He's come to guarantee
 That God is always with us
 And He will always be
 
-306 OUR HOPE IS ALIVE
+308 OUR HOPE IS ALIVE
 
 VERSE 1
 Hope that is seen is no hope at all
@@ -9574,7 +9635,7 @@ Rejoice! Our hope is alive
 Rejoice! Our hope is alive
 Rejoice! Our hope is alive in Christ
 
-307 OUR ONLY HOPE IS YOU
+309 OUR ONLY HOPE IS YOU
 
 VERSE 1   
 Our mouths were open graves
@@ -9618,7 +9679,7 @@ Our hope will rest in You
 For we can trust
 Your promises are true
 
-308 OUR SONG FROM AGE TO AGE
+310 OUR SONG FROM AGE TO AGE
 
 VERSE 1
 Oh God of power, living Word
@@ -9673,7 +9734,7 @@ Before the Savior's feet
 And sing as all the heav'ns resound
 For all eternity
 
-309 OUT OF THE DEPTHS
+311 OUT OF THE DEPTHS
 
 VERSE 1
 Out of the depths, O Lord, I cry to You
@@ -9701,7 +9762,7 @@ In every trial and loss
 My hope is in the cross
 Where Your compassions never fail
 
-310 OVER ALL
+312 OVER ALL
 
 VERSE 1
 Over all the heavens
@@ -9730,7 +9791,7 @@ You are God eternal
 And You can never change
 You are over all
 
-311 PEACE
+313 PEACE
 
 CHORUS
 Peace, You give me peace
@@ -9755,7 +9816,7 @@ Saying I have a choice
 To make an enemy
 Or to spread Your peace
 
-312 PERFECT LAMB OF GOD
+314 PERFECT LAMB OF GOD
 
 CHORUS
 Hail the perfect Lamb of God
@@ -9791,7 +9852,7 @@ My debt was satisfied
 And love divine in glorious might
 Would vanquish death and rise
 
-313 PRAISE GOD
+315 PRAISE GOD
 
 VERSE 1
 Praise God from whom all blessings flow
@@ -9811,7 +9872,7 @@ Eternal truth attends Your Word
 Your praise will sound from shore to shore
 Till suns shall rise and set no more
 
-314 PRAISE HIS NAME (PSALM 148)
+316 PRAISE HIS NAME (PSALM 148)
 
 VERSE 1
 Reaches of heaven, starry heights
@@ -9839,7 +9900,7 @@ Name above all other names, praise Him
 
  
 
-315 PRAISE THE LORD
+317 PRAISE THE LORD
 
 VERSE 1
 Praise the Lord, Oh praise His name
@@ -9866,7 +9927,7 @@ Mind and soul and will and heart
 From His hand comes everything
 He alone is God and King
 
-316 PRAISE TO THE LORD, THE ALMIGHTY
+318 PRAISE TO THE LORD, THE ALMIGHTY
 
 VERSE 1
 Praise to the Lord, the Almighty, the King of creation!
@@ -9892,7 +9953,7 @@ All that hath life and breath, come now with praises before Him!
 Let the amen sound from His people again;
 Gladly forever adore Him.
 
-317 PRECIOUS CHILDREN
+319 PRECIOUS CHILDREN
 
 VERSE 1
 Broken and defiled
@@ -9915,7 +9976,7 @@ You nailed Him to the cross
 You crushed Him for our sin
 How could you love us like You love Him
 
-318 PREPARE HIM ROOM
+320 PREPARE HIM ROOM
 
 VERSE 1
 O behold, the mystery now unfolds
@@ -9946,7 +10007,7 @@ See the love of God displayed
 Now He's risen and He reigns
 Praise the Name above all names!
 
-319 PREPARED A PLACE FOR ME
+321 PREPARED A PLACE FOR ME
 
 VERSE 1
 Mystery of mysteries
@@ -9974,7 +10035,7 @@ And myriads of angels acclaim Him with their cries
 By grace I will be able to join the jubilee
 You prepared a place for me
 
-320 READY, SET, GO!
+322 READY, SET, GO!
 
 Based on Matthew 13:44-46
 
@@ -10010,7 +10071,7 @@ That You've been calling to us all the time
 You sent Your Son so He could set us free
 To love and follow You eternally, for
 
-321 RECEIVE THE GLORY (NOT TO US)
+323 RECEIVE THE GLORY (NOT TO US)
 
 CHORUS
 Not to us, but to Your name alone
@@ -10030,7 +10091,7 @@ Though we deserved Your judgment You have called us by name
 So we glory in the cross of Christ that made us Yours forever
 That joined our lives together to sing
 
-322 REFORMATION SONG
+324 REFORMATION SONG
 
 VERSE 1
 Your Word alone is solid ground,
@@ -10060,7 +10121,7 @@ All that we are has come from You.
 Hearts that were once by sin enslaved
 Now by Your pow'r have been made new.
 
-323 REJOICE
+325 REJOICE
 
 VERSE 1
 All the earth rejoice
@@ -10095,7 +10156,7 @@ All His people will ascend
 We will reign with Him for eternity
 Rejoice, all the church, rejoice
 
-324 ROCK OF AGES, CLEFT FOR ME
+326 ROCK OF AGES, CLEFT FOR ME
 
 VERSE 1
 Rock of Ages, cleft for me
@@ -10129,7 +10190,7 @@ See Thee on Thy judgment throne
 Rock of Ages, cleft for me
 Let me hide myself in The
 
-325 RUN TO JESUS
+327 RUN TO JESUS
 
 VERSE 1
 Has your grief brought you low?
@@ -10176,7 +10237,7 @@ He is faithful and true
 He will make all things new
 Run to Jesus
 
-326 SALVATION IS BORN
+328 SALVATION IS BORN
 
 VERSE 1
 Come let us worship, come let us adore
@@ -10203,7 +10264,7 @@ The hope of Salvation and light of the world
 Born in a stable and born as a man
 Born to fulfill God's redeeming plan
 
-327 SAND PILE BLUES
+329 SAND PILE BLUES
 
 Based on Matthew 7:24-27
 
@@ -10238,7 +10299,7 @@ And saved your life so you could follow Him
 He'll make you stand and in the end
 You won't be sittin' in a pile of sand
 
-328 SEE HE COMES
+330 SEE HE COMES
 
 VERSE 1
 See, He comes upon the clouds
@@ -10276,7 +10337,7 @@ Christ on His eternal throne
 All the pow'r and might are Yours
 Come, claim the kingdom as Your own
 
-329 SEE HOW HE LOVES US
+331 SEE HOW HE LOVES US
 
 Verse 1
 King of heav'n, robed in light
@@ -10305,7 +10366,7 @@ Laid within a sinner's grave
 Ever He lives, risen to raise us
 See how He loves us
 
-330 SEE THE DESTINED DAY ARISE
+332 SEE THE DESTINED DAY ARISE
 
 VERSE 1
 See the destined day arise!
@@ -10343,7 +10404,7 @@ Grant us grace to sing Your praise
 Ever with the sons of light:
 "Blessing, honor, glory, might!"
 
-331 SHINE INTO OUR NIGHT
+333 SHINE INTO OUR NIGHT
 
 VERSE 1
 We are not what we should be
@@ -10368,7 +10429,7 @@ Reveal the depths of what You've done
 The death You died, the vict'ry won
 You made a way for us to know Your love
 
-332 SHOUT
+334 SHOUT
 
 CHORUS
 Shout lift a shout
@@ -10400,7 +10461,7 @@ That great wedding feast
 Of the Lamb and
 His chosen ones
 
-333 SHOW US CHRIST
+335 SHOW US CHRIST
 
 VERSE 1
 Prepare our hearts, O God
@@ -10433,7 +10494,7 @@ Where else can we go, Lord
 Where else can we go
 You have the words of eternal life
 
-334 SHOWERS OF MERCY
+336 SHOWERS OF MERCY
 
 CHORUS
 Showers of mercy and rivers of blessing
@@ -10454,7 +10515,7 @@ Plow again this fallow ground
 Oh let a fresh wind blow
 And let our praises flow
 
-335 SILENT NIGHT, LONELY NIGHT
+337 SILENT NIGHT, LONELY NIGHT
 
 VERSE 1
 Silent night, lonely night
@@ -10490,7 +10551,7 @@ TAG
 Silent night, holy night
 All is calm and bright
 
-336 SING
+338 SING
 
 VERSE 1
 Did you draw a breath as the dawn awoke
@@ -10523,7 +10584,7 @@ We will bow in wonder before the Lamb
 And evermore the saints will sing
 Yes, evermore the saints will sing!
 
-337 SLEEP, JESUS, SLEEP
+339 SLEEP, JESUS, SLEEP
 
 VERSE 1
 Sleep, Jesus, sleep
@@ -10556,7 +10617,7 @@ Reconciling God and man
 Now Your promises to keep
 Must sleep
 
-338 SO I WILL TRUST YOU
+340 SO I WILL TRUST YOU
 
 VERSE 1
 Almighty Maker, Universe shaper
@@ -10582,7 +10643,7 @@ The One who has formed me and shaped me
 I will rejoice and will sing
 For the One who has made me has saved me
 
-339 SOLI DEO GLORIA
+341 SOLI DEO GLORIA
 
 VERSE 1
 We resolve to know
@@ -10614,7 +10675,7 @@ To make our goal to please You alone
 Worship You alone, our God
 And our King
 
-340 SONG OF THE LAMB
+342 SONG OF THE LAMB
 
 VERSE 1
 Long ago
@@ -10643,7 +10704,7 @@ Emptied to become like us
 A humble servant taking up a cross
 To pour out Your grace
 
-341 SOONER COUNT THE STARS
+343 SOONER COUNT THE STARS
 
 VERSE 1
 I could sooner count the stars
@@ -10685,7 +10746,7 @@ Your love was set on us
 For all Your faithfulness
 Receive my gratefulness
 
-342 SOVEREIGN ONE
+344 SOVEREIGN ONE
 
 VERSE 1
 When I'm all alone and afraid
@@ -10716,11 +10777,11 @@ Perfect in goodness
 Jesus, You're so good to me
 So good to me
 
-343 SPEAK, O LORD
+345 SPEAK, O LORD
 
 Visit PraiseCharts.com to purchase sheet music for this song.
 
-344 SPIRIT OF GOD
+346 SPIRIT OF GOD
 
 VERSE 1
 The blessing of the Father
@@ -10753,7 +10814,7 @@ And the dark must flee the breaking day
 By Your light I see the glory of my King
 Beholding Him I will be changed
 
-345 STRICKEN, SMITTEN, AND AFFLICTED
+347 STRICKEN, SMITTEN, AND AFFLICTED
 
 VERSE 1
 Stricken, smitten, and afflicted
@@ -10795,7 +10856,7 @@ Sacrifice to cancel guilt!
 None shall ever be confounded
 Who on Him their hope have built
 
-346 SURRENDER ALL
+348 SURRENDER ALL
 
 VERSE 1
 Take all I am, Lord, and all that I cling to
@@ -10819,7 +10880,7 @@ Every desire and sin I keep hidden
 Search me and know me I want to bring to You
 A life that is holy and sanctified through You
 
-347 TASTE AND SEE
+349 TASTE AND SEE
 
 VERSE 1
 When I was poor and helpless
@@ -10844,7 +10905,7 @@ The One who is my life
 His glory is my gladness
 In Him I'm satisfied
 
-348 THAT I MIGHT GAIN CHRIST
+350 THAT I MIGHT GAIN CHRIST
 
 VERSE 1
 What I once called gain
@@ -10878,7 +10939,7 @@ So come and dwell with me
 Spirit inhabit my heart
 May I behold in full what I now see in part
 
-349 THE AUDIENCE OF ONE
+351 THE AUDIENCE OF ONE
 
 VERSE 1
 I have one passion, one great delight
@@ -10904,7 +10965,7 @@ To hear the Father say, "My child, well done
 Come enter into all the joy
 Found in my Son"
 
-350 THE FATHER'S LOVE
+352 THE FATHER'S LOVE
 
 VERSE 1
 How has the sinner been forgiven
@@ -10936,7 +10997,7 @@ Though sufferings may fill our lives
 We're confident we're heirs with Christ
 And so we cry, "Abba, Father"
 
-351 THE FINAL WORD IS CHRIST
+353 THE FINAL WORD IS CHRIST
 
 VERSE 1 
 Why should my doubts and questions rise
@@ -10980,7 +11041,7 @@ The final word is Christ!
 
 [[Available on Special Edition]]
 
-352 THE FIRST NOEL (BORN IS THE KING)
+354 THE FIRST NOEL (BORN IS THE KING)
 
 Verse 1
 The first Noel, earth and heaven embraced
@@ -11010,7 +11071,7 @@ Bring praises to our King
 All glory, power, and honor be
 Forever unto Him
 
-353 THE GLORIES OF CALVARY
+355 THE GLORIES OF CALVARY
 
 VERSE 1
 Lord, You're calling me to come
@@ -11043,7 +11104,7 @@ For all eternity we will sing worthy
 Our God has set us free
 To sing the glories of Calvary
 
-354 THE GLORY OF THE AGES
+356 THE GLORY OF THE AGES
 
 VERSE 1
 Jesus how we love You
@@ -11076,7 +11137,7 @@ As our great Redeemer King
 Throughout time our praise will be
 Forever echoing
 
-355 THE GLORY OF THE CROSS
+357 THE GLORY OF THE CROSS
 
 VERSE 1
 What wisdom once devised the plan
@@ -11115,7 +11176,7 @@ Then makes me like Your Son
 And now I'm loved forevermore
 Because of what You've done
 
-356 THE GLORY OF THE LAMB
+358 THE GLORY OF THE LAMB
 
 VERSE 1
 A day is coming, coming soon
@@ -11146,7 +11207,7 @@ And someday You'll return
 And we shall see You with our eyes
 Oh how our hearts will burn
 
-357 THE GOD OF WOW
+359 THE GOD OF WOW
 
 VERSE 1
 You have no birthday, You have always been
@@ -11195,21 +11256,21 @@ Of all the wows below, above
 The best of all is Your great love
 You're the God of Wow!
 
-358 THE GOSPEL SONG
+360 THE GOSPEL SONG
 
 Holy God in love became
 Perfect man to bear my blame
 On the cross he took my sin
 By his death I live again
 
-359 THE GOSPEL SONG (REPRISE)
+361 THE GOSPEL SONG (REPRISE)
 
 Holy God, in love, became
 Perfect man to bear my blame
 On the cross He took my sin
 By his death I live again
 
-360 THE GOSPEL WAS PROMISED
+362 THE GOSPEL WAS PROMISED
 
 VERSE 1 
 The gospel was promised by sages and prophets
@@ -11240,7 +11301,7 @@ We're called to be holy
 And now we live only
 To make His glory known
 
-361 THE GREATEST OF ALL
+363 THE GREATEST OF ALL
 
 VERSE 1
 The greatest of all transactions
@@ -11264,7 +11325,7 @@ Has cancelled the debt that I owed
 You satisfied the law's demands
 And new life's been given to me
 
-362 THE HIGHEST GLORY
+364 THE HIGHEST GLORY
 
 VERSE 1
 The highest glory
@@ -11284,7 +11345,7 @@ That is why Your name is far above all names
 Before You every knee will bow
 You've received the highest glory now
 
-363 THE KING IN ALL HIS BEAUTY
+365 THE KING IN ALL HIS BEAUTY
 
 Verse 1
 O lift your eyes to heaven, see
@@ -11320,7 +11381,7 @@ Bring wisdom, power, blessing
 For endless ages we'll adore
 The King in all His beauty
 
-364 THE LOOK
+366 THE LOOK
 
 VERSE 1
 I saw one hanging on a tree
@@ -11360,7 +11421,7 @@ My spirit now is filled
 That I should such a life destroy
 Yet live by Him I killed
 
-365 THE LORD ALMIGHTY REIGNS (PSALM 93)
+367 THE LORD ALMIGHTY REIGNS (PSALM 93)
 
 VERSE 1
 Behold Him, robed in majesty
@@ -11391,7 +11452,7 @@ You will hold us in the tempest
 You will not be moved! You will not be moved!
 You will not be moved! You will not be moved!
 
-366 THE LORD IS
+368 THE LORD IS
 
 VERSE 1
 The depths of Your grace who can measure
@@ -11424,7 +11485,7 @@ All the days of my life
 I will dwell in Your house
 All the days of my life
 
-367 THE NAME ABOVE ALL NAMES
+369 THE NAME ABOVE ALL NAMES
 
 VERSE 1
 Great Creator of the heavens and the earth
@@ -11454,7 +11515,7 @@ Still I'll never understand
 Why a rebel so unworthy of such cost
 Would be ransomed by Your hand
 
-368 THE ONE AND ONLY GOD
+370 THE ONE AND ONLY GOD
 
 CHORUS
 You are the one and only God
@@ -11482,11 +11543,11 @@ So with the heavens we'd proclaim
 Till all the world can hear
 Until all the world can hear
 
-369 THE POWER OF THE CROSS
+371 THE POWER OF THE CROSS
 
 Visit PraiseCharts.com to purchase sheet music for this song.
 
-370 THE PRECIOUS BLOOD
+372 THE PRECIOUS BLOOD
 
 VERSE 1
 Before the cross I kneel and see
@@ -11522,7 +11583,7 @@ BRIDGE
 A crown of thorns, pierced hands and feet
 A body bruised, and Mercy's plea
 
-371 THE PRODIGAL
+373 THE PRODIGAL
 
 VERSE 1
 You held out Your arms, I walked away
@@ -11552,7 +11613,7 @@ Such favor undeserved
 You sing over me and celebrate
 The rebel now Your child
 
-372 THE SANDS OF TIME ARE SINKING
+374 THE SANDS OF TIME ARE SINKING
 
 VERSE 1
 The sands of time are sinking,
@@ -11614,7 +11675,7 @@ But on His pierced hand;
 The Lamb is all the glory
 Of Immanuel's land.
 
-373 THE SCARIEST SONG
+375 THE SCARIEST SONG
 
 VERSE 1
 What's the scariest of woes?
@@ -11652,7 +11713,7 @@ But though it seeks to kill
 Our God is stronger still
 And only by His grace can we defeat it
 
-374 THE SON OF GOD CAME DOWN
+376 THE SON OF GOD CAME DOWN
 
 VERSE 1
 The Son of God came down and laid aside His crown
@@ -11674,7 +11735,7 @@ This tiny, helpless child through death would reconcile
 The holy God and vile, His grace so free
 O come, let us adore
 
-375 THE STEADFAST LOVE OF CHRIST
+377 THE STEADFAST LOVE OF CHRIST
 
 VERSE 1
 Once my heart was a prison, defiled and cold
@@ -11713,7 +11774,7 @@ We'll behold in awe and forever sing
 Of the steadfast love of Christ
 Oh, the steadfast love of Christ
 
-376 THE UNBELIEVABLE
+378 THE UNBELIEVABLE
 
 VERSE 1
 Come and see the inconceivable
@@ -11743,7 +11804,7 @@ At the thought of such amazing love
 God has come, God has come
 God has come to dwell with us
 
-377 THERE BLOOMS A ROSE IN BETHLEHEM
+379 THERE BLOOMS A ROSE IN BETHLEHEM
 
 VERSE 1
 There blooms a rose in Bethlehem
@@ -11775,7 +11836,7 @@ But would not see decay
 So those who place their faith in Him
 Shall blossom from the grave
 
-378 THERE IS A FOUNTAIN FILLED WITH BLOOD
+380 THERE IS A FOUNTAIN FILLED WITH BLOOD
 
 VERSE 1
 There is a fountain filled with blood drawn from Emmanuel's veins
@@ -11807,7 +11868,7 @@ Then in a nobler, sweeter song, I'll sing Thy pow'r to save
 I'll sing Thy pow'r to save, I'll sing Thy pow'r to save
 Then in a nobler, sweeter song, I'll sing Thy pow'r to save
 
-379 THERE IS ONE REASON
+381 THERE IS ONE REASON
 
 VERSE 1
 There is one reason why we're gathered here
@@ -11842,7 +11903,7 @@ We praise You, Jesus
 We're here together
 For Your glory
 
-380 THIS FATHOMLESS LOVE
+382 THIS FATHOMLESS LOVE
 
 VERSE 1
 Lord, what moved Your heart to love lowly man
@@ -11870,7 +11931,7 @@ Oh, how could You choose to show kindness to these?
 The ones who would mock You and hate You
 The ones just like me?
 
-381 THIS IS OUR GOD
+383 THIS IS OUR GOD
 
 VERSE 1
 God, our Father, full of power
@@ -11906,7 +11967,7 @@ Life is given by and through Him
 With the Son and Father, worshiped and adored
 Holy is His Name
 
-382 THREE IN ONE
+384 THREE IN ONE
 
 VERSE 1
 Gracious Father
@@ -11944,7 +12005,7 @@ Reveal the Lord Jesus Christ to me
 Holy Spirit
 Full of power, I sing Your praise
 
-383 THROUGH THE PRECIOUS BLOOD
+385 THROUGH THE PRECIOUS BLOOD
 
 VERSE 1
 You have ordained every breath we take
@@ -11979,7 +12040,7 @@ Comes to us freely, so freely
 Through the precious blood
 Through the precious blood
 
-384 TO BE LIKE JESUS
+386 TO BE LIKE JESUS
 
 VERSE 1
 Love, joy, peace, and patience too
@@ -12005,7 +12066,7 @@ Teach me to obey Your Word
 Help me to put others first
 Holy Spirit, change my life
 
-385 TO LIVE IS CHRIST
+387 TO LIVE IS CHRIST
 
 VERSE 1
 Before You gave us life and breath
@@ -12044,7 +12105,7 @@ Of Jesus and His bride
 His nail-scarred hands will finally
 Bring us to His side
 
-386 TO TELL THE TRUTH
+388 TO TELL THE TRUTH
 
 CHORUS
 To tell the truth is what I want to do
@@ -12072,7 +12133,7 @@ That covering up's okay
 Don't let me be dishonest
 Help me to humbly say
 
-387 TOTALLY GOD, TOTALLY MAN
+389 TOTALLY GOD, TOTALLY MAN
 
 INTRO
 Jesus, He's fully God and fully man
@@ -12109,7 +12170,7 @@ Jesus died to pay for all our sins
 Rose to save the ones who trust in Him
 For eternity
 
-388 TRUST IN THE LORD
+390 TRUST IN THE LORD
 
 VERSE 1
 My father said, "Don't forget my teaching
@@ -12147,7 +12208,7 @@ In all my ways I'll acknowledge Him
 And He'll make straight all my paths
 Trust in the Lord
 
-389 TURN YOUR EYES
+391 TURN YOUR EYES
 
 VERSE 1
 Turn your eyes upon Jesus
@@ -12179,21 +12240,21 @@ Our King will return for His own
 Every knee will bow, every tongue will shout,
 'All glory to Jesus alone!'
 
-390 TURN YOUR EYES REPRISE
+392 TURN YOUR EYES REPRISE
 
 Turn your eyes to the heavens
 Our King will return for His own
 Every knee will bow, every tongue will shout,
 'All glory to Jesus alone!'
 
-391 TURN YOUR EYES UPON JESUS
+393 TURN YOUR EYES UPON JESUS
 
 Turn your eyes upon Jesus
 Look full in His wonderful face
 And the things of earth will grow strangely dim
 In the light of His glory and grace
 
-392 UNASHAMED
+394 UNASHAMED
 
 VERSE 1
 You were not ashamed to be
@@ -12227,7 +12288,7 @@ So I will glory in the cross
 And in the blood you shed for us
 Glory in the gospel of Your grace
 
-393 UNDONE
+395 UNDONE
 
 VERSE 1
 Your Spirit had awakened
@@ -12256,7 +12317,7 @@ And now on Christ, the solid rock, we stand
 BRIDGE
 Holy, Holy, Holy One
 
-394 UNDYING LOVE
+396 UNDYING LOVE
 
 VERSE 1
 My ears had heard of You, now I have seen
@@ -12277,7 +12338,7 @@ To see my Savior suffering for me
 But You descended, lifting me up
 Washing my feet, filling my cup
 
-395 W-I-S-D-O-M
+397 W-I-S-D-O-M
 
 VERSE 1
 There is something that's better than the latest toy
@@ -12300,7 +12361,7 @@ BRIDGE
 I wanna love it, live it, learn it, read it (W-I-S-D-O-M!)
 I wanna know it, think it, speak it, breathe it (W-I-S-D-O-M!)
 
-396 WE ARE NOT ASHAMED
+398 WE ARE NOT ASHAMED
 
 CHORUS
 We, we are not ashamed
@@ -12334,7 +12395,7 @@ Yes, we, we are not ashamed
 For we have a great salvation in His name
 Christ alone, the Life, the Truth, the Way
 
-397 WE ARE YOURS FOREVER
+399 WE ARE YOURS FOREVER
 
 VERSE 1
 O God, when You spoke into darkness
@@ -12368,7 +12429,41 @@ From the hope You gave us
 We will be like Christ our King
 We are Yours forever
 
-398 WE GIVE THANKS (PSALM 107)
+400 WE ARE YOURS FOREVER (ACOUSTIC)
+
+VERSE 1
+O God, when You spoke into darkness
+And said, "Let there be," and it was
+You made us the crown of creation
+To share in Your love
+And when we rejected Your goodness
+To follow our foolish desires
+You knew that one day You'd redeem us
+Through one sacrifice
+
+CHORUS
+Oh, what a love You have lavished on us
+To call us Your children, daughters and sons
+One with the Savior, bought by His blood
+We are Yours forever
+
+VERSE 2
+By grace You have made us Your family
+We're kept in Your kindness and care
+With boldness we know we can bring You
+Each burden we bear
+And though we are longing to see You
+Your Spirit within testifies
+That we are adopted and treasured
+Til faith becomes sight
+
+BRIDGE
+What now can separate us
+From the hope You gave us
+We will be like Christ our King
+We are Yours forever
+
+401 WE GIVE THANKS (PSALM 107)
 
 VERSE 1
 Once in the wilderness of our sin
@@ -12396,7 +12491,7 @@ You take a barren place and make it a spring
 Let the redeemed of God rise up and sing
 Let the redeemed of God rise up and sing!
 
-399 WE HAVE BEEN HEALED
+402 WE HAVE BEEN HEALED
 
 VERSE 1
 You bore our sins in Your body
@@ -12431,7 +12526,7 @@ All our sin for Your grace
 What a glorious exchange
 All our sin for Your grace
 
-400 WE HUNGER AND THIRST
+403 WE HUNGER AND THIRST
 
 VERSE 1
 Exalted Son of glory humbly came down
@@ -12457,7 +12552,7 @@ The cup we drink, the bread we eat
 Reminds us You are all we need
 And makes us long for Your wedding feast
 
-401 WE LOOK TO YOU
+404 WE LOOK TO YOU
 
 VERSE 1
 Deliver us from evil, Lord;
@@ -12497,7 +12592,7 @@ You will come again to reign
 We look to You, we look to You
 All the earth will bow in praise
 
-402 WE PRAISE YOUR RIGHTEOUSNESS
+405 WE PRAISE YOUR RIGHTEOUSNESS
 
 VERSE 1   
 We praise Your righteousness, O God
@@ -12532,7 +12627,7 @@ We love Your righteousness
 We see Your righteousness
 We praise Your righteousness, O God
 
-403 WE RECEIVE
+406 WE RECEIVE
 
 VERSE 1
 Beautiful Savior
@@ -12572,7 +12667,47 @@ We thank you, Jesus
 
  
 
-404 WE SING
+407 WE RECEIVE (ACOUSTIC)
+
+VERSE 1
+Beautiful Savior
+Fullness of heaven
+Though we have nothing
+Here we receive
+
+VERSE 2
+Jesus, You call us
+Now to remember
+You were the offering
+For all who believe
+
+CHORUS
+You laid Your life on the table
+Broken like bread, poured out like wine
+We sing what a wonderful Savior
+Jesus our King, all that You give we receive
+
+VERSE 3
+Pardon and blessing
+Life everlasting
+Mercy unmeasured
+How can it be?
+
+VERSE 4
+You are the Giver
+Faithful forever
+Help us to treasure
+All we've received
+
+BRIDGE
+For the price You paid
+We pour out our praises
+For this feast of grace
+We thank you, Jesus
+
+ 
+
+408 WE SING
 
 VERSE 1
 We've come together in Your name
@@ -12606,7 +12741,7 @@ It's nothing we could do
 Our only boast is You
 So we rejoice in what You've done
 
-405 WE SING YOUR MERCIES
+409 WE SING YOUR MERCIES
 
 CHORUS
 We sing Your mercies
@@ -12637,11 +12772,11 @@ Be deserted by us all
 Should He who lived a sinless life
 Be punished for our fall?
 
-406 WE WILL GLORIFY
+410 WE WILL GLORIFY
 
 Lyrics and sheet music for this song are available on PraiseCharts.com.
 
-407 WE WILL RISE
+411 WE WILL RISE
 
 VERSE 1
 A seed falls down from the heights
@@ -12679,7 +12814,7 @@ Because He is risen
 With Him we will rise
 We will rise
 
-408 WE WILL SEEK YOU
+412 WE WILL SEEK YOU
 
 VERSE 1
 Wise men saw a starry sign
@@ -12709,7 +12844,7 @@ We'll bring hearts aflame with love
 Gratefulness and praise to You
 So like the wise men we will come
 
-409 WELCOME IN
+413 WELCOME IN
 
 Based on Luke 16:19-31
 
@@ -12743,7 +12878,7 @@ Has paid for all our sin
 Then, by His grace when we see His face
 His smile will say, "Welcome in!"
 
-410 WHAT A GLORIOUS MYSTERY
+414 WHAT A GLORIOUS MYSTERY
 
 VERSE 1
 Who can comprehend
@@ -12772,7 +12907,7 @@ Who cursed Your perfect name?
 Why would You come to reconcile
 Those who caused Your shame?
 
-411 WHAT CHILD IS THIS
+415 WHAT CHILD IS THIS
 
 VERSE 1
 What Child is this Who, laid to rest
@@ -12804,7 +12939,7 @@ The virgin sings her lullaby
 Joy, joy for Christ is born
 The Babe, the Son of Mary
 
-412 WHAT YOU BEGAN
+416 WHAT YOU BEGAN
 
 CHORUS
 What You began You will finish
@@ -12838,11 +12973,11 @@ Lord give me the grace to have
 A childlike trust in Your plan
 And what You began
 
-413 WHATE'ER MY GOD ORDAINS IS RIGHT
+417 WHATE'ER MY GOD ORDAINS IS RIGHT
 
 For song lyrics and resources visit MattMerkerMusic.com.
 
-414 WHEN CHRIST OUR LIFE APPEARS
+418 WHEN CHRIST OUR LIFE APPEARS
 
 VERSE 1
 When Christ our life appears, our hope will be complete
@@ -12871,7 +13006,7 @@ And death will disappear, its rule and reign destroyed
 Beneath the weight of glory and eternal joy
 We're longing for that day when we'll see
 
-415 WHEN I SURVEY THE WONDROUS CROSS
+419 WHEN I SURVEY THE WONDROUS CROSS
 
 VERSE 1
 When I survey the wondrous cross
@@ -12897,11 +13032,11 @@ That were a present far too small.
 Love so amazing, so divine,
 Demands my soul, my life, my all.
 
-416 WHEN TRIALS COME
+420 WHEN TRIALS COME
 
 Visit PraiseCharts.com to purchase sheet music for this song.
 
-417 WHEN WE SEE YOUR FACE
+421 WHEN WE SEE YOUR FACE
 
 VERSE 1
 Though the dark is overwhelming
@@ -12942,7 +13077,7 @@ And You'll gather us together
 In your arms of endless grace
 As Your Bride forever when we see Your face
 
-418 WHEN YOU MOVE
+422 WHEN YOU MOVE
 
 VERSE 1
 Father, come reveal the love
@@ -12970,7 +13105,7 @@ Let Your gospel fill the earth
 Till the day that You return
 We look to You, we look to You
 
-419 WHERE IT ALL BEGINS
+423 WHERE IT ALL BEGINS
 
 CHORUS
 Here is where it all begins
@@ -12995,7 +13130,7 @@ To love what's right and hate what's wrong
 To fear the Lord, is to grow in love
 For our great God who rules us all
 
-420 WHO CAN SAY
+424 WHO CAN SAY
 
 VERSE 1
 Who can say, "I have made my heart pure
@@ -13014,7 +13149,7 @@ Loving all of His ways?
 The One who gave up His life in our place
 Jesus, the King who saves
 
-421 WHO HAS DONE GOOD
+425 WHO HAS DONE GOOD
 
 VERSE 1 
 Who has done good and who has sought God?
@@ -13042,7 +13177,7 @@ And love, Your love, has come to us
 
 [[Available on Special Edition]]
 
-422 WHO IS LIKE OUR GOD
+426 WHO IS LIKE OUR GOD
 
 VERSE 1
 The Lord is not our equal
@@ -13083,7 +13218,7 @@ And His face is like the sun
 He's the Alpha and Omega
 The One who was and is to come
 
-423 WHO IS LIKE THE LORD (PSALM 113)
+427 WHO IS LIKE THE LORD (PSALM 113)
 
 VERSE 1
 Saints and servants, hosts of heaven, all creation
@@ -13118,7 +13253,7 @@ There is no one like You
 Our Messiah, here beside us
 There is no one like You
 
-424 WHO IS LIKE YOU
+428 WHO IS LIKE YOU
 
 Who is like You, O Lord
 Clothed with splendor and light?
@@ -13133,7 +13268,7 @@ How great You are, O Lord
 Your mercies are ever new
 Oh, who am I, and who is like You?
 
-425 WHO IS THIS
+429 WHO IS THIS
 
 Verse 1
 Who is this, divine and tender, hailing from eternal shores?
@@ -13163,7 +13298,7 @@ Tag
 O come let us adore Him, O come let us adore Him
 O come let us adore Him, Christ the LORD
 
-426 WHO MADE ME TO KNOW YOU
+430 WHO MADE ME TO KNOW YOU
 
 VERSE 1
 Who made me to know You, but You
@@ -13181,7 +13316,7 @@ You placed a crown of grace on my head
 You covered me in robes of righteousness
 Forever I will always be Yours, Jesus
 
-427 WHO WOULD HAVE DREAMED
+431 WHO WOULD HAVE DREAMED
 
 VERSE 1
 On a starlit hillside, shepherds watched their sheep
@@ -13208,7 +13343,7 @@ Planned from time eternal, moved by holy love
 He will carry our curse and death He'll reverse
 So we can be daughters and sons
 
-428 WONDERFUL COUNSELOR
+432 WONDERFUL COUNSELOR
 
 VERSE 1
 The people who walked in the darkness
@@ -13237,7 +13372,7 @@ His peace will have no end
 He'll bring mercy, truth, and justice
 By His own power
 
-429 WONDERFUL SAVIOR
+433 WONDERFUL SAVIOR
 
 VERSE 1
 How can we not sing out to the One who saved us
@@ -13260,7 +13395,7 @@ And gave us eternal hope
 Capturing our hearts, flooding us with gladness
 That someday we'll see Your face?
 
-430 WORSHIP YOU FOREVER
+434 WORSHIP YOU FOREVER
 
 VERSE 1
 How this world is ever changing
@@ -13288,7 +13423,7 @@ Rescued us and will again
 When our enemies surround us
 You are our defense
 
-431 WORTHY ONE
+435 WORTHY ONE
 
 Verse 1
 Hear the thousands upon thousands roar in song
@@ -13315,7 +13450,7 @@ Bridge
 All blessing, all honor, all glory, might and strength
 All power, dominion to the Lamb for sinners slain
 
-432 YESTERDAY, TODAY AND FOREVER
+436 YESTERDAY, TODAY AND FOREVER
 
 VERSE 1
 The world and all that dwells here in it
@@ -13349,7 +13484,7 @@ None can separate me
 None can separate me
 None can separate me
 
-433 YOU ALONE
+437 YOU ALONE
 
 VERSE 1
 You and You alone
@@ -13381,7 +13516,7 @@ Will be my song, will be my joy forever
 Take all of my days, I give my life
 To bring You praise
 
-434 YOU ARE ALWAYS WITH ME
+438 YOU ARE ALWAYS WITH ME
 
 VERSE 1
 You know everything about me
@@ -13411,7 +13546,7 @@ To You it's bright as day
 You have laid Your hand on me
 It's wonderful
 
-435 YOU ARE GOOD
+439 YOU ARE GOOD
 
 VERSE 1
 You came down
@@ -13440,7 +13575,7 @@ You draw me through Your mercy
 You faithfully forgive me
 You lift me up again
 
-436 YOU ARE LORD
+440 YOU ARE LORD
 
 VERSE 1
 Once we were separated
@@ -13471,7 +13606,7 @@ And to reflect Your perfect light
 To all who live in darkness and pain
 So the whole world might know that
 
-437 YOU ARE MY EVERYTHING
+441 YOU ARE MY EVERYTHING
 
 VERSE 1
 I cannot thank You enough
@@ -13493,7 +13628,7 @@ Your mercy sweet
 Your presence is real all around me
 Jesus
 
-438 YOU ARE OUR HOPE
+442 YOU ARE OUR HOPE
 
 VERSE 1
 Comfort for weary sinners
@@ -13525,7 +13660,7 @@ TAG
 Jesus, victorious in the heavens exalted
 Jesus, give us eyes to see Your glory
 
-439 YOU ARE THE ONE
+443 YOU ARE THE ONE
 
 VERSE 1
 You're the One who flung the stars
@@ -13562,7 +13697,7 @@ Becoming ever
 Like the One
 Whose glory fills my eyes
 
-440 YOU ARE THE WAY
+444 YOU ARE THE WAY
 
 VERSE 1
 Dead in transgressions and sins
@@ -13592,7 +13727,7 @@ Humbled and poured out to death
 Now highly exalted above all
 Your name alone can save
 
-441 YOU ARE UNCHANGING
+445 YOU ARE UNCHANGING
 
 VERSE 1
 Before the skies were born
@@ -13624,7 +13759,7 @@ Then all will be made right
 Then every tear will dry
 Then Your redeeming light will destroy the dark
 
-442 YOU GAVE YOUR SON
+446 YOU GAVE YOUR SON
 
 VERSE 1
 Father, compassionate and tender
@@ -13651,7 +13786,7 @@ BRIDGE
 Whom have I in heaven but You
 And none on earth compares with You
 
-443 YOU HAVE ALWAYS BEEN FAITHFUL
+447 YOU HAVE ALWAYS BEEN FAITHFUL
 
 VERSE 1
 There is a rock that's weathered every storm
@@ -13672,7 +13807,7 @@ Through the joy and the sorrow
 You hold me tight through all eternity
 You're my hope for tomorrow
 
-444 YOU HAVE BEEN RAISED
+448 YOU HAVE BEEN RAISED
 
 VERSE 1
 How do we know we've been forgiven?
@@ -13700,7 +13835,7 @@ Has fully been accepted
 Because of Your shed blood
 We cannot be rejected
 
-445 YOU HAVE CAPTURED ME
+449 YOU HAVE CAPTURED ME
 
 VERSE 1
 I have tasted of a love
@@ -13724,7 +13859,7 @@ What eyes of flesh could ever see
 For I've beheld with trembling joy
 The sight of Calvary's Scarlet Rose
 
-446 YOU HAVE EXALTED
+450 YOU HAVE EXALTED
 
 CHORUS
 You have exalted above all things
@@ -13752,7 +13887,7 @@ Your word will still prevail
 Through every trial I encounter
 Your word never fails
 
-447 YOU HEAVENS ADORE HIM
+451 YOU HEAVENS ADORE HIM
 
 VERSE 1
 Praise the Lord, you heavens, adore Him
@@ -13785,7 +13920,7 @@ Hosts on high His power proclaim
 Heaven and earth and all creation
 Praise and magnify His name
 
-448 YOU MADE US YOUR OWN
+452 YOU MADE US YOUR OWN
 
 VERSE 1
 We were ruined in our sin
@@ -13819,7 +13954,7 @@ We'll meet saints we've never known
 And forever we will be amazed
 That You made us Your own
 
-449 YOU NEVER CHANGE
+453 YOU NEVER CHANGE
 
 VERSE 1
 Father of lights, giver of gifts
@@ -13845,7 +13980,7 @@ Though mountains fall into the sea
 Though tempests may rage, the sun hide its face
 Your favor will rest upon me
 
-450 YOU SHOW ME KINDNESS
+454 YOU SHOW ME KINDNESS
 
 VERSE 1
 You are always loving
@@ -13871,7 +14006,7 @@ Help me to be sharing
 What I receive from You
 Help me to be kind to everyone
 
-451 YOU STAND ALONE
+455 YOU STAND ALONE
 
 VERSE 1
 You spoke and time began
@@ -13907,7 +14042,7 @@ There is no story of greater love
 BRIDGE
 There is no one like our God (You stand alone)
 
-452 YOU WILL NEVER CHANGE
+456 YOU WILL NEVER CHANGE
 
 VERSE 1
 You have been our dwelling place
@@ -13937,7 +14072,7 @@ Our momentary years
 From all eternity
 You were and will always be
 
-453 YOU'RE COMING BACK
+457 YOU'RE COMING BACK
 
 VERSE 1
 God tells us there will come a day
@@ -13965,7 +14100,7 @@ You'll judge the evil in this world
 The time for sadness will be through
 And all God's people will rejoice to be with You!
 
-454 YOU'RE SO GOOD TO ME
+458 YOU'RE SO GOOD TO ME
 
 VERSE 1
 You've given me so much
@@ -13994,7 +14129,7 @@ And we'll see face to face
 'Til then You've given me a taste
 Of paradise
 
-455 YOUR BEAUTY AND YOUR MAJESTY
+459 YOUR BEAUTY AND YOUR MAJESTY
 
 VERSE 1
 Your beauty and Your majesty
@@ -14022,7 +14157,7 @@ My hope is in You
 There can be no greater love
 Than the one shown to us by You Son
 
-456 YOUR GREAT NAME WE PRAISE
+460 YOUR GREAT NAME WE PRAISE
 
 VERSE 1
 Immortal, invisible God only wise
@@ -14054,7 +14189,7 @@ Your angels adore you all veiling their sight
 All praise we will render, O Father of grace
 Till one day in splendor we see face to face
 
-457 YOUR GREAT RENOWN
+461 YOUR GREAT RENOWN
 
 VERSE 1
 Our hearts are longing for
@@ -14088,7 +14223,7 @@ The message of the Cross
 Will bring hope to the lost
 Yours is the greatest name of all
 
-458 YOUR HAND UPON ME
+462 YOUR HAND UPON ME
 
 VERSE 1
 O Lord You have searched me
@@ -14112,7 +14247,7 @@ Your day will consume all the shadows of night
 The dark cannot hide
 From Your brilliant light
 
-459 YOUR HOLINESS IS BEAUTIFUL
+463 YOUR HOLINESS IS BEAUTIFUL
 
 VERSE 1
 How wondrous is Your presence Lord
@@ -14142,7 +14277,7 @@ And take the veil away
 And then my joy will be complete
 I'll sing eternal praise
 
-460 YOUR HOLY MAJESTY
+464 YOUR HOLY MAJESTY
 
 VERSE 1
 You are high above all things
@@ -14173,7 +14308,7 @@ Oh You deserve eternal praise
 Now I am longing for the time
 When I will see Your
 
-461 YOUR LOVE
+465 YOUR LOVE
 
 CHORUS
 Your love will last forever
@@ -14197,7 +14332,7 @@ You lead me back to Your truth
 You show the fullness of Your love
 By making me like You
 
-462 YOUR LOVE FOR ME
+466 YOUR LOVE FOR ME
 
 VERSE 1
 Sometimes I don't get everything I ask
@@ -14219,7 +14354,7 @@ Remind me of the glories
 Of my future in You
 Of joys too amazing to speak
 
-463 YOUR LOVE IS HIGHER
+467 YOUR LOVE IS HIGHER
 
 VERSE 1
 When I'm weak and when I fail
@@ -14246,7 +14381,7 @@ So I rejoice I will delight
 That my name is written in
 Your book of life oh Lord
 
-464 YOUR LOVE STANDS FIRM
+468 YOUR LOVE STANDS FIRM
 
 CHORUS
 Your love stands firm in the heavens
@@ -14271,7 +14406,7 @@ Why are we heirs with Christ
 We should be condemned
 Why did You bring us near
 
-465 YOUR MERCY AND KINDNESS
+469 YOUR MERCY AND KINDNESS
 
 VERSE 1
 O Lord You are my shepherd
@@ -14301,7 +14436,7 @@ A table You have spread
 In sight of all my foes, Lord
 And You anoint my head
 
-466 YOUR NAME ALONE CAN SAVE
+470 YOUR NAME ALONE CAN SAVE
 
 VERSE 1
 When we were dead in our transgressions
@@ -14331,7 +14466,7 @@ In the Name above all names
 In Your Name there is power, darkness flees
 At the Name above all names
 
-467 YOUR NAME IS MATCHLESS
+471 YOUR NAME IS MATCHLESS
 
 VERSE 1
 We were sinners, we were orphans
@@ -14378,7 +14513,7 @@ A stingless death has been made certain
 And glory now awaits
 Your glory now awaits
 
-468 YOUR PRAISE WILL NEVER CEASE
+472 YOUR PRAISE WILL NEVER CEASE
 
 VERSE 1
 There's an ancient song
@@ -14409,7 +14544,7 @@ In You our King
 And delight in being
 Your redeemed
 
-469 YOUR REDEEMING LOVE
+473 YOUR REDEEMING LOVE
 
 CHORUS
 I come boldly trusting only
@@ -14441,7 +14576,7 @@ By the blood You spilt
 And now I'm living in
 Your resurrection light
 
-470 YOUR SOVEREIGN GRACE
+474 YOUR SOVEREIGN GRACE
 
 VERSE 1
 There are strong arms embracing me
@@ -14470,7 +14605,7 @@ For I know that You have chosen me Lord
 So I stand assured
 The ties that always keep You near me will endure
 
-471 YOUR WORDS ARE WONDERFUL (PSALM 119)
+475 YOUR WORDS ARE WONDERFUL (PSALM 119)
 
 VERSE 1
 Your words are wonderful, unfolding like the dawn
@@ -14502,7 +14637,7 @@ Help us in our doubt and unbelief
 Give us ears to hear and eyes to see
 Help us in our doubt and unbelief
 
-472 YOUR WORDS OF LIFE
+476 YOUR WORDS OF LIFE
 
 VERSE 1
 As we gather, come and teach us
