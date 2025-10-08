@@ -4,7 +4,7 @@ from unidecode import unidecode
 
 baseurl = "https://cityalight.com"
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
 }
 
 url = baseurl + "/resources/"
@@ -44,7 +44,9 @@ for song in songs:
     lyrics = lyrics.replace("\n\n", "\n")
     lyrics = lyrics.replace("Æ", "'")
     lyrics = lyrics.replace("æ", "'")
-    book.write(unidecode(lyrics))
+    if "MANDARIN" not in title.upper():
+        lyrics = unidecode(lyrics)
+    book.write(lyrics)
     book.write("\n")
 
     media.write(number)
