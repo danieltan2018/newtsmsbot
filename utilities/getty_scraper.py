@@ -37,6 +37,13 @@ for url in SONG_LINKS:
     soup = BeautifulSoup(req.content, "html.parser")
     title = soup.find("h1", {"class": "product-title"}).text
     title = unidecode(title).upper().strip()
+    title = (
+        title.split(" - FEAT")[0]
+        .split(" (FEAT")[0]
+        .split(" FEAT.")[0]
+        .split(", FEAT")[0]
+        .split(" FEATURING")[0]
+    )
     print(title)
     lyrics_box = soup.find("div", {"class": "song-lyrics"}).find(
         "div", {"class": "content-container"}
