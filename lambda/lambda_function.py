@@ -230,6 +230,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
     raw_message = update.message.text
     message = unidecode(raw_message).replace("\n", " ").strip().upper()
+    hint = message.startswith("TSMS")
     if message.isnumeric():  # handle default book
         message = int(message)
         message = "TSMS " + str(message)
@@ -261,6 +262,10 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if song_number:
         await send_song(update, song_number)
         saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {TITLES[song_number]}")
+        if hint:
+            await update.message.reply_html(
+                "<i>Hint: Get to TSMS songs faster by typing the song number without 'TSMS'</i>"
+            )
     if results:
         keyboard = []
         for number in results:
