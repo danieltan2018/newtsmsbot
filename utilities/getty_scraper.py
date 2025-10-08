@@ -26,7 +26,13 @@ def get_song_links(url):
     return None
 
 
-def populate_song_content(url):
+url = "/collections/all-songs?page=1&sort_by=created-ascending"
+while url:
+    url = get_song_links(base_url + url)
+
+book = open("./books/G.txt", "w+")
+counter = 1
+for url in SONG_LINKS:
     req = requests.get(base_url + url, headers=headers)
     soup = BeautifulSoup(req.content, "html.parser")
     title = soup.find("h1", {"class": "product-title"}).text
@@ -42,20 +48,12 @@ def populate_song_content(url):
     lyrics = unidecode(lyrics_box.text).strip()
     if "\n" not in lyrics:
         print(f"===== Skipping empty lyrics for {title} =====")
-        return
+        continue
     if lyrics in ALL_LYRICS:
         print(f"===== Skipping duplicate for {title} =====")
-        return
+        continue
     ALL_LYRICS.add(lyrics)
     book.write(str(counter) + " " + title + "\n\n" + lyrics + "\n\n")
     counter += 1
 
-
-url = "/collections/all-songs?page=1&sort_by=created-ascending"
-while url:
-    url = get_song_links(base_url + url)
-
-book = open("./books/G.txt", "w+")
-counter = 1
-for url in SONG_LINKS:
-    populate_song_content(url)
+book.close()
