@@ -49,13 +49,14 @@ dynamodb = boto3.resource("dynamodb")
 
 
 def saveLog(user, event, request, response):
+    now = datetime.now(timezone.utc)
     dynamodb.Table("tsms_logs").put_item(
         Item={
             "user_id": user.id,
             "name": user.full_name,
             "username": user.username,
-            "timestamp": Decimal(str(datetime.now(timezone.utc).timestamp())),
-            "timestamp_iso": datetime.now(timezone(timedelta(hours=8))).isoformat(),
+            "timestamp": Decimal(str(now.timestamp())),
+            "timestamp_iso": now.astimezone(timezone(timedelta(hours=8))).isoformat(),
             "event": event,
             "request": request,
             "response": response,
@@ -68,9 +69,8 @@ def getDbUser(user):
     return dbUser
 
 
-async def updateState(update: Update) -> None:
+async def updateState(update: Update, dbUser) -> None:
     user = update.effective_user
-    dbUser = getDbUser(update.effective_user)
     phone = dbUser["Item"]["phone"].lstrip("+")
     state = dbUser["Item"]["state"]
     if state != templates.current_version:
@@ -123,9 +123,9 @@ async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         saveLog(user, "CONTACT", phone, "Blocked")
 
 
-async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not getDbUser(user):
+    if "Item" not in getDbUser(user):
         await update.effective_chat.send_message("Press /start to begin")
         return
     await update.message.reply_html(
@@ -144,6 +144,18 @@ def make_button(song_number, option, callback_prefix, button_text):
             ]
         ]
     return []
+
+
+async def send_link_buttons(update: Update, links, source) -> None:
+    keyboard = [
+        [InlineKeyboardButton(key, url=value)] for key, value in links.items()
+    ]
+    await update.effective_chat.send_message(
+        text=f"Links provided by {source}",
+        parse_mode=constants.ParseMode.HTML,
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup(keyboard),
+    )
 
 
 async def send_song(update: Update, song_number) -> None:
@@ -184,48 +196,15 @@ async def send_song(update: Update, song_number) -> None:
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
     if song_number in CA_LINKS:
-        keyboard = []
-        for key, value in CA_LINKS.get(song_number).items():
-            keyboard.extend(
-                [
-                    [
-                        InlineKeyboardButton(
-                            key,
-                            url=value,
-                        )
-                    ]
-                ]
-            )
-        await update.effective_chat.send_message(
-            text="Links provided by cityalight.com",
-            parse_mode=constants.ParseMode.HTML,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-        )
+        await send_link_buttons(update, CA_LINKS[song_number], "cityalight.com")
     if song_number in SGM_LINKS:
-        keyboard = []
-        for key, value in SGM_LINKS.get(song_number).items():
-            keyboard.extend(
-                [
-                    [
-                        InlineKeyboardButton(
-                            key,
-                            url=value,
-                        )
-                    ]
-                ]
-            )
-        await update.effective_chat.send_message(
-            text="Links provided by sovereigngracemusic.com",
-            parse_mode=constants.ParseMode.HTML,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(keyboard),
-        )
+        await send_link_buttons(update, SGM_LINKS[song_number], "sovereigngracemusic.com")
 
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not getDbUser(user):
+    dbUser = getDbUser(user)
+    if "Item" not in dbUser:
         await update.effective_chat.send_message("Press /start to begin")
         return
     raw_message = update.message.text
@@ -288,7 +267,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             "<i>No matches found</i>\n\nType /help for instructions"
         )
         saveLog(user, "SEARCH_NONE", raw_message, None)
-    await updateState(update)
+    await updateState(update, dbUser)
 
 
 def make_ppt(song_number):
@@ -309,7 +288,7 @@ def make_ppt(song_number):
         if stanza.startswith("Chorus:") or stanza.startswith("Refrain:"):
             chorus = i
             break
-    if chorus:
+    if chorus is not None:
         i = chorus + 2
         while True:
             text.insert(i, stanza)
@@ -371,7 +350,7 @@ def make_ppt(song_number):
 
 async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if not getDbUser(user):
+    if "Item" not in getDbUser(user):
         await update.effective_chat.send_message(text="Press /start to begin")
         return
     query = update.callback_query
@@ -463,6 +442,6 @@ def lambda_handler(event, context):
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.CONTACT, contact))
-app.add_handler(CommandHandler("help", help))
+app.add_handler(CommandHandler("help", help_command))
 app.add_handler(MessageHandler(filters.TEXT, search))
 app.add_handler(CallbackQueryHandler(answer_callback))

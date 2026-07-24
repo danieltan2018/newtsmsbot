@@ -1,4 +1,8 @@
+import logging
+
 from google import genai
+
+logger = logging.getLogger()
 
 client = genai.Client()
 
@@ -14,6 +18,7 @@ def explainSong(lyrics):
             contents=["Explain this hymn in up to 7 lines", lyrics],
         ).text
         response += disclaimer
-    except:
+    except Exception:
+        logger.exception("explainSong failed")
         response = error_message
     return response

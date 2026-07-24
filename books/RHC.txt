@@ -355,7 +355,7 @@ To notes almost divine.
 
 Come, Thou almighty King, Help us Thy Name to sing,
 Help us to praise: Father all glorious,
-Oaer all victorious, Come and reign over us,
+O'er all victorious, Come and reign over us,
 Ancient of Days.
 
 Come, Thou Incarnate Word, Gird on Thy mighty sword,
@@ -571,7 +571,7 @@ Who from our mothers' arms, Hath blessed us on our way
 With countless gifts of love, And still is ours today.
 
 O may this bounteous God, Thru all our life be near us,
-With ever joyful hearts, And blessA"d peace to cheer us;
+With ever joyful hearts, And blessèd peace to cheer us;
 And keep us in His grace, And guide us when perplexed,
 And free us from all ills, In this world and the next.
 
@@ -768,7 +768,7 @@ He to my rescue came.
 
 The hosts of God encamp around
 The dwellings of the just;
-Deliv'rnce He affords to all
+Deliv'rance He affords to all
 Who on His succour trust.
 
 O make but trial of His love;
@@ -1049,7 +1049,7 @@ Thy name be ever praised! O Lord, make us free!
 A mighty fortress is our God, a bulwark never failing;
 Our helper He amid the flood, Of mortal ills prevailing.
 For still our ancient foe, Doth seek to work us woe -
-His craft and powe'r are great, And, armed with cruel hate,
+His craft and pow'r are great, And, armed with cruel hate,
 On earth is not his equal.
 
 Did we in our own strength confide, Our striving would be losing,
@@ -1094,7 +1094,7 @@ Blessings all mine, with ten thousand beside!
 
 48 O BLESS OUR GOD WITH ONE ACCORD
 
-O bless our God with once accord,
+O bless our God with one accord,
 Ye faithful servants of the Lord,
 Who in his house do stand by night;
 And praise him there with all your might.
@@ -1107,7 +1107,7 @@ And worship him with reverence meet.
 Jehovah bless thee from above,
 From Zion in his boundless love,
 Our God, who heav'n and earth did frame;
-Bles be his great and holy Name.
+Bless be his great and holy Name.
 
 Amen.
 
@@ -1244,7 +1244,7 @@ Shed o'er the world Thy holy light.
 His name is Wonderful, His name is Wonderful,
 His name is Wonderful, Jesus my Lord;
 He is the mighty King, Master of ev'rything,
-His name is Wonderful, Jesus, my Lord. 
+His name is Wonderful, Jesus, my Lord.
 
 He's the great Shepherd, the Rock of all ages,
 Almighty God is He;
@@ -1487,7 +1487,7 @@ His well-beloved Son.
 
 He sees Thy spotless robe;
 It covers all our sin;
-The golden gate have welcomes Thee,
+The golden gate hath welcomed Thee,
 And we may enter in.
 
 Thou hast fulfilled the law,
@@ -1806,7 +1806,7 @@ For dark and light are both alike to Thee.
 Grant us Thy peace thru-out our earthly life,
 Our balm in sorrow and our stay in strife;
 Then, when Thy voice shall bid our conflict cease,
-Call us, O Lord, to Thine eternal pace.
+Call us, O Lord, to Thine eternal peace.
 
 78 AT EVEN, WHEN THE SUN WAS SET
 
@@ -2047,7 +2047,7 @@ May Thy glory meet our eyes, While we in Thy house appear:
 Here afford us, Lord, a taste, Of our everlasting feast,
 Here afford us, Lord, a taste, Of our everlasting feast.
 
-May Thy gospela's joyful sound, Conquer sinners, comfort saints;
+May Thy gospel's joyful sound, Conquer sinners, comfort saints;
 May the fruits of grace abound, Bring relief for all complaints:
 Thus may all our Sabbaths prove, Till we join the Church above,
 Thus may all our Sabbaths prove, Till we join the Church above!
@@ -2093,8 +2093,8 @@ Strength and honor give to His holy name!
 Like a shepherd, Jesus will guard His children -
 In His arms He carries them all day long:
 
-Praise Him! Praise Him!aTell of His excellent greatness!
-Praise Him! Praise Him!aEver in joyful song!
+Praise Him! Praise Him! Tell of His excellent greatness!
+Praise Him! Praise Him! Ever in joyful song!
 
 Praise Him! Praise Him! Jesus, our blessed Redeemer!
 For our sins He suffered and bled and died;
@@ -2375,7 +2375,7 @@ Tis a melody of love.
 In my heart there rings a melody,
 There rings a melody with heaven's harmony;
 In my heart there rings a melody;
-There rings a melody of love! 
+There rings a melody of love!
 
 I love the Christ who died on Calv'ry,
 For He washed my sins away;
@@ -2925,7 +2925,7 @@ That none can bear below.
 Of Jesus love that sought me, When I was lost in sin -
 Of wondrous grace that brought me, Back to His fold again -
 Of heights and depths of mercy, Far deeper than the sea
-And higher than the heavens, mMy theme shall ever be.
+And higher than the heavens, My theme shall ever be.
 
 Sweeter as the years go by,
 Sweeter as the years go by;
@@ -3091,7 +3091,7 @@ In His own sweet way He guides me
 When the path I cannot see.
 
 O what splendor, O what glory,
-I what matchless pow'r divine.
+O what matchless pow'r divine.
 Is the Christ of Gospel story,
 Christ the Saviour, who is mine.
 
@@ -4238,7 +4238,7 @@ And sinners plunged beneath that flood lose all their guilty stains.
 
 The dying thief rejoiced to see that fountain in his day,
 And there may I, though vile as he, wash all my sins away:
-Wash all my sins away, washe all my sins away;
+Wash all my sins away, wash all my sins away;
 And there may I, though vile as he, wash all my sins away.
 
 Dear dying Lamb, Thy precious blood shall never lose its pow'r,
@@ -4326,7 +4326,7 @@ With palms and scattered garments strowed.
 Ride on, ride on in majesty!
 In lowly pomp ride on to die:
 O Christ, Thy triumphs now begin
-O'r captive death and conquered sin.
+O'er captive death and conquered sin.
 
 Ride on, ride on in majesty!
 The angel armies of the sky
@@ -4744,7 +4744,7 @@ The star is dimmed that lately shown;
 The suff'ring Saviour prays alone.
 
 'Tis midnight - and from all removed,
-The Saior wrestles lone with fears,
+The Savior wrestles lone with fears,
 E'en the disciple that He loved
 Heeds not His Master's grief and tears.
 
@@ -4763,7 +4763,7 @@ That sweetly soothe the Savior's woe.
 Alas! and did my Savior bleed?
 And did my Sov'reign die?
 Would He devote that sacred head
-For such a worm such as I?
+For such a worm as I?
 
 Was it for crimes that I have done
 He groaned upon the tree?
@@ -4842,7 +4842,7 @@ Made sweet hosannas ring:
 Thou art the King of Israel,
 Thou David's royal Son,
 Who in the Lord's name comest,
-The King and Blessed One1
+The King and Blessed One!
 
 The company of angels
 Are praising Thee on high,
@@ -5011,7 +5011,7 @@ Alleluia!
 
 The pow'rs of death have done their worst,
 But Christ their legions hath dispersed.
-Let shouts of holy joy outburst.:
+Let shouts of holy joy outburst:
 Alleluia!
 
 The three sad days have quickly sped,
@@ -5149,14 +5149,14 @@ Of triumphant gladness:
 God has brought His people forth
 Into joy from sadness.
 Now rejoice, Jerusalem
-And with ture affection
+And with true affection
 Welcome with unceasing praise
 Jesus' resurrection.
 
 'Tis the spring of souls today:
 Christ hath burst His prison,
 From the frost and gloom of death
-Light and live have risen;
+Light and life have risen;
 All the winter of our sins,
 Long and dark, is flying
 From His light to whom we give
@@ -5249,7 +5249,7 @@ Speak His sorrows ended, hail His triumph now:
 
 Maker and Redeemer, life and health to all,
 Thou from heaven beholding human nature's fall,
-Of th'eteranl Father true and only Son,
+Of th'eternal Father true and only Son,
 Manhood to deliver, manhood didst put on:
 
 Thou, of life the author, death didst undergo,
@@ -5354,7 +5354,7 @@ To their eternal home:
 Lift up your heart; lift up your voice!
 Rejoice, again I say, rejoice!
 
-218 SEE THE CON-Q'ROR MOUNTS IN TRIUMPH
+218 SEE THE CONQU'ROR MOUNTS IN TRIUMPH
 
 See the Conq'ror mounts in triumph,
 See the King in royal state -
@@ -5562,16 +5562,16 @@ From world to world the joy shall ring,
 
 The Lord is King! who then shall dare
 Resist His will, distrust His care,
-Pr murmur at Jis wise decrees,
-or doubt Jis royal promises?
+Or murmur at His wise decrees,
+Or doubt His royal promises?
 
 The Lord is King! child of the dust,
 The Judge of all the earth is just;
-Holy and true are all hHis ways;
+Holy and true are all His ways;
 Let ev'ry creature speak His praise.
 
 He reigns! ye saints, exalt our strains;
-Your God is King, your Father rigns;
+Your God is King, your Father reigns;
 And He is at the Father's side,
 The Man of Love, the crucified.
 
@@ -5669,7 +5669,7 @@ Our love so faint, so cold to Thee,
 And Thine to us so great!
 
 Come, Holy Spirit, heav'nly Dove,
-With all Thy quick'ning powe's;
+With all Thy quick'ning pow'rs;
 Come, shed abroad a Savior's love,
 And that shall kindle ours.
 
@@ -5803,7 +5803,7 @@ And hung'ring for the Bread of Life,
 O may our spirits be!
 
 Revive Thy work, O Lord:
-O fill Thy church with pwo'r;
+O fill Thy church with pow'r;
 With cloven tongues on us descend.
 Equip us for this hour!
 
@@ -6315,7 +6315,7 @@ Then thy word doth cheer us,
 Word of consolation,
 Message of salvation.
 
-When the storms are oer us,
+When the storms are o'er us,
 And dark clouds before us,
 Then its light directeth,
 And our way protecteth.
@@ -6472,7 +6472,7 @@ Springing from eternal love,
 Well supply thy sons and daughters,
 And all fear of want remove:
 Who can faint, when such a river
-Ever flows thy thirst to asswage?
+Ever flows thy thirst to assuage?
 Grace which, like the Lord, the Giver,
 Never fails from age to age.
 
@@ -6588,7 +6588,7 @@ Lord, I'm coming home.
 
 Chorus:
 Coming home, coming home,
-Nevermore to roam'
+Nevermore to roam;
 Open wide Thine arms of love -
 Lord, I'm coming home.
 
@@ -7544,7 +7544,7 @@ And "I will pass, will pass over you."
 
 Judgment is coming, all will be there,
 Each one receiving justly his due;
-Hide in the saving sin-cleasing blood,
+Hide in the saving sin-cleansing blood,
 And "I will pass, will pass over you."
 
 O great compassion! O boundless love!
@@ -7888,9 +7888,9 @@ My anchor holds within the veil.
 His oath, His covenant, His blood
 Support me in the whelming flood;
 When all around my soul gives way,
-he then is all my hope and stay.
+He then is all my hope and stay.
 
-When He shall come with trumpet sound,,
+When He shall come with trumpet sound,
 O may I then in Him be found;
 Dressed in His righteousness alone,
 Faultless to stand before the throne.
@@ -7970,7 +7970,7 @@ Life, and rest, and joy, and peace.
 I'm so glad I learn'd to trust Thee,
 Precious Jesus, Savior, Friend;
 And I know that Thou art with me,
-Wilt be with me to the end. [Chorus}
+Wilt be with me to the end. [Chorus]
 
 321 HE HIDETH MY SOUL
 
@@ -8063,8 +8063,8 @@ Are for them who will trust and obey.
 Then in fellowship sweet
 We will sit at His feet,
 Or we'll walk by His side in the way;
-What He says we sill do,
-Where He sends we sill go -
+What He says we will do,
+Where He sends we will go -
 Never fear, only trust and obey.
 
 324 TRUSTING JESUS
@@ -8732,7 +8732,7 @@ Bear me thru the selling current,
 Land me safe on Canaan's side:
 Songs of praises, songs of praises,
 I will ever give to Thee,
-Ti will ever give to Thee.
+I will ever give to Thee.
 
 349 SURELY GOODNESS AND MERCY
 
@@ -8766,7 +8766,7 @@ O words with heav'nly comfort fraught!
 Whate'er I do where'er I be,
 Still 'tis God's hand that leadeth me!
 
-Chours:
+Chorus:
 He leadeth me, He leadeth me,
 By His own hand He leadeth me:
 His faithful foll'wer I would be,
@@ -8803,7 +8803,7 @@ Jesus doeth all things well.
 All the way my Savior leads me -
 Cheers each winding path I tread,
 Gives me grace for ev'ry trial,
-Feeds me with the lving bread.
+Feeds me with the living bread.
 Tho my weary steps may falter,
 And my soul athirst may be,
 Gushing from the Rock before me,
@@ -9299,7 +9299,7 @@ E'en tho it be a cross
 That raiseth me,
 Still all my song shall be,
 Nearer, my God, to Thee;
-nearer, my God, to Thee,
+Nearer, my God, to Thee,
 Nearer to Thee!
 
 Tho like the wanderer,
@@ -9892,7 +9892,7 @@ And His dear name repeat.
 O precious cross! O glorious crown!
 O resurrection day!
 Ye angels, from the stars come down
-And hear my soul away.
+And bear my soul away.
 
 392 MORE LOVE TO THEE
 
@@ -10040,7 +10040,7 @@ To call us sons of God.
 
 Concealed as yet this honour lies,
 By this dark world unknown,
-! world that knew not, when He came,
+A world that knew not, when He came,
 E'en God's eternal Son.
 
 High is the rank we now possess,
@@ -10331,7 +10331,7 @@ Day by day His sweet voice soundeth,
 Saying, "Christian, follow Me."
 
 Jesus calls us from the worship
-Of the vain world's goldne store,
+Of the vain world's golden store,
 From each idol that would keep us,
 Saying, "Christian, love Me more."
 
@@ -10775,7 +10775,7 @@ I'll go with Him, with Him all the way.
 I'll go with Him thru the judgment,
 I'll go with Him thru the judgment,
 I'll go with Him thru the judgment,
-I'll go with Him, with Him all the way. [Chorus[
+I'll go with Him, with Him all the way. [Chorus]
 
 He will give me grace and glory,
 He will give me grace and glory,
@@ -10865,7 +10865,7 @@ Thou wilt give us sweet content;
 There, dear Lord, we shall receive Thee
 In the solemn Sacrament.
 
-All for Jesus - Thou hast love us;
+All for Jesus - Thou hast loved us;
 All for Jesus Thou hast died;
 All for Jesus Thou art with us;
 All for Jesus Crucified.
@@ -10939,7 +10939,7 @@ To consecrate myself to Thee, -
 O Jesus Christ, I come.
 
 In the glad morning of my day,
-My life to give, my vows o pay,
+My life to give, my vows to pay,
 With no reserve and no delay, -
 With all my heart I come.
 
@@ -11117,7 +11117,7 @@ May we wear the crown before Thy face.
 
 437 ONWARD, CHRISTIAN SOLDIERS
 
-Onward, Christian solders,
+Onward, Christian soldiers,
 marching as to war,
 With the cross of Jesus
 Going on before!
@@ -11327,7 +11327,7 @@ Tread all the powers of darkness down,
 And win the well-fought day, -
 That, having all things done,
 And all your conflicts passed,
-Ye may o'er come through Christ alone,
+Ye may o'ercome through Christ alone,
 And stand complete at last.
 
 Amen.
@@ -11629,7 +11629,7 @@ That I have loved so long.
 Far, far away, in death and darkness dwelling,
 Millions of souls forever may be lost;
 Who, who will go, salvation's story telling,
-Looking to Jesus, ininding not the cost?
+Looking to Jesus, minding not the cost?
 
 Chorus:
 "All pow'r is given unto Me,
@@ -11779,7 +11779,7 @@ Tell how He stooped to save His lost creation,
 And died on earth that man might live above.
 
 Give of thy sons to bear the message glorious,
-Give of thy wealth to speed them it on its way;
+Give of thy wealth to speed them on their way;
 Pour out thy soul for them in prayer victorious,
 And all thou spendest Jesus will repay.
 
@@ -11920,9 +11920,9 @@ Thy earthly loss is heav'nly gain;
 Men heed thee, love thee, praise thee not;
 The Master praises what are men?
 
-Go, labour on; your hands are week,
+Go, labour on; your hands are weak,
 Your knees are faint, your soul cast down;
-Yet falter not; the prize you seek'
+Yet falter not; the prize you seek;
 Is near a kingdom and a crown.
 
 Go, labour on while it is day:
@@ -11964,7 +11964,7 @@ We shall come rejoicing, bringing in the sheaves.
 
 Going forth with weeping, sowing for the Master,
 Tho the loss sustained our spirit often grieves;
-When our weepint's over He will bid us welcome -
+When our weeping's over He will bid us welcome -
 We shall come rejoicing, bringing in the sheaves.
 
 468 SPEAK JUST A WORD FOR JESUS
@@ -12161,7 +12161,7 @@ Then welcome day! and farewell, mortal night!
 
 O Father all Creating,
 Whose wisdom, love and power,
-Firs bound two lives together
+First bound two lives together
 In Eden's primal hour,
 Today to these thy children
 Thine earliest gifts renew,
@@ -12173,7 +12173,7 @@ Of old in Galilee,
 Vouchsafe today thy presence
 With these who call on thee,
 Their store of earthly gladness
-transform t heavenly wine,
+transform to heavenly wine,
 And teach them in the tasting
 To know the gift is thine.
 
@@ -12184,7 +12184,7 @@ So tender in thy love,
 That, guarded by thy presence,
 From sin and strife kept free,
 Their lives may own thy guidance,
-Their hearts be rule by thee.
+Their hearts be ruled by thee.
 
 Except thou build it, Father,
 The house is built in vain;
@@ -12533,7 +12533,7 @@ And Thy soldier I will be,
 For He loves the little children of the world;
 And His cross I'll always bear,
 And for Him I'll do and dare,
-For He love the little children of the world.
+For He loves the little children of the world.
 
 526 THERE IS A CITY
 
@@ -12747,7 +12747,7 @@ But day-spring is at hand,
 And glory, glory dwelleth
 In Immanuel's land.
 
-O Christ, Je is the fountain,
+O Christ, He is the fountain,
 The deep, sweet well of love!
 The streams on earth I've tasted
 More deep I'll drink above:
@@ -12809,7 +12809,7 @@ And the blest forever sing,
 In the palace of the King,
 Meet me there;
 Where in sweet communion blend
-Jeart with heart and friend with friend,
+Heart with heart and friend with friend,
 In a world that ne'er shall end,
 Meet me there.
 
@@ -12922,7 +12922,7 @@ Or walk the golden streets,
 Or walk the golden streets.
 
 Then let our songs abound,
-And ev'ry Tear be dry;
+And ev'ry tear be dry;
 We're marching thru Immanuel's ground,
 We're marching thru Immanuel's ground
 To fairer worlds on high,
@@ -13288,7 +13288,7 @@ I will remember Thee.
 The body, broken for my sake,
 My bread from heav'n shall be;
 Thy testamental cup I take,
-And thus remember Yhee.
+And thus remember Thee.
 
 Gethsemane can I forget,
 Or there Thy conflict see,
@@ -13374,7 +13374,7 @@ The warmth to swell the grain,
 The breezes and the sunshine,
 And soft refreshing rain:
 
-Refrain"
+Refrain:
 All good gifts around us
 Are sent from heaven above;
 Then thank the Lord,
