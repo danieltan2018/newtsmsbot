@@ -28,6 +28,22 @@ Colossians 3:16</i>
 Send me a <b>song number, title or lyrics</b>, or type /help for instructions.
 """
 
+community_join = """
+⛪️ <b>You have joined a new Community!</b> ⛪️
+
+Others are also searching for <b>{title}</b>! We have automatically formed a <i>Community</i>, making it easy to share songs with everyone.
+
+You'll see a <i>"Send to Community"</i> option when you search for songs, and will receive songs sent by people in the same <i>Community</i>.
+
+Use /leave to exit the <i>Community</i>. Communities automatically expire after a period of inactivity.
+"""
+
+group_not_in_community = "<i>You are currently not in a Community</i>"
+
+group_left = "<i>You have left the Community</i>"
+
+group_sent_caption = "\n\n<i>Sent by {name}. Use /leave to exit the Community.</i>"
+
 examples = """
 <b>HOW TO USE</b>
 

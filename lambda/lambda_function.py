@@ -9,6 +9,7 @@ from io import BytesIO
 
 import ai
 import boto3
+import groups
 import templates
 from cache import CA_LINKS, CHORDS, MP3, PIANO, SCORES, SGM_LINKS, SONGS, TITLES, VIDEOS
 from lookup import SONGS_LOOKUP, TITLES_LOOKUP
@@ -158,7 +159,8 @@ async def send_link_buttons(update: Update, links, source) -> None:
     )
 
 
-async def send_song(update: Update, song_number) -> None:
+async def send_song(update: Update, context: ContextTypes.DEFAULT_TYPE, song_number, dbUser) -> None:
+    active_group_id = groups.get_active_group(update.effective_user.id, dbUser)
     keyboard = []
     keyboard.extend(
         make_button(song_number, song_number in CHORDS, "CHORDS", "🎸 Guitar Chords")
@@ -189,6 +191,11 @@ async def send_song(update: Update, song_number) -> None:
     if lyrics.count("\n\n") > 0:
         keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
         keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
+    keyboard.extend(
+        make_button(
+            song_number, active_group_id is not None, "GROUP_SEND", "📢 Send to Community"
+        )
+    )
     await update.effective_chat.send_message(
         text=lyrics,
         parse_mode=constants.ParseMode.HTML,
@@ -199,6 +206,7 @@ async def send_song(update: Update, song_number) -> None:
         await send_link_buttons(update, CA_LINKS[song_number], "cityalight.com")
     if song_number in SGM_LINKS:
         await send_link_buttons(update, SGM_LINKS[song_number], "sovereigngracemusic.com")
+    await groups.process_search_event(context, saveLog, update.effective_user, song_number, active_group_id)
 
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -239,7 +247,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             results = [t[2] for t in query]
 
     if song_number:
-        await send_song(update, song_number)
+        await send_song(update, context, song_number, dbUser)
         saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {TITLES[song_number]}")
         if hint:
             await update.message.reply_html(
@@ -350,14 +358,15 @@ def make_ppt(song_number):
 
 async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
-    if "Item" not in getDbUser(user):
+    dbUser = getDbUser(user)
+    if "Item" not in dbUser:
         await update.effective_chat.send_message(text="Press /start to begin")
         return
     query = update.callback_query
     data = query.data
     if data.startswith("SONG "):
         song_number = data.replace("SONG ", "")
-        await send_song(update, song_number)
+        await send_song(update, context, song_number, dbUser)
         saveLog(user, "CALLBACK", "SONG", song_number)
     elif data.startswith("CHORDS "):
         song_number = data.replace("CHORDS ", "")
@@ -416,11 +425,47 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await update.effective_chat.send_message(
             response, parse_mode=constants.ParseMode.HTML
         )
+    elif data.startswith("GROUP_SEND "):
+        song_number = data.replace("GROUP_SEND ", "")
+        saveLog(user, "CALLBACK", "GROUP_SEND", song_number)
+        active_group_id = groups.get_active_group(user.id, dbUser)
+        if active_group_id is None:
+            await query.answer(text="You are currently not in a Community", show_alert=True)
+            return
+        if not groups.try_mark_sent(active_group_id, song_number):
+            await query.answer(text="Song has already been sent.", show_alert=True)
+            return
+        lyrics = SONGS.get(song_number) + templates.group_sent_caption.format(
+            name=user.full_name
+        )
+        for member_id in groups.get_group_members(active_group_id):
+            await context.bot.send_message(
+                chat_id=member_id,
+                text=lyrics,
+                parse_mode=constants.ParseMode.HTML,
+                disable_web_page_preview=True,
+            )
+        saveLog(user, "GROUP", active_group_id, "SEND")
     else:
         await query.answer(text="This feature is not available")
         saveLog(user, "CALLBACK_INVALID", data, None)
         return
     await query.answer()
+
+
+async def leave(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = update.effective_user
+    dbUser = getDbUser(user)
+    if "Item" not in dbUser:
+        await update.effective_chat.send_message("Press /start to begin")
+        return
+    active_group_id = groups.get_active_group(user.id, dbUser)
+    if active_group_id is None:
+        await update.message.reply_html(templates.group_not_in_community)
+        return
+    groups.leave_group(user.id, active_group_id)
+    await update.message.reply_html(templates.group_left)
+    saveLog(user, "GROUP", active_group_id, "LEAVE")
 
 
 async def tg_bot_main(bot_app, event):
@@ -443,5 +488,6 @@ def lambda_handler(event, context):
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.CONTACT, contact))
 app.add_handler(CommandHandler("help", help_command))
+app.add_handler(CommandHandler("leave", leave))
 app.add_handler(MessageHandler(filters.TEXT, search))
 app.add_handler(CallbackQueryHandler(answer_callback))
