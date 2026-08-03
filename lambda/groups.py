@@ -1,3 +1,4 @@
+import asyncio
 import time
 from decimal import Decimal
 from types import SimpleNamespace
@@ -7,6 +8,7 @@ import templates
 from botocore.exceptions import ClientError
 from cache import TITLES
 from telegram import constants
+from telegram.error import TelegramError
 
 dynamodb = boto3.resource("dynamodb")
 
@@ -50,50 +52,51 @@ async def community_join(context, saveLog, user_id, song_number, group_id):
         ExpressionAttributeValues={":g": group_id},
     )
     title = TITLES[song_number].title()
-    await context.bot.send_message(
-        chat_id=user_id,
-        text=templates.community_join.format(title=title),
-        parse_mode=constants.ParseMode.HTML,
-    )
+    try:
+        await context.bot.send_message(
+            chat_id=user_id,
+            text=templates.community_join.format(title=title),
+            parse_mode=constants.ParseMode.HTML,
+        )
+        dm_sent = True
+    except TelegramError:
+        dm_sent = False  # can't notify this member, but they're still joined
+    saveLog(get_log_user(user_id), "GROUP", group_id, "JOIN" if dm_sent else "JOIN_NO_DM")
+
+
+def get_log_user(user_id):
     dbUser = dynamodb.Table("tsms_users").get_item(Key={"id": user_id}).get("Item", {})
-    log_user = SimpleNamespace(
-        id=user_id, full_name=dbUser.get("name"), username=None
-    )
-    saveLog(log_user, "GROUP", group_id, "JOIN")
+    return SimpleNamespace(id=user_id, full_name=dbUser.get("name"), username=None)
 
 
 def try_mark_sent(group_id, song_number):
+    """Marks song as sent; returns the member id set, or None if the group is
+    gone/expired or the song was already sent."""
     now = int(time.time())
-    group = dynamodb.Table("tsms_groups").get_item(Key={"id": group_id}).get("Item")
-    if not group or int(group.get("ttl", 0)) <= now:
-        return False
     try:
         # Atomic check-and-mark: only one of two simultaneous "Send to Community"
         # taps for the same song can win this write, closing the duplicate-
-        # broadcast race a plain read-then-write would leave open.
-        dynamodb.Table("tsms_groups").update_item(
+        # broadcast race a plain read-then-write would leave open. Folding the
+        # existence check into the same condition (rather than a separate
+        # pre-read) also avoids a redundant get_item, since get_active_group
+        # has already confirmed liveness immediately before this is called.
+        response = dynamodb.Table("tsms_groups").update_item(
             Key={"id": group_id},
             UpdateExpression="ADD #s :s SET #ttl = :ttl",
-            ConditionExpression="attribute_not_exists(#s) OR NOT contains(#s, :song)",
+            ConditionExpression="attribute_exists(id) AND (attribute_not_exists(#s) OR NOT contains(#s, :song))",
             ExpressionAttributeNames={"#s": "sent", "#ttl": "ttl"},
             ExpressionAttributeValues={
                 ":s": {song_number},
                 ":ttl": Decimal(now + GROUP_TTL_SECONDS),
                 ":song": song_number,
             },
+            ReturnValues="ALL_NEW",
         )
     except ClientError as e:
         if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
-            return False
+            return None
         raise
-    return True
-
-
-def get_group_members(group_id):
-    group = dynamodb.Table("tsms_groups").get_item(Key={"id": group_id}).get("Item")
-    if not group:
-        return set()
-    return {int(u) for u in group.get("users", set())}
+    return {int(u) for u in response["Attributes"].get("users", set())}
 
 
 def leave_group(user_id, group_id):
@@ -138,12 +141,22 @@ async def process_search_event(context, saveLog, user, song_number, active_group
 
     if active_group_id:
         if not recents_group_id:
-            recents_table.update_item(
-                Key={"song": song_number},
-                UpdateExpression="SET #g = :g",
-                ExpressionAttributeNames={"#g": "group"},
-                ExpressionAttributeValues={":g": active_group_id},
-            )
+            try:
+                # CAS guard: get_item above is eventually consistent, so without
+                # this a stale read could clobber a group tag another concurrent
+                # request already wrote moments ago.
+                recents_table.update_item(
+                    Key={"song": song_number},
+                    UpdateExpression="SET #g = :g",
+                    ConditionExpression="attribute_not_exists(#g)",
+                    ExpressionAttributeNames={"#g": "group"},
+                    ExpressionAttributeValues={":g": active_group_id},
+                )
+            except ClientError as e:
+                if e.response["Error"]["Code"] != "ConditionalCheckFailedException":
+                    raise
+                # someone else already tagged this recents row first — fine,
+                # this user already has their own active_group_id regardless
         return
 
     if recents_group_id:
@@ -184,8 +197,9 @@ async def process_search_event(context, saveLog, user, song_number, active_group
                 "users": updated_users,
             }
         )
-        for uid in updated_users:
-            await community_join(context, saveLog, uid, song_number, group_id)
+        await asyncio.gather(
+            *(community_join(context, saveLog, uid, song_number, group_id) for uid in updated_users)
+        )
         return
 
     recents_table.update_item(

@@ -29,6 +29,7 @@ from telegram import (
     Update,
     constants,
 )
+from telegram.error import TelegramError
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -70,6 +71,26 @@ def getDbUser(user):
     return dbUser
 
 
+async def require_registration(update: Update, dbUser, action) -> bool:
+    if "Item" in dbUser:
+        return True
+    await update.effective_chat.send_message("Press /start to begin")
+    saveLog(update.effective_user, "NOT_REGISTERED", action, None)
+    return False
+
+
+async def reply_and_log(update: Update, text, event, request=None, response=None, **kwargs):
+    await update.message.reply_html(text, **kwargs)
+    saveLog(update.effective_user, event, request, response)
+
+
+async def send_and_log(update: Update, text, event, request=None, response=None, **kwargs):
+    await update.effective_chat.send_message(
+        text=text, parse_mode=constants.ParseMode.HTML, **kwargs
+    )
+    saveLog(update.effective_user, event, request, response)
+
+
 async def updateState(update: Update, dbUser) -> None:
     user = update.effective_user
     phone = dbUser["Item"]["phone"].lstrip("+")
@@ -84,19 +105,17 @@ async def updateState(update: Update, dbUser) -> None:
             },
             ExpressionAttributeNames={"#st": "state"},
         )
-        await update.message.reply_html(templates.changelog)
+        await reply_and_log(update, templates.changelog, "CHANGELOG", response=templates.current_version)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user = update.effective_user
     contact_keyboard = KeyboardButton(text="REGISTER", request_contact=True)
     reply_markup = ReplyKeyboardMarkup(
         [[contact_keyboard]],
         one_time_keyboard=True,
         input_field_placeholder="Use button below to register",
     )
-    await update.message.reply_html(templates.start, reply_markup=reply_markup)
-    saveLog(user, "START", None, None)
+    await reply_and_log(update, templates.start, "START", reply_markup=reply_markup)
 
 
 async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -112,27 +131,27 @@ async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 "state": templates.current_version,
             }
         )
-        await update.message.reply_html(
-            templates.welcome, reply_markup=ReplyKeyboardRemove()
-        )
-        saveLog(user, "CONTACT", phone, "Allowed")
-    else:
-        await update.message.reply_html(
-            "Sorry, our automated security check does not allow you to use this bot.",
+        await reply_and_log(
+            update, templates.welcome, "CONTACT", request=phone, response="Allowed",
             reply_markup=ReplyKeyboardRemove(),
         )
-        saveLog(user, "CONTACT", phone, "Blocked")
+    else:
+        await reply_and_log(
+            update,
+            "Sorry, our automated security check does not allow you to use this bot.",
+            "CONTACT", request=phone, response="Blocked",
+            reply_markup=ReplyKeyboardRemove(),
+        )
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user = update.effective_user
-    if "Item" not in getDbUser(user):
-        await update.effective_chat.send_message("Press /start to begin")
+    dbUser = getDbUser(update.effective_user)
+    if not await require_registration(update, dbUser, "HELP"):
         return
-    await update.message.reply_html(
-        templates.examples, reply_markup=ReplyKeyboardRemove(), protect_content=True
+    await reply_and_log(
+        update, templates.examples, "HELP",
+        reply_markup=ReplyKeyboardRemove(), protect_content=True,
     )
-    saveLog(user, "HELP", None, None)
 
 
 def make_button(song_number, option, callback_prefix, button_text):
@@ -147,19 +166,20 @@ def make_button(song_number, option, callback_prefix, button_text):
     return []
 
 
-async def send_link_buttons(update: Update, links, source) -> None:
+async def send_link_buttons(update: Update, links, source, song_number) -> None:
     keyboard = [
         [InlineKeyboardButton(key, url=value)] for key, value in links.items()
     ]
-    await update.effective_chat.send_message(
-        text=f"Links provided by {source}",
-        parse_mode=constants.ParseMode.HTML,
+    await send_and_log(
+        update, f"Links provided by {source}", "LINKS", request=source, response=song_number,
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
 
 
-async def send_song(update: Update, context: ContextTypes.DEFAULT_TYPE, song_number, dbUser) -> None:
+async def send_song(
+    update: Update, context: ContextTypes.DEFAULT_TYPE, song_number, dbUser, event, request
+) -> None:
     active_group_id = groups.get_active_group(update.effective_user.id, dbUser)
     keyboard = []
     keyboard.extend(
@@ -196,24 +216,22 @@ async def send_song(update: Update, context: ContextTypes.DEFAULT_TYPE, song_num
             song_number, active_group_id is not None, "GROUP_SEND", "📢 Send to Community"
         )
     )
-    await update.effective_chat.send_message(
-        text=lyrics,
-        parse_mode=constants.ParseMode.HTML,
+    await send_and_log(
+        update, lyrics, event, request=request, response=f"{song_number} {TITLES[song_number]}",
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
     if song_number in CA_LINKS:
-        await send_link_buttons(update, CA_LINKS[song_number], "cityalight.com")
+        await send_link_buttons(update, CA_LINKS[song_number], "cityalight.com", song_number)
     if song_number in SGM_LINKS:
-        await send_link_buttons(update, SGM_LINKS[song_number], "sovereigngracemusic.com")
+        await send_link_buttons(update, SGM_LINKS[song_number], "sovereigngracemusic.com", song_number)
     await groups.process_search_event(context, saveLog, update.effective_user, song_number, active_group_id)
 
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     dbUser = getDbUser(user)
-    if "Item" not in dbUser:
-        await update.effective_chat.send_message("Press /start to begin")
+    if not await require_registration(update, dbUser, "SEARCH"):
         return
     raw_message = update.message.text
     message = unidecode(raw_message).replace("\n", " ").strip().upper()
@@ -233,8 +251,9 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             song_number = results.pop(0)
         else:  # search
             if len(clean_message) > 200:
-                await update.message.reply_html("<i>Please shorten your search</i>")
-                saveLog(user, "SEARCH_TOO_LONG", raw_message, None)
+                await reply_and_log(
+                    update, "<i>Please shorten your search</i>", "SEARCH_TOO_LONG", request=raw_message
+                )
                 return
             await update.message.reply_chat_action(constants.ChatAction.TYPING)
             query = process.extract(
@@ -247,11 +266,12 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             results = [t[2] for t in query]
 
     if song_number:
-        await send_song(update, context, song_number, dbUser)
-        saveLog(user, "SEARCH_HIT", raw_message, f"{song_number} {TITLES[song_number]}")
+        await send_song(update, context, song_number, dbUser, "SEARCH_HIT", raw_message)
         if hint:
-            await update.message.reply_html(
-                "<i>Hint: Get to TSMS songs faster by typing the song number without 'TSMS'</i>"
+            await reply_and_log(
+                update,
+                "<i>Hint: Get to TSMS songs faster by typing the song number without 'TSMS'</i>",
+                "SEARCH_HINT", request=raw_message, response=song_number,
             )
     if results:
         keyboard = []
@@ -260,21 +280,22 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 make_button(number, True, "SONG", f"{number} {TITLES[number]}")
             )
         if song_number:
-            await update.message.reply_html(
-                "<i>This song is also found in:</i>",
+            await reply_and_log(
+                update, "<i>This song is also found in:</i>", "SEARCH_ALSO_FOUND",
+                request=raw_message, response=f"{len(results)} results",
                 reply_markup=InlineKeyboardMarkup(keyboard),
             )
         else:
-            await update.message.reply_html(
-                "<i>Showing up to 10 search results:</i>",
+            await reply_and_log(
+                update, "<i>Showing up to 10 search results:</i>", "SEARCH_RESULTS",
+                request=raw_message, response=f"{len(results)} results",
                 reply_markup=InlineKeyboardMarkup(keyboard),
             )
-            saveLog(user, "SEARCH_RESULTS", raw_message, f"{len(results)} results")
     elif not song_number:
-        await update.message.reply_html(
-            "<i>No matches found</i>\n\nType /help for instructions"
+        await reply_and_log(
+            update, "<i>No matches found</i>\n\nType /help for instructions", "SEARCH_NONE",
+            request=raw_message,
         )
-        saveLog(user, "SEARCH_NONE", raw_message, None)
     await updateState(update, dbUser)
 
 
@@ -359,22 +380,18 @@ def make_ppt(song_number):
 async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     dbUser = getDbUser(user)
-    if "Item" not in dbUser:
-        await update.effective_chat.send_message(text="Press /start to begin")
+    if not await require_registration(update, dbUser, "CALLBACK"):
         return
     query = update.callback_query
     data = query.data
     if data.startswith("SONG "):
         song_number = data.replace("SONG ", "")
-        await send_song(update, context, song_number, dbUser)
-        saveLog(user, "CALLBACK", "SONG", song_number)
+        await send_song(update, context, song_number, dbUser, "CALLBACK", "SONG")
     elif data.startswith("CHORDS "):
         song_number = data.replace("CHORDS ", "")
-        await update.effective_chat.send_message(
-            text=f"<pre>{CHORDS[song_number]}</pre>",
-            parse_mode=constants.ParseMode.HTML,
+        await send_and_log(
+            update, f"<pre>{CHORDS[song_number]}</pre>", "CALLBACK", request="CHORDS", response=song_number
         )
-        saveLog(user, "CALLBACK", "CHORDS", song_number)
     elif data.startswith("SCORE "):
         song_number = data.replace("SCORE ", "")
         await update.effective_chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
@@ -431,21 +448,34 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         active_group_id = groups.get_active_group(user.id, dbUser)
         if active_group_id is None:
             await query.answer(text="You are currently not in a Community", show_alert=True)
+            saveLog(user, "GROUP_SEND_BLOCKED", song_number, "NOT_IN_COMMUNITY")
             return
-        if not groups.try_mark_sent(active_group_id, song_number):
+        members = groups.try_mark_sent(active_group_id, song_number)
+        if members is None:
             await query.answer(text="Song has already been sent.", show_alert=True)
+            saveLog(user, "GROUP_SEND_BLOCKED", song_number, "ALREADY_SENT")
             return
         lyrics = SONGS.get(song_number) + templates.group_sent_caption.format(
             name=user.full_name
         )
-        for member_id in groups.get_group_members(active_group_id):
-            await context.bot.send_message(
-                chat_id=member_id,
-                text=lyrics,
-                parse_mode=constants.ParseMode.HTML,
-                disable_web_page_preview=True,
-            )
-        saveLog(user, "GROUP", active_group_id, "SEND")
+
+        async def send_to_member(member_id):
+            log_user = groups.get_log_user(member_id)
+            try:
+                await context.bot.send_message(
+                    chat_id=member_id,
+                    text=lyrics,
+                    parse_mode=constants.ParseMode.HTML,
+                    disable_web_page_preview=True,
+                )
+            except TelegramError:
+                logger.exception("Failed to deliver GROUP_SEND to %s", member_id)
+                saveLog(log_user, "GROUP", active_group_id, f"DELIVERY_FAILED {song_number}")
+                return
+            saveLog(log_user, "GROUP", active_group_id, f"RECEIVED {song_number}")
+
+        await asyncio.gather(*(send_to_member(member_id) for member_id in members))
+        saveLog(user, "GROUP", active_group_id, f"SEND {song_number}")
     else:
         await query.answer(text="This feature is not available")
         saveLog(user, "CALLBACK_INVALID", data, None)
@@ -456,16 +486,14 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 async def leave(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     dbUser = getDbUser(user)
-    if "Item" not in dbUser:
-        await update.effective_chat.send_message("Press /start to begin")
+    if not await require_registration(update, dbUser, "LEAVE"):
         return
     active_group_id = groups.get_active_group(user.id, dbUser)
     if active_group_id is None:
-        await update.message.reply_html(templates.group_not_in_community)
+        await reply_and_log(update, templates.group_not_in_community, "LEAVE_BLOCKED")
         return
     groups.leave_group(user.id, active_group_id)
-    await update.message.reply_html(templates.group_left)
-    saveLog(user, "GROUP", active_group_id, "LEAVE")
+    await reply_and_log(update, templates.group_left, "GROUP", request=active_group_id, response="LEAVE")
 
 
 async def tg_bot_main(bot_app, event):
