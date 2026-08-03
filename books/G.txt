@@ -4026,7 +4026,7 @@ Christ, Christ, He is risen
 
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 
 Where doubt and darkness once had been
@@ -4041,7 +4041,7 @@ Life, life everlasting
 
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 
 The power that raised Him from the grave
@@ -4051,11 +4051,11 @@ Go tell of His goodness
 
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 
 He is risen, He's alive, He's alive!
@@ -5834,7 +5834,7 @@ Alive He stands, their friend and king
 Christ, Christ, He is risen
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 Where doubt and darkness once had been
 They saw Him and their hearts believed
@@ -5846,7 +5846,7 @@ And pouring out their lives they gained
 Life, life everlasting
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 The power that raised Him from the grave
 Now works in us to powerfully save
@@ -5854,11 +5854,11 @@ He frees our hearts to live His grace
 Go tell of His goodness
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 Christ is risen, He is risen indeed!
 Oh, sing hallelujah
-Join the chorus and all the redeemed
+Join the chorist' and all the redeemed
 Christ is risen, He is risen indeed
 He is risen, He's alive, He's alive!
 Heaven's gates are opened wide
@@ -6022,7 +6022,7 @@ Don't let me lose my wonder.
 
 I saw her broken dreams inside but helping others fly,
 I saw his eyes without a doubt though other lights faded out,
-And though her calling roared, such graciousness poured
+And though her calling roared,such graciousness poured
 From the vision of her soul.
 
 A baby cried through the dark beneath a jeweled spark,
@@ -6447,7 +6447,7 @@ Now and forevermore my heart confess
 Christ is all my righteousness
 Praise the Lord
 Oh, my soul, praise the Lord
-For now this sinner's heart has found its rest
+For now this sinner's heart has found its' rest
 Christ is all my righteousness
 
 177 THE MATCHLESS NAME OF JESUS
@@ -7030,6 +7030,7 @@ Let everything, everything
 Let everything that breathes
 Let everything that breathes
 Come praise the Lord
+
 
 Praise the Lord
 Praise Him with the voice He's given
@@ -8203,6 +8204,7 @@ Sees the bloodshed, knows the cost
 Every lamb on every altar
 Pointing us toward the cross
 
+
 Vs 6
 For the cross speaks once forever
 Once to heal and overthrow 
@@ -9160,6 +9162,8 @@ As with ceaseless voice they cry
 Alleluia, Lord Most High!
 Alleluia, Lord Most High!"
 
+ 
+
 John 1:4-5 (ESV):  In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.
 
 249 AS FOR ME AND MY HOUSE
@@ -9285,13 +9289,13 @@ Thy promise is my only plea,
 with this I venture nigh;
 Thou calls our burdened souls to Thee,
 and such, O Lord, am I.
-
+ 
 Chorus
 Oh wondrous love!
 Oh boundless grace!
 Rejoice my soul forever,
 Christ has made a way!
-
+ 
 Vs 2
 Bowed down beneath a load of sin,
 by Satan sorely pressed,
@@ -9301,7 +9305,7 @@ Be Thou my shield and hiding place,
 that, sheltered near Thy side,
 I may my fierce accuser face,
 and tell him Thou hast died.
-
+ 
 Vs 3
 O wondrous love, to bleed and die,
 to bear the cross and shame,
@@ -9379,6 +9383,7 @@ And stumble into sin
 There is an ever-flowing stream
 His cleansing blood revives my soul again
 Oh what grace, oh what grace
+
 
 Vs 5
 One day I'll stand
@@ -9744,6 +9749,7 @@ Before His throne rejoice;
 Praise is His gracious choice,
 Alleluia, amen!
 
+
 Vs 2
 Come lift your hearts on high,
 Alleluia, amen!
@@ -9754,6 +9760,7 @@ Formed us His praise to tell;
 Hear now the anthem swell,
 Alleluia, amen!
 
+
 Vs 3
 Sing this salvation song,
 Alleluia, amen!
@@ -9763,6 +9770,7 @@ Praise we the risen Lord;
 Come run through mercy's door;
 Loved, rescued, and restored,
 Alleluia, amen!
+
 
 Vs 4
 Lift high the Savior's name,
@@ -9785,11 +9793,13 @@ Each of us has turned our own way
 But God laid all our wrongs, our sins
 Upon the Sinless One, His only Son
 
+
 Chorus
 Come, let us return to the Lord
 Come, now all His mercies remember
 How wide His love that waits to welcome us
 Oh, come, let us return to the Lord
+
 
 Vs 2
 All who feel the sting of your sin
@@ -9797,10 +9807,12 @@ Come and lift your eyes once again
 How great a price was paid to save the souls of us
 Who stray, yet still we stray
 
+
 Come, let us return to the Lord
 Come, now all His mercies remember
 How wide His love that waits to welcome us
 Oh, come, let us return to the Lord
+
 
 Vs 3
 God, we need Your merciful hand
@@ -9808,10 +9820,12 @@ Heal us from our pride, heal our land
 As we turn from our ways, oh turn our hearts to You
 In praise, endless praise
 
+
 Come, let us return to the Lord
 Come, now all His mercies remember
 How wide His love that waits to welcome us
 Oh, come let us return to the Lord
+
 
 Come, let us return to the Lord
 Come, now all His mercies remember
@@ -9819,6 +9833,7 @@ How wide His love, it waits to welcome us
 Oh, come, let us return
 Oh, come let us return to the Lord
 Oh, come let us return to the Lord
+
 
 (c) 2025 Getty Music Hymns and Songs (ASCAP), Getty Music Publishing (BMI), Love Your
 Enemies Publishing (ASCAP), Messengers Hymns (BMI) (admin at
@@ -9971,23 +9986,28 @@ Of my blessed Savior
 
 "All Sufficient Merit"
 
+
 All sufficient merit shining like the sun
 A fortune I inherit by no work I have done
 My righteousness I forfeit at my Savior's cross
 Where all sufficient merit did what I could not
+
 
 In love He condescended eternal now in time
 A life without a blemish the Maker made to die
 The law could never save us, our lawlessness had won
 Until the pure and spotless lamb had finally come
 
+
 It is done, it is finished, no more debt I owe
 Paid in full, all sufficient merit now my own
+
 
 I lay down my garments, any empty boast
 Good works now all corrupted by the sinful host
 But I'm dressed in my Lord Jesus, a crimson robe made white
 No more fear of judgment, His righteousness is mine
+
 
 It is done, it is finished, no more debt I owe
 Paid in full, all sufficient merit now my own
@@ -9995,15 +10015,18 @@ It is done, it is finished, no more debt I owe
 Paid in full, all sufficient merit now my own
 His merit now my own
 
+
 Sing Hallelujah
 His righteousness is mine
 Sing Hallelujah
+
 
 All sufficient merit, firm in life and death
 The joy of my salvation shall be my final breath
 When I stand accepted before the throne of God
 I'll gaze upon my Jesus and thank Him for the cross
 Yes, I'll thank Him for the cross
+
 
 It is done, it is finished, no more debt I owe
 Paid in full, all sufficient merit now my own
@@ -10022,6 +10045,8 @@ Words Placide Cappeau (tr John Dwight)
 Music Adolphe Adam
 
 Arranged by Keith & Kristyn Getty
+
+
 
 O holy night, the stars are brightly shining
 
@@ -10075,6 +10100,12 @@ Words:  Henry F Lyte (1834)
 
 Music:  John Goss (1868)
 
+
+
+
+
+
+
 Vs 1
 
 Praise, my soul, the King of heaven
@@ -10088,6 +10119,9 @@ Who like me His praise should sing?
 Alleluia, alleluia
 
 Praise the everlasting King
+
+
+
 
 Vs 2
 
@@ -10103,6 +10137,9 @@ Alleluia, alleluia
 
 Glorious in His faithfulness
 
+
+
+
 Vs 3
 
 Father-like, He tends and spares us;
@@ -10117,6 +10154,9 @@ Alleluia, alleluia
 
 Widely as His mercy goes.
 
+
+
+
 Vs 4
 
 Frail as summer's flow'r we flourish-  
@@ -10130,6 +10170,9 @@ God endures unchanging on!
 Alleluia, alleluia
 
 Praise the High Eternal one!
+
+
+
 
 Vs 5
 
@@ -10151,6 +10194,8 @@ Taste and See (the Love of Christ)
 
 Words and Music by Bryan Fowler and Matt Maher
 
+
+
 Vs1
 
 Son of God and Son of Man
@@ -10161,6 +10206,8 @@ Known in all ways but our sin
 
 Savior, we remember
 
+
+
 Vs2
 
 Walked the way of suffering 
@@ -10170,6 +10217,8 @@ A cross that cost Him everything
 What could match His offering  
 
 Praise His name forever
+
+
 
 Chorus
 
@@ -10185,6 +10234,8 @@ In Him we live and never die
 
 Taste and see the love of Christ
 
+
+
 Vs 3
 
 Buried in a darkened grave
@@ -10194,6 +10245,8 @@ Resurrected in three days
 Reigning on the throne of grace
 
 Savior, we remember
+
+
 
 Vs 4
 
@@ -10205,6 +10258,8 @@ Every knee on earth will bow
 
 Praise His name forever 
 
+
+
 BRIDGE
 
 How marvelous, how wonderful 
@@ -10215,13 +10270,17 @@ How marvelous, how wonderful
 
 Is my Savior's  love for me
 
+
+
 (c) 2025 Getty Music Publishing (BMI), LIVINGHYMNS (BMI) (adm. at CapitolCMGPublishing.com) / Be Essential Songs (BMI)/Caroco Songs (BMI)(adm. at EssentialMusicPublishing.com)
 
 275 CHRIST OUR HOPE IN LIFE AND DEATH
 
 Christ Our Hope in Life and Death
 
+
 words/music Matt Boswell, Keith Getty, Jordan Kauflin, Matt Merker, Matt Papa
+
 
 Verse 1
 What is our hope in life and death? 
@@ -10304,6 +10363,7 @@ Though Satan should buffet, though trials should come, let this blest assurance 
 
 My sin-- oh, the bliss of this glorious thought! My sin, not in part, but the whole, is nailed to the cross, and I bear it no more; praise the Lord, praise the Lord, O my soul!
 
+
 And Lord, haste the day when my faith shall be sight, the clouds be rolled back as a scroll; the trump shall resound and the Lord shall descend; even so, it is well with my soul.
 
 Words: Horatio G. Spafford, 1876
@@ -10330,6 +10390,7 @@ Great is thy faithfulness! Great is thy faithfulness! Morning by morning new mer
 
 Summer and winter, and springtime and harvest, sun, moon, and stars in their courses above join with all nature in manifold witness to thy great faithfulness, mercy, and love.
 
+
 Pardon for sin and a peace that endureth, thine own dear presence to cheer and to guide; strength for today and bright hope for tomorrow: blessings all mine, with ten thousand beside!
 
 Words: Thomas O. Chisholm, 1923
@@ -10342,11 +10403,14 @@ Have we trials and temptations? Is there trouble anywhere? We should never be di
 
 Are we weak and heavy laden, cumbered with a load of care? Precious Savior, still our refuge-- take it to the Lord in prayer. Do thy friends despise, forsake thee? Take it to the Lord in prayer. In his arms he'll take and shield thee; thou wilt find a solace there.
 
+
+
 Words:Joseph Scriven, ca. 1850
 
 283 THE SOLID ROCK (PIANO)
 
 My hope is built on nothing less than Jesus' blood and righteousness; I dare not trust the sweetest frame, but wholly lean on Jesus' name.
+
 
 On Christ, the solid Rock, I stand; all other ground is sinking sand; all other ground is sinking sand.
 
@@ -10385,6 +10449,8 @@ Other refuge have I none, hangs my helpless soul on thee; leave, ah! leave me no
 Thou, O Christ, art all I want; more than all in thee I find: raise the fallen, cheer the faint, heal the sick, and lead the blind. Just and holy is thy name; I am all unrighteousness; false and full of sin I am, thou art full of truth and grace.
 
 Plenteous grace with thee is found, grace to cover all my sin; let the healing streams abound; make and keep me pure within: thou of life the Fountain art, freely let me take of thee; spring thou up within my heart, rise to all eternity.
+
+
 
 Words:Charles Wesley, 1740
 
@@ -10466,3 +10532,60 @@ All around the blooming heather,
 Will you go, lassie, go?
 
 (c) 2026 Getty Music Publishing, Fionan de Barra Desginee (adm. at  www.capitolcmgpublishing.com)
+
+289 WHAT A FRIEND WE HAVE IN JESUS
+
+What a Friend We Have in Jesus
+
+PD words by: Joseph Scriven, PD music by: Charles C. Converse
+
+Arranged by Keith Getty
+
+
+
+Verse 1
+
+What a Friend we have in Jesus, all our sins and griefs to bear!
+
+What a privilege to carry ev'rything to God in prayer
+
+Oh, what peace we often forfeit; oh, what needless pain we bear
+
+All because we do not carry ev'rything to God in prayer
+
+
+
+Verse 2
+
+Have we trials and temptations? Is there trouble anywhere? 
+
+We should never be discouraged-- take it to the Lord in prayer
+
+Can we find a friend so faithful who will all our sorrows share?
+
+Jesus knows our ev'ry weakness-- take it to the Lord in prayer
+
+
+
+Verse 3
+
+Are we weak and heavy laden, cumbered with a load of care?
+
+Precious Savior, still our refuge-- take it to the Lord in prayer
+
+Do thy friends despise, forsake thee? Take it to the Lord in prayer
+
+In His arms he'll take and shield thee; thou wilt find a solace there
+
+
+
+French tag
+
+Quel ami fidele et tendre nous avons en Jesus-Christ
+
+Toujours pret a nous entendre, a repondre a notre cri!
+
+
+
+Take it to the Lord in prayer!
+
