@@ -994,7 +994,7 @@ We can light each one's path,
 We can bear each one's grief.
 As His children we can comfort each care,
 We can build each one's faith,
-We can work we can share.
+We can work, we can share.
 
 In His family all the love that we show,
 All the help that we give,
@@ -1212,11 +1212,11 @@ He brought me to his banqueting table
 And his banner over me is love.
 His banner over me is love.
 
-He lift me up to the heavenly places
+He lifted me up to the heavenly places
 And his banner over me is love.
-He lift me up to the heavenly places
+He lifted me up to the heavenly places
 And his banner over me is love.
-He lift me up to the heavenly places
+He lifted me up to the heavenly places
 And his banner over me is love.
 His banner over me is love.
 
@@ -2333,7 +2333,7 @@ Are you tired and friendless,
 Have you almost lost your way?
 Jesus will help you, just come to Him today.
 
-107 WHILE SHEPHERS WATCHED THEIR FLOCKS
+107 WHILE SHEPHERDS WATCHED THEIR FLOCKS
 
 While shepherds watched their flocks by night,
 All seated on the ground,
@@ -2341,7 +2341,7 @@ The angel of the Lord came down,
 And glory shone around.
 And glory shone around.
 
-"Fear not!" said he, for might dread
+"Fear not!" said he, for mighty dread
 Had seized their troubled mind,
 "Glad tidings of great joy I bring
 To you and all mankind.
@@ -3196,7 +3196,7 @@ Of all my sin.
 
 One door and only one, And yet its sides are two:
 Inside and Outside. On which side are you?
-"One door, and only one, And yet its sides are two;
+One door, and only one, And yet its sides are two;
 I'm on the inside, On which side are you?
 
 One book and only one, The book the Father gave,
@@ -3235,7 +3235,7 @@ Heav'n with Him I enter in.
 143 THE OLD, OLD STORY
 
 The old, old story, it is ever new,
-The old, old story, praise the Lord, tis true,
+The old, old story, praise the Lord, 'tis true,
 That Jesus Christ has died for me, for you;
 I love the old, old sto-ry.
 
@@ -3515,7 +3515,7 @@ And that He will abide till the end?
 Where is your heart, O pilgrim?
 What does your light reveal?
 Who hears your call for comfort,
-When naught but sorrow you fee?
+When naught but sorrow you feel?
 
 Who knows your disappointments?
 Who hears each time you cry?
@@ -3599,8 +3599,8 @@ Shout "Hallelujah, for the Lord is King!"
 
 163 WHITER THAN SNOW
 
-Lord Jesus, I took long to be perfectly whole;
-I wanted Thee forever to live in my soul.
+Lord Jesus, I long to be perfectly whole;
+I want Thee forever to live in my soul.
 Break down ev'ry idol, cast out ev'ry foe
 Now wash me and I shall be whiter than snow.
 
@@ -3611,7 +3611,7 @@ Now wash me and I shall be whiter than snow.
 Lord Jesus, look down from Thy throne in the skies
 And help me to make a complete sacrifice.
 I give up myself and whatever I know
-Now wash me now and I shall be whiter than snow.
+Now wash me and I shall be whiter than snow.
 
 Lord Jesus, for this I most humbly entreat;
 I wait, blessed Lord, at Thy crucified feet.
@@ -3620,7 +3620,7 @@ Now wash me and I shall be whiter than snow.
 
 Lord Jesus, Thou seest I patiently wait;
 Come now and within me a new heart create.
-To those who have sought Thee Thou saidst "No"
+To those who have sought Thee, Thou never saidst "No,"
 Now wash me and I shall be whiter than snow.
 
 164 WHOSEVER WILL
@@ -3655,7 +3655,7 @@ The Master made answer in words true and plain,
 
 Chorus:
 "Ye must be born again, ye must be born again;
-I verily, verily say unto thee, "Ye must be born again"
+I verily, verily say unto thee, Ye must be born again."
 
 Ye children of men, attend to the word
 So solemnly uttered by Jesus the Lord;
@@ -6177,7 +6177,7 @@ And love beyond degree!
 
 Well might the sun in darkness hide,
 And shut His glories in,
-When Christ, the might Maker, died
+When Christ, the mighty Maker, died
 For man, the creature's sin.
 
 But drops of grief can ne'er repay
@@ -6250,7 +6250,7 @@ And now I am happy all the day!
 
 Jesus, my God! I know His name -
 His name is all my trust;
-Now will He put my soul to shame,
+Nor will He put my soul to shame,
 Nor let my hope be lost.
 
 Firm as His throne His promise stands,
@@ -6258,7 +6258,7 @@ And He can well secure
 What I've committed to His hands,
 Till the decisive hour.
 
-Then will He set my worthless name
+Then will He own my worthless name
 Before His Father's face;
 And, in the new Jerusalem,
 Appoint my soul a place.
@@ -7229,7 +7229,7 @@ Thy joy to do the Father's will;
 It is the way the Master went;
 Should not the servant tread it still?
 
-Go, labour on; tis not for naught;
+Go, labour on; 'tis not for naught;
 Thy earthly loss is heavenly gain;
 Men heed thee, love thee, praise thee not;
 The Master praises what are men?
@@ -7320,13 +7320,14 @@ Just lift your cross and follow close to Me."
 "I worked so hard for Jesus," I often boast and say,
 "I've sacrificed a lot of things to walk the narrow way;
 I gave up fame and fortune - I'm worth a lot to Thee!"
-And the I hear Him gently say to me:
+And then I hear Him gently say to me:
 "I left the throne of glory and counted it but loss,
 My hands were nailed in anger upon the cruel cross;
 But now we'll make the journey with your hand safe in Mine -
 So lift your cross and follow close to Me."
 
 324 LORD, I WANT TO BE A CHRISTIAN
+
 Lord, I want to be a Christian in my heart, in my heart,
 Lord, I want to be a Christian, in my heart.
 In my heart, in my heart.
@@ -7476,7 +7477,7 @@ Where the storms are sweeping and the dark waters flow;
 With His hand to lead me I will never, never fear,
 Danger cannot fright me if my Lord is near.
 
-Down in the valley of upon the mountain steep,
+Down in the valley or upon the mountain steep,
 Close beside my Saviour would my soul ever keep;
 He will lead me safely in the path that He has trod,
 Up to where they gather on the hills of God.
@@ -8749,13 +8750,13 @@ Drawn up in dread array;
 Let tents of ease be left behind,
 And onward to the fray!
 Salvation's helmet on each head,
-With truth all grit about:
+With truth all girt about:
 The earth shall tremble 'neath our tread
 And echo with our shout.
 
 To him that overcomes the foe
 White raiment shall be giv'n:
-Before the angles he shall know
+Before the angels he shall know
 His name confessed in heav'n.
 Then onward from the hills of light,
 Our hearts with love aflame;
@@ -8982,7 +8983,7 @@ May be reserved for me -
 Of weary ways or golden days
 Before His face I see.
 
-I know not when my Lord my come,
+I know not when my Lord may come,
 At night or noonday fair,
 Nor if I'll walk the vale with Him,
 Or meet Him in the air.
@@ -9643,8 +9644,10 @@ Teach me to trust in Thee.
 
 430 THE LORD'S MY SHEPHERD
 
-The Lord's my Shepherd I'll not want. He makes me down to lie
-In pastures green: He leadeth me the quiet waters by.
+The Lord's my Shepherd, I'll not want.
+He makes me down to lie
+In pastures green: He leadeth me
+The quiet waters by.
 
 My soul He doth restore again;
 And me to walk doth make
@@ -9750,7 +9753,7 @@ Life without end, his salvation to share.
 
 435 SHOW ME THY WAY, O LORD
 
-"Show me Thy Way, O Lord, and make it plain:
+Show me Thy Way, O Lord, and make it plain:
 I would obey Thy word, speak yet again.
 I would not take one step until I know
 Which way it is that you want me to go.
@@ -9763,7 +9766,7 @@ I dare not go alone; be Thou my guide.
 I cannot see Thy face, yet Thou art here;
 When will the morning chase my doubts and fear?
 When shall I see the place where day and night
-Shall come not, for Thy glory is ... its light?
+Shall come not, for Thy glory is its light?
 
 I will be patient, Lord, and do Thy will;
 I will not doubt Thy word, my hopes fulfil.
@@ -10452,7 +10455,7 @@ For I am dwelling in Beulah Land.
 Far below the storm of doubt upon the world is beating,
 Sons of men in battle long the enemy withstand:
 Safe am I within the castle of God's word retreating,
-Nothing then can reach me tis Beulah Land.
+Nothing then can reach me 'tis Beulah Land.
 
 Let the stormy breezes blow, their cry cannot alarm me;
 I am safely sheltered here, protected by God's hand:
@@ -11160,7 +11163,7 @@ Jesus loves the whoso-e-ver,
 Of whatever land they be.
 And He gently calls them to Him,
 To sal-va-tion full and free.
-All the poeple in the wide world,
+All the people in the wide world,
 From the east and to the west,
 Not forgetting all the thousands
 Living in this blessed land.
@@ -11773,7 +11776,7 @@ Bidding Him take, break me and make, Till I am molded and meet.
 Into the cross of Jesus Deeper and deeper I go,
 Following thru the garden, Facing the dreaded foe;
 Drinking the cup of sorrow - Sobbing with broken heart,
-"O Saviour, help! dear Saviour, help! Grace for my weakness impart.
+"O Saviour, help! dear Saviour, help! Grace for my weakness impart."
 
 Into the joy of Jesus Deeper and deeper I go,
 Rising, with soul enraptured, Far from the world below;
@@ -12176,8 +12179,8 @@ For purposes divine.
 This is the faith that keeps me still,
 No matter what the test,
 And lets me glory in His will-
-For well I know tis' best,
-For well I know tis' best.
+For well I know 'tis best,
+For well I know 'tis best.
 
 So now the future holds no fear,
 God guards the work begun;
@@ -13524,47 +13527,47 @@ Let us go into the house of the Lord.
 Oh, who can make a flower?
 I'm sure I can't, can you?
 Oh, who can make a flower?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make the raindrops?
 I'm sure I can't, can you?
 Oh, who can make the raindrops?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make the sunshine?
 I'm sure I can't, can you?
 Oh, who can make the sunshine?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make a butterfly?
 I'm sure I can't, can you?
 Oh, who can make a butterfly?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make the wind blow?
 I'm sure I can't, can you?
 Oh, who can make the wind blow?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make a garden grow?
 I'm sure I can't, can you?
 Oh, who can make a garden grow?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make a pine tree?
 I'm sure I can't, can you?
 Oh, who can make a pine tree?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can make our hearts clean?
 I'm sure I can't, can you?
 Oh, who can make our hearts clean?
-No one but God, tis true.
+No one but God, 'tis true.
 
 Oh, who can give salvation?
 I'm sure I can't, can you?
 Oh, who can give salvation?
-No one but God, tis true.
+No one but God, 'tis true.
 
 606 HALLELUJAH
 
@@ -13636,7 +13639,7 @@ Thou madest the song birds that fly over me.
 Thou art a wonderful God.
 Thou art a wonderful God.
 
-Thou madest the nighttime, the madest the days,
+Thou madest the nighttime, Thou madest the days,
 Thou causest my tongue to keep singing this phrase,
 Thou art a wonderful God.
 Thou art a wonderful God.
@@ -13912,7 +13915,7 @@ Rejoice, give thanks and sing!
 With all the angel choirs,
 With all the saints on earth,
 Pour out the strains of joy and bliss,
-True rapture, no blest mirth!
+True rapture, noblest mirth!
 
 Yes, on through life's long path,
 Still chanting as ye go;
@@ -14400,7 +14403,7 @@ Promised joys with Thee.
 
 Then we shall be where we would be,
 Then we shall be what we should be;
-Things that not now, nor could be,
+Things that are not now, nor could be,
 Soon shall be our own.
 
 650 PRAISE HIM, ALL YE LITTLE CHILDREN
@@ -15774,7 +15777,7 @@ O come and bless us now.
 
 Revive Thy work, O Lord!
 Disturb this sleep of death;
-Quicken the smold'ring members
+Quicken the smold'ring embers
 Now by Thy Almighty breath.
 
 Revive Thy work, O Lord,
@@ -16160,7 +16163,7 @@ Since Jesus came into my heart;
 And my sins, which were many, are all washed away,
 Since Jesus came into my heart!
 
-I possessed of a hope that is steadfast and sure
+I'm possessed of a hope that is steadfast and sure
 Since Jesus came into my heart;
 And no dark clouds of doubt now my pathway obscure
 Since Jesus came into my heart!
