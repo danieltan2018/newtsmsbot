@@ -559,3 +559,19 @@ def test_stale_invitation_recovery_preserves_a_new_live_invitation(dynamo, monke
     search(dynamo, ctx, 2)
     assert active_group(dynamo, 2) == "new"
     assert recents.get_item(Key={"song": SONG})["Item"]["group"] == "new"
+
+
+@pytest.mark.parametrize("title,expected", [
+    ("DON'T BE AFRAID", "Don&#x27;t Be Afraid"),
+    ("DON’T BE AFRAID", "Don’t Be Afraid"),
+    ("GOD'S LOVE & MERCY", "God&#x27;s Love &amp; Mercy"),
+    ("THE EVER-LASTING WORD", "The Ever-Lasting Word"),
+])
+def test_join_message_title_preserves_apostrophe_casing(dynamo, monkeypatch, title, expected):
+    monkeypatch.setitem(groups.TITLES, SONG, title)
+    register(dynamo, 1, 2, 3)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    assert len(ctx.bot.sent) == 3
+    assert all(f"<b>{expected}</b>" in text for _, text in ctx.bot.sent)

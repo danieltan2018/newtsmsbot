@@ -21,6 +21,7 @@ import asyncio
 import html
 import logging
 import os
+import re
 import time
 from decimal import Decimal
 from types import SimpleNamespace
@@ -148,7 +149,12 @@ async def community_join(context, saveLog, user_id, song_number, group_id,
         return False
     safe_log(saveLog, user or log_user(user_id), "COMMUNITY_JOIN", song_number,
              {"community_id": group_id, "reason": reason})
-    title = html.escape(TITLES[song_number].title())
+    # Keep apostrophes inside words so DON'T becomes Don't, not Don'T.
+    title = re.sub(
+        r"[^\W\d_]+(?:['’][^\W\d_]+)*",
+        lambda match: match.group().capitalize(), TITLES[song_number],
+    )
+    title = html.escape(title)
     try:
         await context.bot.send_message(
             chat_id=user_id,
