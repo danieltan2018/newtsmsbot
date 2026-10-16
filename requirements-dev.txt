@@ -1,0 +1,3 @@
+-r requirements.txt
+moto[dynamodb]==5.2.4
+pytest==9.1.1

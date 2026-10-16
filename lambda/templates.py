@@ -28,6 +28,8 @@ Colossians 3:16</i>
 Send me a <b>song number, title or lyrics</b>, or type /help for instructions.
 """
 
+community_disabled = "Communities are currently unavailable."
+
 community_join = """
 ⛪️ <b>You have joined a new Community!</b> ⛪️
 
@@ -44,11 +46,35 @@ group_left = "<i>You have left the Community</i>"
 
 group_sent_caption = "\n\n<i>Sent by {name}. Use /leave to exit the Community.</i>"
 
+group_send_expired = "This Community has ended"
+
+group_send_already = "Someone in your Community already shared this song."
+
+group_send_nobody = "No one else is in your Community right now."
+
+group_send_done = "Sent to {n} member{s}"
+
+# Callback buttons that no longer resolve to anything (0.5)
+callback_invalid = "That button is from an older version. Search the song again to get fresh buttons."
+callback_missing = "This song is no longer available. Search again to see the current version."
+
+not_registered = "You're not registered yet. Send /start and tap REGISTER to get started."
+
+unknown_command = (
+    "Unknown command. Send a song number, title or line of lyrics to search, "
+    "or /help for instructions."
+)
+
+generic_error = "Something went wrong. Please try again in a moment."
+
+video_toast = "Sending {n} video{s}…"
+explain_toast = "Thinking..."
+
 examples = """
 <b>HOW TO USE</b>
 
 Search by typing any of the following:
-- <b>Song number</b>, e.g. <i>1</i> (default is TSMS)
+- <b>Song number</b>, e.g. <i>1</i> (just a number searches TSMS)
 - <b>Book & number</b>, e.g. <i>HGG 123</i>
 - <b>Song title</b>, e.g. <i>trust and obey</i>
 - <b>Song lyrics</b>, e.g. <i>for there's no other way</i>

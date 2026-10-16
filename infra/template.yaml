@@ -1,0 +1,441 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  TSMS Telegram hymn bot: Lambda function (+ dependency layer), Function URL
+  webhook, DynamoDB tables, keep-warm schedule, log group and alarms.
+  Deploy with scripts/deploy.sh (wraps `aws cloudformation package/deploy`).
+
+Parameters:
+  Environment:
+    Type: String
+    Default: prod
+    AllowedValues: [prod, staging]
+    Description: >-
+      prod  -> function tsms-bot,         tables tsms_users, tsms_logs, tsms_groups, tsms_recents
+      staging -> function tsms-bot-staging, tables tsms_staging_users, ... (fully separate data)
+  BotToken:
+    Type: String
+    NoEcho: true
+    Description: Telegram bot token from @BotFather.
+  GeminiApiKey:
+    Type: String
+    NoEcho: true
+    Default: ""
+    Description: Google Gemini API key for the "Explain Song" feature (optional).
+  GeminiModel:
+    Type: String
+    Default: gemini-3.5-flash-lite
+    Description: >-
+      Gemini model for "Explain Song". gemini-3.5-flash-lite is the current
+      stable Flash-Lite model; no shutdown date is announced as of 2026-10-15.
+      Check ai.google.dev/gemini-api/docs/deprecations before changing it.
+  GeminiThinkingLevel:
+    Type: String
+    Default: ""
+    AllowedValues: ["", low, medium, high]
+    Description: Optional thinking level override; empty uses the model default.
+  WebhookSecret:
+    Type: String
+    NoEcho: true
+    Default: ""
+    Description: >-
+      Random string (1-256 chars, A-Za-z0-9_-) passed as secret_token to
+      setWebhook. Requests without the matching header are rejected with 401.
+      Leave empty only while the legacy API Gateway integration is still in use.
+  VideosUrlPrefix:
+    Type: String
+    Default: https://rtl-hymns.s3.eu-west-2.amazonaws.com/
+    Description: >-
+      Public URL prefix for choir videos. The rtl-hymns bucket is owned by a
+      different AWS account and is intentionally not managed by this stack.
+  MemorySize:
+    Type: Number
+    Default: 512
+    MinValue: 128
+    MaxValue: 3008
+  Timeout:
+    Type: Number
+    Default: 30
+    Description: Must stay well under Telegram's webhook patience (~60 s).
+  LogRetentionDays:
+    Type: Number
+    Default: 30
+    AllowedValues: [1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653]
+  AlarmEmail:
+    Type: String
+    Default: ""
+    Description: Email address for error/throttle alarms (empty = no subscription).
+  CommunityEnabled:
+    Type: String
+    Default: "false"
+    AllowedValues: ["false", "true"]
+    Description: Enable automatic Community formation, invitations and broadcasts. Keep false for the initial migration.
+  GroupFormationThreshold:
+    Type: Number
+    Default: 3
+    MinValue: 1
+    Description: >-
+      Distinct users who must look up the same song within 60 s to form a
+      Community. Use 2 in staging so two test accounts can exercise the feature.
+  SentTagWindowSeconds:
+    Type: Number
+    Default: 600
+    Description: >-
+      After a song is broadcast to a Community, anyone who looks it up within
+      this many seconds joins that Community.
+  KeepWarmSchedule:
+    Type: String
+    Default: rate(5 minutes)
+    Description: EventBridge schedule for the healthCheck ping (keeps one container warm).
+
+Mappings:
+  Env:
+    prod:
+      FunctionName: tsms-bot
+      TablePrefix: tsms_
+    staging:
+      FunctionName: tsms-bot-staging
+      TablePrefix: tsms_staging_
+
+Conditions:
+  HasAlarmEmail: !Not [!Equals [!Ref AlarmEmail, ""]]
+
+Resources:
+  # --------------------------------------------------------------------- #
+  # DynamoDB tables have deletion protection and DeletionPolicy: Retain.
+  # --------------------------------------------------------------------- #
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Sub
+        - "${Prefix}users"
+        - Prefix: !FindInMap [Env, !Ref Environment, TablePrefix]
+      BillingMode: PAY_PER_REQUEST
+      DeletionProtectionEnabled: true
+      AttributeDefinitions:
+        - { AttributeName: id, AttributeType: N }
+      KeySchema:
+        - { AttributeName: id, KeyType: HASH }
+      TimeToLiveSpecification: { AttributeName: ttl, Enabled: true }  # pre-existing setting; code never writes ttl on users
+      PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+
+  LogsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Sub
+        - "${Prefix}logs"
+        - Prefix: !FindInMap [Env, !Ref Environment, TablePrefix]
+      BillingMode: PAY_PER_REQUEST
+      DeletionProtectionEnabled: true
+      AttributeDefinitions:
+        - { AttributeName: user_id, AttributeType: N }
+        - { AttributeName: timestamp, AttributeType: N }
+        - { AttributeName: event, AttributeType: S }
+      KeySchema:
+        - { AttributeName: user_id, KeyType: HASH }
+        - { AttributeName: timestamp, KeyType: RANGE }
+      GlobalSecondaryIndexes:
+        - IndexName: event-timestamp-index
+          KeySchema:
+            - { AttributeName: event, KeyType: HASH }
+            - { AttributeName: timestamp, KeyType: RANGE }
+          Projection: { ProjectionType: ALL }
+      # No TTL: the logs are kept for lifetime statistics (owner's decision).
+      TimeToLiveSpecification: { AttributeName: expires_at, Enabled: false }
+
+  GroupsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Sub
+        - "${Prefix}groups"
+        - Prefix: !FindInMap [Env, !Ref Environment, TablePrefix]
+      BillingMode: PAY_PER_REQUEST
+      DeletionProtectionEnabled: true
+      AttributeDefinitions:
+        - { AttributeName: id, AttributeType: S }
+      KeySchema:
+        - { AttributeName: id, KeyType: HASH }
+      TimeToLiveSpecification: { AttributeName: ttl, Enabled: true }
+
+  RecentsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Sub
+        - "${Prefix}recents"
+        - Prefix: !FindInMap [Env, !Ref Environment, TablePrefix]
+      BillingMode: PAY_PER_REQUEST
+      DeletionProtectionEnabled: true
+      AttributeDefinitions:
+        - { AttributeName: song, AttributeType: S }
+      KeySchema:
+        - { AttributeName: song, KeyType: HASH }   # hash-only: groups.py does get_item(Key={"song": ...})
+      TimeToLiveSpecification: { AttributeName: ttl, Enabled: true }
+
+  # --------------------------------------------------------------------- #
+  # Lambda
+  # --------------------------------------------------------------------- #
+  DependenciesLayer:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      LayerName: !Sub
+        - "${Name}-deps"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      Description: Python dependencies from requirements.txt (built by scripts/build.sh)
+      CompatibleRuntimes: [python3.14]
+      CompatibleArchitectures: [arm64]
+      Content: ../build/layer   # replaced with an S3 location by `aws cloudformation package`
+
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+        - "${Name}-role"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: dynamodb
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Query
+                  - dynamodb:BatchWriteItem
+                Resource:
+                  - !GetAtt UsersTable.Arn
+                  - !GetAtt LogsTable.Arn
+                  - !Sub "${LogsTable.Arn}/index/*"
+                  - !GetAtt GroupsTable.Arn
+                  - !GetAtt RecentsTable.Arn
+        - PolicyName: logs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !GetAtt LogGroup.Arn
+        # The webhook handler acknowledges Telegram immediately and re-invokes
+        # itself asynchronously to do the work (same effect as the legacy REST
+        # API's X-Amz-Invocation-Type: Event mapping).
+        - PolicyName: async-handoff
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !Sub
+                  - "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${Name}"
+                  - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub
+        - "/aws/lambda/${Name}"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      RetentionInDays: !Ref LogRetentionDays
+
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !FindInMap [Env, !Ref Environment, FunctionName]
+      Description: !Sub "TSMS Telegram hymn bot webhook handler (${Environment})"
+      Runtime: python3.14
+      Architectures: [arm64]
+      Handler: lambda_function.lambda_handler
+      Role: !GetAtt FunctionRole.Arn
+      MemorySize: !Ref MemorySize
+      Timeout: !Ref Timeout
+      Layers: [!Ref DependenciesLayer]
+      Code: ../build/function   # replaced with an S3 location by `aws cloudformation package`
+      LoggingConfig:
+        LogFormat: JSON
+        ApplicationLogLevel: INFO
+        SystemLogLevel: INFO
+        LogGroup: !Ref LogGroup
+      Environment:
+        Variables:
+          BOT_TOKEN: !Ref BotToken
+          GEMINI_API_KEY: !Ref GeminiApiKey
+          GEMINI_MODEL: !Ref GeminiModel
+          GEMINI_THINKING_LEVEL: !Ref GeminiThinkingLevel
+          WEBHOOK_SECRET: !Ref WebhookSecret
+          VIDEOS_URL_PREFIX: !Ref VideosUrlPrefix
+          TABLE_PREFIX: !FindInMap [Env, !Ref Environment, TablePrefix]
+          COMMUNITY_ENABLED: !Ref CommunityEnabled
+          GROUP_FORMATION_THRESHOLD: !Ref GroupFormationThreshold
+          SENT_TAG_TTL_SECONDS: !Ref SentTagWindowSeconds
+
+  # Keep-warm pings and the async handoff are both async invocations: never
+  # retry them (a retry would replay an update's side effects).
+  FunctionInvokeConfig:
+    Type: AWS::Lambda::EventInvokeConfig
+    Properties:
+      FunctionName: !Ref Function
+      Qualifier: $LATEST
+      MaximumRetryAttempts: 0
+      MaximumEventAgeInSeconds: 60
+
+  # --------------------------------------------------------------------- #
+  # Webhook front door: Function URL webhook
+  # --------------------------------------------------------------------- #
+  FunctionUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !GetAtt Function.Arn
+      AuthType: NONE
+      InvokeMode: BUFFERED
+
+  FunctionUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: NONE
+
+  # Since October 2025 public URLs also need lambda:InvokeFunction for the
+  # anonymous principal, otherwise Lambda answers 403 before the handler runs.
+  # InvokedViaFunctionUrl restricts that grant to calls through the URL only.
+  FunctionUrlInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunction
+      Principal: "*"
+      InvokedViaFunctionUrl: true
+
+  # --------------------------------------------------------------------- #
+  # Keep-warm schedule
+  # --------------------------------------------------------------------- #
+  KeepWarmRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub
+        - "${Name}-keep-warm"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      ScheduleExpression: !Ref KeepWarmSchedule
+      State: ENABLED
+      Targets:
+        - Id: bot
+          Arn: !GetAtt Function.Arn
+          Input: '{"healthCheck": 1}'
+
+  KeepWarmPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt KeepWarmRule.Arn
+
+  # --------------------------------------------------------------------- #
+  # Alerting
+  # --------------------------------------------------------------------- #
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub
+        - "${Name}-alarms"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+
+  AlarmSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasAlarmEmail
+    Properties:
+      TopicArn: !Ref AlarmTopic
+      Protocol: email
+      Endpoint: !Ref AlarmEmail
+
+  ErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub
+        - "${Name}-errors"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      AlarmDescription: Lambda reported at least one invocation error in 5 minutes
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions: [{ Name: FunctionName, Value: !Ref Function }]
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlarmTopic]
+
+  ThrottlesAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub
+        - "${Name}-throttles"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      AlarmDescription: Lambda invocations were throttled (concurrency limit)
+      Namespace: AWS/Lambda
+      MetricName: Throttles
+      Dimensions: [{ Name: FunctionName, Value: !Ref Function }]
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlarmTopic]
+
+  # Handled exceptions are logged by on_error / lambda_handler, not counted as
+  # Lambda Errors, so watch the log for them too.
+  HandledErrorsMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref LogGroup
+      FilterPattern: '{ $.level = "ERROR" }'
+      MetricTransformations:
+        - MetricNamespace: !Sub "TSMSBot/${Environment}"
+          MetricName: HandledErrors
+          MetricValue: "1"
+          DefaultValue: 0
+
+  HandledErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub
+        - "${Name}-handled-errors"
+        - Name: !FindInMap [Env, !Ref Environment, FunctionName]
+      AlarmDescription: The bot logged an ERROR (handler exception caught by on_error)
+      Namespace: !Sub "TSMSBot/${Environment}"
+      MetricName: HandledErrors
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlarmTopic]
+
+Outputs:
+  FunctionName:
+    Value: !FindInMap [Env, !Ref Environment, FunctionName]
+  WebhookUrl:
+    Description: Register this with setWebhook (see infra/README.md)
+    Value: !GetAtt FunctionUrl.FunctionUrl
+  FunctionArn:
+    Value: !GetAtt Function.Arn
+  AlarmTopicArn:
+    Value: !Ref AlarmTopic

@@ -1,5 +1,9 @@
-python-telegram-bot
-unidecode
-rapidfuzz
-python-pptx
-google-genai
+# Runtime: AWS Lambda python3.14 on arm64 (see infra/template.yaml).
+# Bundle boto3 so local tests and Lambda use the same SDK.
+# Pin httpx explicitly because ai.py imports it directly.
+boto3==1.43.114
+httpx==0.28.1
+python-telegram-bot==22.8
+unidecode==1.4.0
+rapidfuzz==3.14.6
+python-pptx==1.0.2

@@ -11,8 +11,8 @@ global songs
 songs = {}
 global titles
 titles = {}
-number = re.compile("^\d+ ")
-for filename in (x.name for x in os.scandir("./books") if x.is_file()):
+number = re.compile(r"^\d+ ")
+for filename in sorted(x.name for x in os.scandir("./books") if x.is_file()):
     filepath = "./books/" + filename
     with open(filepath, "r", encoding="UTF8") as book:
         filename = filename.split(".")
@@ -20,8 +20,14 @@ for filename in (x.name for x in os.scandir("./books") if x.is_file()):
         print("Loading", bookname)
         song_number = None
         song_lyrics = ""
+        previous_blank = True  # file start counts as a blank line
         for line in book:
-            if number.search(line):
+            is_blank = not line.strip()
+            # A header is "N TITLE" at the start of a paragraph. Requiring the
+            # preceding line to be blank stops lyric lines that happen to start
+            # with a number (e.g. "9 and 10 it's time to end" in CM 1) from
+            # being parsed as a new song.
+            if previous_blank and number.search(line):
                 if song_number != None:
                     song_lyrics = song_lyrics.strip()
                     songs[song_number] = song_lyrics
@@ -29,10 +35,13 @@ for filename in (x.name for x in os.scandir("./books") if x.is_file()):
                 song_lyrics += bookname + " " + line
                 line = line.split()
                 song_number = bookname + " " + str(line.pop(0))
+                if song_number in songs:
+                    raise SystemExit(f"Duplicate song number {song_number} in {filepath}")
                 song_title = " ".join(line)
                 titles[song_number] = song_title
             else:
                 song_lyrics += line
+            previous_blank = is_blank
         song_lyrics = song_lyrics.strip()
         songs[song_number] = song_lyrics
 
@@ -41,7 +50,7 @@ f.write("SONGS = " + json.dumps(songs, ensure_ascii=False) + "\n")
 
 global chords
 chords = {}
-number = re.compile("^\d")
+number = re.compile(r"^\d+(\s|$)")
 with open("./media/tsms_chords.txt", "r", encoding="UTF8") as tsms_chords_file:
     print("Loading Chords")
     song_number = None
@@ -198,3 +207,6 @@ for song_number, song_lyrics in songs.items():
 
 d.write("TITLES_LOOKUP = " + json.dumps(titles_decoded, ensure_ascii=False) + "\n")
 d.write("SONGS_LOOKUP = " + json.dumps(songs_decoded, ensure_ascii=False) + "\n")
+
+f.close()
+d.close()

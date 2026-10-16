@@ -1,0 +1,85 @@
+name: Deploy tsms-bot
+
+# Push to main -> staging stack automatically.
+# Production is a manual "Run workflow" with environment=prod (protect the
+# GitHub environment "prod" with required reviewers if you want a second pair of eyes).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lambda/**"
+      - "books/**"
+      - "media/**"
+      - "utilities/cacheloader.py"
+      - "requirements.txt"
+      - "requirements-dev.txt"
+      - "tests/**"
+      - "infra/template.yaml"
+      - "scripts/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        type: choice
+        options: [staging, prod]
+        default: staging
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-26.04-arm   # native arm64: wheels resolve without cross-compiling
+    environment: ${{ github.event.inputs.environment || 'staging' }}
+    concurrency:
+      group: deploy-${{ github.event.inputs.environment || 'staging' }}
+      cancel-in-progress: false
+    env:
+      AWS_REGION: eu-west-2
+      ENV: ${{ github.event.inputs.environment || 'staging' }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.14"
+
+      - name: Build layer and function
+        run: |
+          python3 -m pip install --quiet unidecode==1.4.0
+          scripts/build.sh
+
+      - name: Unit tests (DynamoDB mocked)
+        run: |
+          python3 -m pip install --quiet -r requirements-dev.txt
+          python3 -m pytest tests -q
+
+      - name: Sanity-check generated data
+        run: |
+          cd lambda && python3 - <<'PY'
+          import cache, lookup
+          assert len(cache.SONGS) == len(cache.TITLES) >= 3700, len(cache.SONGS)
+          assert all(k in cache.SONGS for k in cache.SCORES), "score without song"
+          assert all(k in cache.SONGS for k in cache.MP3), "mp3 without song"
+          assert all(k.split(" ")[1].isdigit() for k in cache.CHORDS), "bad chord key"
+          print("ok:", len(cache.SONGS), "songs")
+          PY
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy ${{ env.ENV }} stack (keeps existing parameter values)
+        run: scripts/deploy.sh
+
+      - name: Smoke test (healthCheck invoke)
+        run: |
+          FN=$([ "$ENV" = prod ] && echo tsms-bot || echo tsms-bot-staging)
+          aws lambda invoke --region "$AWS_REGION" --function-name "$FN" \
+            --cli-binary-format raw-in-base64-out --payload '{"healthCheck": 1}' /tmp/out.json >/dev/null
+          cat /tmp/out.json; grep -q '"statusCode": 200' /tmp/out.json

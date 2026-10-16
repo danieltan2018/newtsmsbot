@@ -9,3 +9,23 @@ __pycache__/
 # Lambda files
 lambda/cache.py
 lambda/lookup.py
+
+# Build artefacts (scripts/build.sh)
+build/
+.pytest_cache/
+.venv/
+
+# Local credentials, environment files and editor state
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+*.key
+
+# Local documentation and completed migration helpers
+/docs/
+/infra/README.md
+/infra/import/
+/scripts/migrate-params.sh
+/scripts/decommission-legacy.sh

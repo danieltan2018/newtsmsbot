@@ -1,22 +1,24 @@
 import asyncio
+import base64
+import hmac
+import html
+import json
 import logging
 import os
 import re
-import traceback
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
+from urllib.parse import quote
+from uuid import uuid4
 
 import ai
 import boto3
 import groups
 import templates
 from cache import CA_LINKS, CHORDS, MP3, PIANO, SCORES, SGM_LINKS, SONGS, TITLES, VIDEOS
+from db import table
 from lookup import SONGS_LOOKUP, TITLES_LOOKUP
-from pptx import Presentation
-from pptx.dml.color import RGBColor
-from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
-from pptx.util import Inches, Pt
 from rapidfuzz import fuzz, process
 from telegram import (
     InlineKeyboardButton,
@@ -24,12 +26,13 @@ from telegram import (
     InputMediaAudio,
     InputMediaPhoto,
     KeyboardButton,
+    LinkPreviewOptions,
     ReplyKeyboardMarkup,
     ReplyKeyboardRemove,
     Update,
     constants,
 )
-from telegram.error import TelegramError
+from telegram.error import Forbidden, TelegramError
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -44,15 +47,32 @@ logger = logging.getLogger()
 logger.setLevel("INFO")
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-VIDEOS_S3_BUCKET = os.getenv("VIDEOS_S3_BUCKET")
+# Public URL prefix of the choir-video bucket (rtl-hymns, owned by another AWS
+# account, so it is deliberately not part of this stack).
+VIDEOS_URL_PREFIX = os.getenv("VIDEOS_URL_PREFIX", "")
+# Telegram sends this value back in the X-Telegram-Bot-Api-Secret-Token header
+# when the webhook was registered with secret_token=... Empty = not enforced
+# (legacy API Gateway non-proxy integration, which strips headers anyway).
+WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
+# Function URL requests are acknowledged immediately and the update is handed
+# to an asynchronous self-invocation, so Telegram never waits on a slow
+# path (videos, Gemini, broadcasts) and never redelivers a slow update.
+ASYNC_HANDOFF = os.getenv("ASYNC_HANDOFF", "1") != "0"
+ASYNC_KEY = "asyncUpdate"
+COMMUNITY_ENABLED = os.getenv("COMMUNITY_ENABLED", "false").lower() == "true"
+
+ALPHA_ONLY = re.compile("[^A-Z ]")
+NO_PREVIEW = LinkPreviewOptions(is_disabled=True)
 
 app = Application.builder().token(BOT_TOKEN).build()
-dynamodb = boto3.resource("dynamodb")
 
 
+# --------------------------------------------------------------------------- #
+# Persistence helpers
+# --------------------------------------------------------------------------- #
 def saveLog(user, event, request, response):
     now = datetime.now(timezone.utc)
-    dynamodb.Table("tsms_logs").put_item(
+    table("logs").put_item(
         Item={
             "user_id": user.id,
             "name": user.full_name,
@@ -67,14 +87,21 @@ def saveLog(user, event, request, response):
 
 
 def getDbUser(user):
-    dbUser = dynamodb.Table("tsms_users").get_item(Key={"id": user.id})
-    return dbUser
+    return table("users").get_item(Key={"id": user.id})
 
 
+def video_url(obj):
+    # 0.8: object names may contain spaces or other reserved characters.
+    return VIDEOS_URL_PREFIX + quote(obj)
+
+
+# --------------------------------------------------------------------------- #
+# Reply helpers
+# --------------------------------------------------------------------------- #
 async def require_registration(update: Update, dbUser, action) -> bool:
     if "Item" in dbUser:
         return True
-    await update.effective_chat.send_message("Press /start to begin")
+    await update.effective_chat.send_message(templates.not_registered)
     saveLog(update.effective_user, "NOT_REGISTERED", action, None)
     return False
 
@@ -96,7 +123,7 @@ async def updateState(update: Update, dbUser) -> None:
     phone = dbUser["Item"]["phone"].lstrip("+")
     state = dbUser["Item"]["state"]
     if state != templates.current_version:
-        dynamodb.Table("tsms_users").update_item(
+        table("users").update_item(
             Key={"id": user.id},
             UpdateExpression="SET phone = :phone, #st = :state",
             ExpressionAttributeValues={
@@ -108,6 +135,9 @@ async def updateState(update: Update, dbUser) -> None:
         await reply_and_log(update, templates.changelog, "CHANGELOG", response=templates.current_version)
 
 
+# --------------------------------------------------------------------------- #
+# Commands
+# --------------------------------------------------------------------------- #
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     contact_keyboard = KeyboardButton(text="REGISTER", request_contact=True)
     reply_markup = ReplyKeyboardMarkup(
@@ -123,13 +153,17 @@ async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     contact = update.message.contact
     phone = contact.phone_number.lstrip("+")
     if user.id == contact.user_id and phone.startswith(templates.allowed_phone):
-        dynamodb.Table("tsms_users").put_item(
-            Item={
-                "id": user.id,
-                "name": user.full_name,
-                "phone": phone,
-                "state": templates.current_version,
-            }
+        # 0.12: update, don't replace: a re-registering user keeps their
+        # Community membership instead of being orphaned inside the group.
+        table("users").update_item(
+            Key={"id": user.id},
+            UpdateExpression="SET #n = :name, phone = :phone, #st = :state",
+            ExpressionAttributeNames={"#n": "name", "#st": "state"},
+            ExpressionAttributeValues={
+                ":name": user.full_name,
+                ":phone": phone,
+                ":state": templates.current_version,
+            },
         )
         await reply_and_log(
             update, templates.welcome, "CONTACT", request=phone, response="Allowed",
@@ -154,6 +188,33 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     )
 
 
+async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await reply_and_log(
+        update, templates.unknown_command, "UNKNOWN_COMMAND", request=update.message.text
+    )
+
+
+async def leave(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = update.effective_user
+    if not COMMUNITY_ENABLED:
+        await update.message.reply_html(templates.community_disabled)
+        logger.info("Community action disabled user=%s action=LEAVE", user.id)
+        return
+    dbUser = getDbUser(user)
+    if not await require_registration(update, dbUser, "LEAVE"):
+        return
+    active_group_id = groups.get_active_group(user.id, dbUser)
+    if active_group_id is None:
+        await update.message.reply_html(templates.group_not_in_community)
+        logger.info("Community leave blocked user=%s reason=NOT_IN_COMMUNITY", user.id)
+        return
+    groups.leave_group(user.id, active_group_id, saveLog, user)
+    await update.message.reply_html(templates.group_left)
+
+
+# --------------------------------------------------------------------------- #
+# Song display and search
+# --------------------------------------------------------------------------- #
 def make_button(song_number, option, callback_prefix, button_text):
     if option:
         return [
@@ -172,7 +233,7 @@ async def send_link_buttons(update: Update, links, source, song_number) -> None:
     ]
     await send_and_log(
         update, f"Links provided by {source}", "LINKS", request=source, response=song_number,
-        disable_web_page_preview=True,
+        link_preview_options=NO_PREVIEW,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
 
@@ -180,52 +241,38 @@ async def send_link_buttons(update: Update, links, source, song_number) -> None:
 async def send_song(
     update: Update, context: ContextTypes.DEFAULT_TYPE, song_number, dbUser, event, request
 ) -> None:
-    active_group_id = groups.get_active_group(update.effective_user.id, dbUser)
+    active_group_id = (
+        groups.get_active_group(update.effective_user.id, dbUser) if COMMUNITY_ENABLED else None
+    )
+    title = TITLES[song_number]
+    lyrics = SONGS[song_number]
     keyboard = []
-    keyboard.extend(
-        make_button(song_number, song_number in CHORDS, "CHORDS", "🎸 Guitar Chords")
-    )
-    keyboard.extend(
-        make_button(song_number, song_number in SCORES, "SCORE", "🎼 Piano Score")
-    )
-    keyboard.extend(
-        make_button(song_number, song_number in MP3, "MP3", "🔊 MIDI Soundtrack")
-    )
-    keyboard.extend(
-        make_button(
-            TITLES[song_number],
-            TITLES[song_number] in PIANO,
-            "PIANO",
-            "🎹 Piano Recording (Wilds)",
-        )
-    )
-    keyboard.extend(
-        make_button(
-            TITLES[song_number],
-            TITLES[song_number] in VIDEOS,
-            "VIDEO",
-            "🎤  Choir Recording (Lyric Video)",
-        )
-    )
-    lyrics = SONGS.get(song_number)
+    keyboard.extend(make_button(song_number, song_number in CHORDS, "CHORDS", "🎸 Guitar Chords"))
+    keyboard.extend(make_button(song_number, song_number in SCORES, "SCORE", "🎼 Piano Score"))
+    keyboard.extend(make_button(song_number, song_number in MP3, "MP3", "🔊 MIDI Soundtrack"))
+    keyboard.extend(make_button(title, title in PIANO, "PIANO", "🎹 Piano Recording (Wilds)"))
+    keyboard.extend(make_button(title, title in VIDEOS, "VIDEO", "🎤 Choir Recording (Lyric Video)"))
     if lyrics.count("\n\n") > 0:
         keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
         keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     keyboard.extend(
-        make_button(
-            song_number, active_group_id is not None, "GROUP_SEND", "📢 Send to Community"
-        )
+        make_button(song_number, active_group_id is not None, "GROUP_SEND", "📢 Send to Community")
     )
-    await send_and_log(
-        update, lyrics, event, request=request, response=f"{song_number} {TITLES[song_number]}",
-        disable_web_page_preview=True,
+    await update.effective_chat.send_message(
+        text=lyrics, parse_mode=constants.ParseMode.HTML,
+        link_preview_options=NO_PREVIEW,
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
     if song_number in CA_LINKS:
         await send_link_buttons(update, CA_LINKS[song_number], "cityalight.com", song_number)
     if song_number in SGM_LINKS:
         await send_link_buttons(update, SGM_LINKS[song_number], "sovereigngracemusic.com", song_number)
-    await groups.process_search_event(context, saveLog, update.effective_user, song_number, active_group_id)
+    # Preserve the live success-log payload and timing: after lyrics and links
+    # have all been sent. SONG callbacks record only the song number.
+    response = song_number if event == "CALLBACK" else f"{song_number} {title}"
+    saveLog(update.effective_user, event, request, response)
+    if COMMUNITY_ENABLED:
+        await groups.process_search_event(context, saveLog, update.effective_user, song_number, active_group_id)
 
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -237,15 +284,13 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = unidecode(raw_message).replace("\n", " ").strip().upper()
     hint = message.startswith("TSMS")
     if message.isnumeric():  # handle default book
-        message = int(message)
-        message = "TSMS " + str(message)
+        message = "TSMS " + str(int(message))
     song_number = None
     results = []
     if message in SONGS:  # match song number
         song_number = message
     else:  # match title
-        alpha_only = re.compile("[^A-Z ]")
-        clean_message = alpha_only.sub("", message).strip()
+        clean_message = ALPHA_ONLY.sub("", message).strip()
         if clean_message in TITLES_LOOKUP:
             results = TITLES_LOOKUP.get(clean_message).copy()
             song_number = results.pop(0)
@@ -276,9 +321,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if results:
         keyboard = []
         for number in results:
-            keyboard.extend(
-                make_button(number, True, "SONG", f"{number} {TITLES[number]}")
-            )
+            keyboard.extend(make_button(number, True, "SONG", f"{number} {TITLES[number]}"))
         if song_number:
             await reply_and_log(
                 update, "<i>This song is also found in:</i>", "SEARCH_ALSO_FOUND",
@@ -299,7 +342,17 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await updateState(update, dbUser)
 
 
+# --------------------------------------------------------------------------- #
+# PowerPoint
+# --------------------------------------------------------------------------- #
 def make_ppt(song_number):
+    # 0.1: python-pptx (lxml, Pillow) is only needed here; keep it off the
+    # cold-start path for the ~95% of requests that never generate slides.
+    from pptx import Presentation
+    from pptx.dml.color import RGBColor
+    from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
+    from pptx.util import Inches, Pt
+
     prs = Presentation()
     prs.slide_width = Inches(16)
     prs.slide_height = Inches(9)
@@ -377,145 +430,318 @@ def make_ppt(song_number):
     return pptxfile
 
 
-async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user = update.effective_user
-    dbUser = getDbUser(user)
-    if not await require_registration(update, dbUser, "CALLBACK"):
-        return
+# --------------------------------------------------------------------------- #
+# Callback buttons
+# --------------------------------------------------------------------------- #
+# 0.5: every action's argument must still exist in the current data. Buttons in
+# old chat messages outlive data regenerations (e.g. removed SGM songs).
+CALLBACK_LOOKUP = {
+    "SONG": SONGS,
+    "CHORDS": CHORDS,
+    "SCORE": SCORES,
+    "MP3": MP3,
+    "PIANO": PIANO,
+    "VIDEO": VIDEOS,
+    "PPT": SONGS,
+    "EXPLAIN": SONGS,
+    "GROUP_SEND": SONGS,
+}
+
+
+async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, dbUser, song_number) -> None:
     query = update.callback_query
-    data = query.data
-    if data.startswith("SONG "):
-        song_number = data.replace("SONG ", "")
-        await send_song(update, context, song_number, dbUser, "CALLBACK", "SONG")
-    elif data.startswith("CHORDS "):
-        song_number = data.replace("CHORDS ", "")
-        await send_and_log(
-            update, f"<pre>{CHORDS[song_number]}</pre>", "CALLBACK", request="CHORDS", response=song_number
-        )
-    elif data.startswith("SCORE "):
-        song_number = data.replace("SCORE ", "")
-        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
-        saveLog(user, "CALLBACK", "SCORE", song_number)
-        media_list = SCORES[song_number]
-        media = [InputMediaPhoto(media=p) for p in media_list]
-        await update.effective_chat.send_media_group(media=media)
-    elif data.startswith("MP3 "):
-        song_number = data.replace("MP3 ", "")
-        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
-        saveLog(user, "CALLBACK", "MP3", song_number)
-        media_list = MP3[song_number]
-        media = [InputMediaAudio(media=a) for a in media_list]
-        await update.effective_chat.send_media_group(media=media)
-    elif data.startswith("PIANO "):
-        song_title = data.replace("PIANO ", "")
-        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
-        saveLog(user, "CALLBACK", "PIANO", song_title)
-        reference = PIANO[song_title]
-        await update.effective_chat.send_audio(audio=reference, protect_content=True)
-    elif data.startswith("VIDEO "):
-        song_title = data.replace("VIDEO ", "")
-        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_VIDEO)
-        saveLog(user, "CALLBACK", "VIDEO", song_title)
-        objects = VIDEOS[song_title]
-        total = len(objects)
-        await query.answer(text=f"Loading {str(total)} video(s), please wait...")
-        count = 1
-        for obj in objects:
-            video = VIDEOS_S3_BUCKET + obj
-            caption = (
-                f"{song_title.title()} {count}" if total > 1 else song_title.title()
-            )
-            await update.effective_chat.send_video(video=video, caption=caption)
-            count += 1
-    elif data.startswith("PPT "):
-        song_number = data.replace("PPT ", "")
-        await update.effective_chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
-        saveLog(user, "CALLBACK", "PPT", song_number)
-        ppt = make_ppt(song_number)
-        await update.effective_chat.send_document(document=ppt)
-    elif data.startswith("EXPLAIN "):
-        song_number = data.replace("EXPLAIN ", "")
-        await update.effective_chat.send_action(constants.ChatAction.TYPING)
-        saveLog(user, "CALLBACK", "EXPLAIN", song_number)
-        await query.answer(text="Thinking...")
-        response = ai.explainSong(SONGS.get(song_number))
-        await update.effective_chat.send_message(
-            response, parse_mode=constants.ParseMode.HTML
-        )
-    elif data.startswith("GROUP_SEND "):
-        song_number = data.replace("GROUP_SEND ", "")
-        saveLog(user, "CALLBACK", "GROUP_SEND", song_number)
-        active_group_id = groups.get_active_group(user.id, dbUser)
-        if active_group_id is None:
-            await query.answer(text="You are currently not in a Community", show_alert=True)
-            saveLog(user, "GROUP_SEND_BLOCKED", song_number, "NOT_IN_COMMUNITY")
-            return
-        members = groups.try_mark_sent(active_group_id, song_number)
-        if members is None:
-            await query.answer(text="Song has already been sent.", show_alert=True)
-            saveLog(user, "GROUP_SEND_BLOCKED", song_number, "ALREADY_SENT")
-            return
-        lyrics = SONGS.get(song_number) + templates.group_sent_caption.format(
-            name=user.full_name
-        )
-
-        async def send_to_member(member_id):
-            log_user = groups.get_log_user(member_id)
-            try:
-                await context.bot.send_message(
-                    chat_id=member_id,
-                    text=lyrics,
-                    parse_mode=constants.ParseMode.HTML,
-                    disable_web_page_preview=True,
-                )
-            except TelegramError:
-                logger.exception("Failed to deliver GROUP_SEND to %s", member_id)
-                saveLog(log_user, "GROUP", active_group_id, f"DELIVERY_FAILED {song_number}")
-                return
-            saveLog(log_user, "GROUP", active_group_id, f"RECEIVED {song_number}")
-
-        await asyncio.gather(*(send_to_member(member_id) for member_id in members))
-        saveLog(user, "GROUP", active_group_id, f"SEND {song_number}")
-    else:
-        await query.answer(text="This feature is not available")
-        saveLog(user, "CALLBACK_INVALID", data, None)
-        return
-    await query.answer()
-
-
-async def leave(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    user = update.effective_user
-    dbUser = getDbUser(user)
-    if not await require_registration(update, dbUser, "LEAVE"):
+    if not COMMUNITY_ENABLED:
+        await query.answer(text=templates.community_disabled, show_alert=True)
+        logger.info("Community action disabled user=%s action=GROUP_SEND song=%s", user.id, song_number)
         return
     active_group_id = groups.get_active_group(user.id, dbUser)
+    correlation = {"broadcast_id": uuid4().hex}
+    if active_group_id:
+        correlation["community_id"] = active_group_id
+
+    async def blocked(reason, text):
+        groups.safe_log(saveLog, user, "COMMUNITY_SEND", song_number,
+                        {**correlation, "status": "blocked", "reason": reason})
+        await query.answer(text=text, show_alert=True)
+
     if active_group_id is None:
-        await reply_and_log(update, templates.group_not_in_community, "LEAVE_BLOCKED")
+        await blocked("NOT_IN_COMMUNITY", templates.group_send_expired)
         return
-    groups.leave_group(user.id, active_group_id)
-    await reply_and_log(update, templates.group_left, "GROUP", request=active_group_id, response="LEAVE")
+    # Build the message (escaped) before marking the song as sent, so a
+    # failure here can never leave the song permanently "already sent".
+    lyrics = SONGS[song_number] + templates.group_sent_caption.format(
+        name=html.escape(user.full_name)
+    )
+    members = groups.try_mark_sent(active_group_id, song_number, user.id)
+    if members is None:
+        await blocked("ALREADY_SENT_OR_INACTIVE", templates.group_send_already)
+        return
+    recipients = members - {user.id}
+    if not recipients:
+        groups.unmark_sent(active_group_id, song_number)
+        await blocked("NO_RECIPIENTS", templates.group_send_nobody)
+        return
+
+    # Counts describe the membership snapshot, not confirmed delivery.
+    groups.safe_log(saveLog, user, "COMMUNITY_SEND", song_number,
+                    {**correlation, "status": "attempted", "recipient_count": len(recipients)})
+    sender = {**correlation, "sender_id": user.id, "sender_name": user.full_name,
+              "sender_username": user.username}
+
+    async def send_to_member(member_id):
+        recipient = groups.log_user(member_id)
+        details = sender
+        # This records an attempt, not confirmed delivery or a read receipt.
+        groups.safe_log(saveLog, recipient, "COMMUNITY_RECEIVE", song_number, details)
+        try:
+            await context.bot.send_message(
+                chat_id=member_id,
+                text=lyrics,
+                parse_mode=constants.ParseMode.HTML,
+                link_preview_options=NO_PREVIEW,
+            )
+        except TelegramError as error:
+            logger.warning("Community send attempt failed user=%s song=%s error=%s",
+                           member_id, song_number, type(error).__name__)
+            groups.safe_log(saveLog, recipient, "ERROR", song_number, {
+                **details, "action": "COMMUNITY_RECEIVE",
+                "error": type(error).__name__,
+            })
+            if isinstance(error, Forbidden):
+                # A failed cleanup must not cancel sends to the other members.
+                try:
+                    groups.leave_group(member_id, active_group_id, saveLog,
+                                       reason="bot_unavailable")
+                except Exception as cleanup_error:
+                    logger.exception("Failed to remove unavailable Community member %s", member_id)
+                    groups.safe_log(saveLog, recipient, "ERROR", song_number, {
+                        **details, "action": "COMMUNITY_REMOVE",
+                        "error": type(cleanup_error).__name__,
+                    })
+            return False
+        return True
+
+    delivered = sum(await asyncio.gather(*(send_to_member(m) for m in sorted(recipients))))
+    if delivered == 0:
+        groups.unmark_sent(active_group_id, song_number)
+    try:
+        await query.answer(text=templates.group_send_done.format(n=delivered, s="" if delivered == 1 else "s"))
+    except TelegramError:
+        # An expired callback toast must not suppress the broadcast invitation.
+        logger.warning("Could not answer Community callback song=%s", song_number)
+    # A broadcast song is the invitation: people who look it up now join.
+    await groups.invite_recent_searchers(
+        context, saveLog, active_group_id, song_number, exclude=members
+    )
+
+
+async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = update.effective_user
+    query = update.callback_query
+    chat = update.effective_chat
+    dbUser = getDbUser(user)
+    if "Item" not in dbUser:
+        # 0.4: always answer the query so the button stops spinning.
+        await query.answer(text=templates.not_registered, show_alert=True)
+        saveLog(user, "NOT_REGISTERED", "CALLBACK", None)
+        return
+
+    action, _, arg = (query.data or "").partition(" ")
+    lookup = CALLBACK_LOOKUP.get(action)
+    if lookup is None:
+        await query.answer(text=templates.callback_invalid, show_alert=True)
+        saveLog(user, "CALLBACK_INVALID", query.data, None)
+        return
+    if arg not in lookup:
+        await query.answer(text=templates.callback_missing, show_alert=True)
+        saveLog(user, "CALLBACK_MISSING", query.data, None)
+        return
+
+    if action == "GROUP_SEND":
+        await group_send(update, context, user, dbUser, arg)  # answers the query itself
+        return
+
+    # Keep the legacy action-log ordering. VIDEO and EXPLAIN show their toast
+    # after logging the attempt, before starting the slow operation.
+    answered = False
+
+    if action == "SONG":
+        await send_song(update, context, arg, dbUser, "CALLBACK", "SONG")
+    elif action == "CHORDS":
+        await send_and_log(
+            update, f"<pre>{html.escape(CHORDS[arg])}</pre>", "CALLBACK", request="CHORDS", response=arg
+        )
+    elif action == "SCORE":
+        await chat.send_action(constants.ChatAction.UPLOAD_PHOTO)
+        saveLog(user, "CALLBACK", "SCORE", arg)
+        await chat.send_media_group(media=[InputMediaPhoto(media=p) for p in SCORES[arg]])
+    elif action == "MP3":
+        await chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
+        saveLog(user, "CALLBACK", "MP3", arg)
+        await chat.send_media_group(media=[InputMediaAudio(media=a) for a in MP3[arg]])
+    elif action == "PIANO":
+        await chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
+        saveLog(user, "CALLBACK", "PIANO", arg)
+        await chat.send_audio(audio=PIANO[arg], protect_content=True)
+    elif action == "VIDEO":
+        await chat.send_action(constants.ChatAction.UPLOAD_VIDEO)
+        saveLog(user, "CALLBACK", "VIDEO", arg)
+        objects = VIDEOS[arg]
+        total = len(objects)
+        await query.answer(text=templates.video_toast.format(n=total, s="" if total == 1 else "s"))
+        answered = True
+        for count, obj in enumerate(objects, start=1):
+            caption = f"{arg.title()} {count}" if total > 1 else arg.title()
+            await chat.send_video(video=video_url(obj), caption=caption)
+    elif action == "PPT":
+        await chat.send_action(constants.ChatAction.UPLOAD_DOCUMENT)
+        saveLog(user, "CALLBACK", "PPT", arg)
+        await chat.send_document(document=make_ppt(arg))
+    elif action == "EXPLAIN":
+        await chat.send_action(constants.ChatAction.TYPING)
+        saveLog(user, "CALLBACK", "EXPLAIN", arg)
+        await query.answer(text=templates.explain_toast)
+        answered = True
+        response = ai.explainSong(SONGS[arg])
+        await chat.send_message(response, parse_mode=constants.ParseMode.HTML)
+    if not answered:
+        await query.answer()
+
+
+# --------------------------------------------------------------------------- #
+# Error handling and entry point
+# --------------------------------------------------------------------------- #
+async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # 0.7: PTB routes every handler exception here. Log it and tell the user,
+    # instead of leaving a silent spinner / no reply.
+    logger.error("Unhandled exception while processing update", exc_info=context.error)
+    if not isinstance(update, Update):
+        return
+    notified = None
+    try:
+        if update.callback_query:
+            await update.callback_query.answer(text=templates.generic_error, show_alert=True)
+            notified = "ALERT"
+        elif update.effective_chat:
+            await update.effective_chat.send_message(templates.generic_error)
+            notified = "MESSAGE"
+    except TelegramError:
+        logger.exception("Failed to notify user about the error")
+    if update.effective_user:
+        try:
+            what = (update.callback_query.data if update.callback_query
+                    else getattr(update.effective_message, "text", None))
+            saveLog(update.effective_user, "ERROR", (what or "")[:200],
+                    f"{type(context.error).__name__}: {str(context.error)[:150]} -> {notified}")
+        except Exception:
+            logger.exception("Failed to log the error")  # DynamoDB itself may be the cause
+
+
+def _update_type(update: Update) -> str:
+    for kind in ("message", "edited_message", "callback_query"):
+        if getattr(update, kind, None):
+            return kind
+    return "other"
 
 
 async def tg_bot_main(bot_app, event):
     async with bot_app:
-        logger.info("PROCESSING UPDATE: %s", event)
-        await bot_app.process_update(Update.de_json(event, bot_app.bot))
+        update = Update.de_json(event, bot_app.bot)
+        # 0.6: never log the raw update (it carries names, usernames, message
+        # text and, for contact messages, phone numbers).
+        logger.info(
+            "PROCESSING UPDATE id=%s user=%s type=%s",
+            update.update_id,
+            update.effective_user.id if update.effective_user else None,
+            _update_type(update),
+        )
+        await bot_app.process_update(update)
+
+
+def _extract_update(event):
+    """Returns (telegram_update_dict, secret_token_header_or_None).
+
+    Supports both the Lambda Function URL / HTTP API envelope ({"body": ...,
+    "headers": ...}) and the legacy REST API non-proxy integration, which
+    passes the raw Telegram update as the event itself.
+    """
+    if "body" not in event:
+        return event, None
+    headers = {k.lower(): v for k, v in (event.get("headers") or {}).items()}
+    body = event.get("body") or "{}"
+    if event.get("isBase64Encoded"):
+        body = base64.b64decode(body).decode("utf-8")
+    return json.loads(body), headers.get("x-telegram-bot-api-secret-token")
+
+
+_lambda_client = None
+
+
+def _lambda():
+    global _lambda_client
+    if _lambda_client is None:
+        _lambda_client = boto3.client("lambda")
+    return _lambda_client
+
+
+def _process(update):
+    try:
+        asyncio.run(tg_bot_main(app, update))
+    except Exception:
+        # 0.7: a non-2xx makes Telegram redeliver the same update repeatedly,
+        # replaying every side effect that already happened. Log and move on.
+        logger.exception("Failed to process update %s", update.get("update_id"))
+
+
+def _handoff(update, context):
+    """Re-invokes this function asynchronously with the update. Returns False
+    if that fails so the caller can fall back to processing inline."""
+    try:
+        _lambda().invoke(
+            FunctionName=context.invoked_function_arn,
+            InvocationType="Event",
+            Payload=json.dumps({ASYNC_KEY: update}),
+        )
+        return True
+    except Exception:
+        logger.exception("Async handoff failed for update %s; processing inline", update.get("update_id"))
+        return False
 
 
 def lambda_handler(event, context):
     if "healthCheck" in event:
         return {"statusCode": 200}
+    if ASYNC_KEY in event:
+        # Second hop of the handoff: do the actual work.
+        _process(event[ASYNC_KEY])
+        return {"statusCode": 200}
     try:
-        asyncio.run(tg_bot_main(app, event))
-    except Exception as e:
-        traceback.print_exc()
-        return {"statusCode": 500}
+        update, token = _extract_update(event)
+    except (ValueError, UnicodeDecodeError):
+        logger.warning("Rejected request with unparseable body")
+        return {"statusCode": 400}
+    if WEBHOOK_SECRET and not hmac.compare_digest(token or "", WEBHOOK_SECRET):
+        logger.warning("Rejected request with missing/invalid webhook secret")
+        return {"statusCode": 401}
+    if not isinstance(update, dict) or "update_id" not in update:
+        return {"statusCode": 400}
+    # Only Function URL requests need the handoff; the legacy REST API already
+    # invokes asynchronously (its event has no "body" envelope).
+    if ASYNC_HANDOFF and "body" in event and context is not None and _handoff(update, context):
+        return {"statusCode": 200}
+    _process(update)
     return {"statusCode": 200}
 
 
-app.add_handler(CommandHandler("start", start))
-app.add_handler(MessageHandler(filters.CONTACT, contact))
-app.add_handler(CommandHandler("help", help_command))
-app.add_handler(CommandHandler("leave", leave))
-app.add_handler(MessageHandler(filters.TEXT, search))
+# 0.3: only react to new private messages: edited messages have no
+# update.message and used to crash search(); unknown commands used to be
+# treated as lyric searches.
+MSG = filters.UpdateType.MESSAGE
+app.add_handler(CommandHandler("start", start, filters=MSG))
+app.add_handler(MessageHandler(filters.CONTACT & MSG, contact))
+app.add_handler(CommandHandler("help", help_command, filters=MSG))
+app.add_handler(CommandHandler("leave", leave, filters=MSG))
+app.add_handler(MessageHandler(filters.COMMAND & MSG, unknown_command))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & MSG, search))
 app.add_handler(CallbackQueryHandler(answer_callback))
+app.add_error_handler(on_error)
