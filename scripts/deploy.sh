@@ -45,7 +45,6 @@ aws cloudformation package \
 OVERRIDES=("Environment=$ENV" "$@")
 
 echo "==> Deploying stack $STACK ($ENV) in $REGION"
-CHANGESET="deploy-$(date +%Y%m%d%H%M%S)"
 aws cloudformation deploy \
   --region "$REGION" \
   --stack-name "$STACK" \

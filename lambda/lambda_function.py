@@ -47,16 +47,12 @@ logger = logging.getLogger()
 logger.setLevel("INFO")
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-# Public URL prefix of the choir-video bucket (rtl-hymns, owned by another AWS
-# account, so it is deliberately not part of this stack).
+# Public prefix for externally hosted choir videos.
 VIDEOS_URL_PREFIX = os.getenv("VIDEOS_URL_PREFIX", "")
-# Telegram sends this value back in the X-Telegram-Bot-Api-Secret-Token header
-# when the webhook was registered with secret_token=... Empty = not enforced
-# (legacy API Gateway non-proxy integration, which strips headers anyway).
+# Empty disables webhook-secret validation for legacy integrations.
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
-# Function URL requests are acknowledged immediately and the update is handed
-# to an asynchronous self-invocation, so Telegram never waits on a slow
-# path (videos, Gemini, broadcasts) and never redelivers a slow update.
+# Queue Function URL updates before acknowledging Telegram; fall back inline
+# if queueing fails.
 ASYNC_HANDOFF = os.getenv("ASYNC_HANDOFF", "1") != "0"
 ASYNC_KEY = "asyncUpdate"
 COMMUNITY_ENABLED = os.getenv("COMMUNITY_ENABLED", "false").lower() == "true"
@@ -91,7 +87,7 @@ def getDbUser(user):
 
 
 def video_url(obj):
-    # 0.8: object names may contain spaces or other reserved characters.
+    # Object names may contain spaces or reserved characters.
     return VIDEOS_URL_PREFIX + quote(obj)
 
 
@@ -153,8 +149,7 @@ async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     contact = update.message.contact
     phone = contact.phone_number.lstrip("+")
     if user.id == contact.user_id and phone.startswith(templates.allowed_phone):
-        # 0.12: update, don't replace: a re-registering user keeps their
-        # Community membership instead of being orphaned inside the group.
+        # Preserve Community membership when re-registering.
         table("users").update_item(
             Key={"id": user.id},
             UpdateExpression="SET #n = :name, phone = :phone, #st = :state",
@@ -346,8 +341,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # PowerPoint
 # --------------------------------------------------------------------------- #
 def make_ppt(song_number):
-    # 0.1: python-pptx (lxml, Pillow) is only needed here; keep it off the
-    # cold-start path for the ~95% of requests that never generate slides.
+    # Keep slide dependencies off the normal cold-start path.
     from pptx import Presentation
     from pptx.dml.color import RGBColor
     from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
@@ -433,8 +427,7 @@ def make_ppt(song_number):
 # --------------------------------------------------------------------------- #
 # Callback buttons
 # --------------------------------------------------------------------------- #
-# 0.5: every action's argument must still exist in the current data. Buttons in
-# old chat messages outlive data regenerations (e.g. removed SGM songs).
+# Old buttons can refer to songs or media removed by a data update.
 CALLBACK_LOOKUP = {
     "SONG": SONGS,
     "CHORDS": CHORDS,
@@ -541,7 +534,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     chat = update.effective_chat
     dbUser = getDbUser(user)
     if "Item" not in dbUser:
-        # 0.4: always answer the query so the button stops spinning.
+        # always answer the query so the button stops spinning.
         await query.answer(text=templates.not_registered, show_alert=True)
         saveLog(user, "NOT_REGISTERED", "CALLBACK", None)
         return
@@ -612,8 +605,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 # Error handling and entry point
 # --------------------------------------------------------------------------- #
 async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # 0.7: PTB routes every handler exception here. Log it and tell the user,
-    # instead of leaving a silent spinner / no reply.
+    # Notify the user when PTB routes a handler exception here.
     logger.error("Unhandled exception while processing update", exc_info=context.error)
     if not isinstance(update, Update):
         return
@@ -647,8 +639,7 @@ def _update_type(update: Update) -> str:
 async def tg_bot_main(bot_app, event):
     async with bot_app:
         update = Update.de_json(event, bot_app.bot)
-        # 0.6: never log the raw update (it carries names, usernames, message
-        # text and, for contact messages, phone numbers).
+        # Raw updates can contain phone numbers and message text.
         logger.info(
             "PROCESSING UPDATE id=%s user=%s type=%s",
             update.update_id,
@@ -688,8 +679,7 @@ def _process(update):
     try:
         asyncio.run(tg_bot_main(app, update))
     except Exception:
-        # 0.7: a non-2xx makes Telegram redeliver the same update repeatedly,
-        # replaying every side effect that already happened. Log and move on.
+        # A failed update may have completed side effects; do not request replay.
         logger.exception("Failed to process update %s", update.get("update_id"))
 
 
@@ -733,9 +723,7 @@ def lambda_handler(event, context):
     return {"statusCode": 200}
 
 
-# 0.3: only react to new private messages: edited messages have no
-# update.message and used to crash search(); unknown commands used to be
-# treated as lyric searches.
+# Exclude edited messages; route unknown commands separately from searches.
 MSG = filters.UpdateType.MESSAGE
 app.add_handler(CommandHandler("start", start, filters=MSG))
 app.add_handler(MessageHandler(filters.CONTACT & MSG, contact))

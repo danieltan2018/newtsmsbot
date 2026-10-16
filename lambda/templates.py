@@ -54,7 +54,7 @@ group_send_nobody = "No one else is in your Community right now."
 
 group_send_done = "Sent to {n} member{s}"
 
-# Callback buttons that no longer resolve to anything (0.5)
+# Stale or invalid callback buttons.
 callback_invalid = "That button is from an older version. Search the song again to get fresh buttons."
 callback_missing = "This song is no longer available. Search again to see the current version."
 

@@ -13,9 +13,7 @@ import httpx
 logger = logging.getLogger()
 
 MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
-# Optional: "low" / "medium" / "high" (Gemini 3 models think by default; the
-# Flash-Lite default is "minimal", the Flash default is "medium"). Leave empty
-# to use the model's default.
+# Leave empty to use the model's default thinking level.
 THINKING_LEVEL = os.getenv("GEMINI_THINKING_LEVEL", "")
 API_KEY = os.getenv("GEMINI_API_KEY", "")
 TIMEOUT_SECONDS = float(os.getenv("GEMINI_TIMEOUT_SECONDS", "20"))
