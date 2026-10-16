@@ -74,14 +74,13 @@ Parameters:
     Default: 3
     MinValue: 1
     Description: >-
-      Distinct users who must look up the same song within 60 s to form a
-      Community. Use 2 in staging so two test accounts can exercise the feature.
+      Distinct users required within the shared Community window to form a
+      Community. Use 2 in staging for testing; production defaults to 3.
   SentTagWindowSeconds:
     Type: Number
-    Default: 600
-    Description: >-
-      After a song is broadcast to a Community, anyone who looks it up within
-      this many seconds joins that Community.
+    Default: 60
+    MinValue: 1
+    Description: Shared window in seconds for Community formation and joining after a broadcast.
   KeepWarmSchedule:
     Type: String
     Default: rate(5 minutes)
@@ -280,6 +279,7 @@ Resources:
           TABLE_PREFIX: !FindInMap [Env, !Ref Environment, TablePrefix]
           COMMUNITY_ENABLED: !Ref CommunityEnabled
           GROUP_FORMATION_THRESHOLD: !Ref GroupFormationThreshold
+          RECENTS_TTL_SECONDS: !Ref SentTagWindowSeconds
           SENT_TAG_TTL_SECONDS: !Ref SentTagWindowSeconds
 
   # Keep-warm pings and the async handoff are both async invocations: never

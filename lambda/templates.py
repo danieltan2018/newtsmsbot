@@ -52,7 +52,12 @@ group_send_already = "Someone in your Community already shared this song."
 
 group_send_nobody = "No one else is in your Community right now."
 
+group_closed = "This Community has ended because no other members remain."
+
 group_send_done = "Sent to {n} member{s}"
+group_send_button = "📢 Send to Community"
+group_send_sending = "📤 Sending to Community…"
+group_send_sent = "✅ Sent to {n} member{s}"
 
 # Stale or invalid callback buttons.
 callback_invalid = "That button is from an older version. Search the song again to get fresh buttons."

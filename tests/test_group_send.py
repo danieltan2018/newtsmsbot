@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import pytest
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import BadRequest, Forbidden, NetworkError, RetryAfter
 
 import groups
@@ -15,8 +16,14 @@ REAL_SAVE_LOG = lf.saveLog
 
 
 class FakeQuery:
-    def __init__(self):
+    def __init__(self, reply_markup=None):
         self.answers = []
+        self.message = SimpleNamespace(reply_markup=reply_markup)
+        self.edits = []
+
+    async def edit_message_reply_markup(self, reply_markup, **kwargs):
+        self.message.reply_markup = reply_markup
+        self.edits.append(reply_markup)
 
     async def answer(self, text=None, show_alert=False):
         self.answers.append((text, show_alert))
@@ -65,12 +72,53 @@ def test_not_in_community(dynamo):
     assert text == templates.group_send_expired and alert
 
 
-def test_lone_member_gets_nobody_message_and_song_stays_sendable(dynamo, community):
-    groups.leave_group(2, active_group(dynamo, 1))
-    groups.leave_group(3, active_group(dynamo, 1))
+@pytest.mark.parametrize("already_sent", [False, True])
+def test_lone_member_send_closes_community(dynamo, community, monkeypatch, already_sent):
+    gid = active_group(dynamo, 1)
+    if already_sent:
+        run_send(dynamo, community, 1)
+        community.bot.sent.clear()
+    groups.leave_group(2, gid)
+    groups.leave_group(3, gid)
+    rows = []
+    monkeypatch.setattr(lf, "saveLog", lambda u, e, req, resp: rows.append((e, req, resp)))
+    text, alert = run_send(dynamo, community, 1)
+    assert text == templates.group_closed and alert
+    assert active_group(dynamo, 1) is None
+    assert "Item" not in dynamo.Table("test_groups").get_item(Key={"id": gid})
+    assert community.bot.sent == []
+    assert rows == [("COMMUNITY_SEND", SONG, {
+        "community_id": gid, "status": "blocked", "reason": "NO_RECIPIENTS",
+        "community_closed": True,
+    })]
+
+
+@pytest.mark.parametrize("already_sent", [False, True])
+def test_join_wins_against_lone_member_closure(dynamo, community, monkeypatch, already_sent):
+    gid = active_group(dynamo, 1)
+    if already_sent:
+        run_send(dynamo, community, 1)
+        community.bot.sent.clear()
+    groups.leave_group(2, gid)
+    groups.leave_group(3, gid)
+    real_close = groups.close_if_single_member
+
+    def joined_before_close(uid, group_id):
+        assert groups._claim_membership(2, gid)
+        assert groups._add_to_group(2, gid)
+        return real_close(uid, group_id)
+
+    monkeypatch.setattr(groups, "close_if_single_member", joined_before_close)
     text, alert = run_send(dynamo, community, 1)
     assert text == templates.group_send_nobody and alert
-    assert groups.try_mark_sent(active_group(dynamo, 1), SONG, 1) is not None   # not marked
+    assert active_group(dynamo, 1) == active_group(dynamo, 2) == gid
+    # The failed close must neither claim a new song nor unclaim an old one.
+    text, alert = run_send(dynamo, community, 1)
+    if already_sent:
+        assert text == templates.group_send_already and alert
+        assert community.bot.sent == []
+    else:
+        assert text == "Sent to 1 member" and not alert
 
 
 def test_member_who_blocked_the_bot_is_dropped(dynamo, community):
@@ -123,7 +171,7 @@ def test_attempt_rows_use_existing_schema_and_no_recipient_lookups(dynamo, commu
     expected_fields = {"user_id", "name", "username", "timestamp", "timestamp_iso", "event", "request", "response"}
     assert all(set(row) == expected_fields for row in rows)
     assert all(row["request"] == SONG for row in rows)
-    assert len({row["response"]["broadcast_id"] for row in rows}) == 1
+    assert all("broadcast_id" not in row["response"] for row in rows)
     assert {row["response"]["community_id"] for row in rows} == {active_group(dynamo, 1)}
     sent = [r for r in rows if r["event"] == "COMMUNITY_SEND"]
     assert len(sent) == 1 and sent[0]["user_id"] == 1
@@ -166,6 +214,7 @@ def test_failed_attempt_keeps_receive_row_and_adds_generic_error(dynamo, communi
     assert "outcome" not in errors[0][3]
     assert errors[0][3]["error"] == type(error).__name__
     assert errors[0][3]["sender_id"] == 1
+    assert "sender_name" not in errors[0][3] and "sender_username" not in errors[0][3]
     assert all(r[1] in {"COMMUNITY_SEND", "COMMUNITY_RECEIVE", "COMMUNITY_LEAVE", "ERROR"} for r in rows)
     leaves = [r for r in rows if r[1] == "COMMUNITY_LEAVE"]
     assert len(leaves) == int(error_type is Forbidden)
@@ -233,6 +282,7 @@ def test_blocked_broadcast_does_not_emit_attempt_rows(dynamo, community, monkeyp
     assert rows[0][1]["status"] == "blocked"
     assert rows[0][1]["reason"] == "ALREADY_SENT_OR_INACTIVE"
     assert "recipient_count" not in rows[0][1]
+    assert "broadcast_id" not in rows[0][1]
 
 
 def test_logging_outage_does_not_abort_leave(dynamo, community, monkeypatch):
@@ -276,17 +326,21 @@ def test_concurrent_leave_prevents_stale_sender_broadcast(dynamo, community, mon
     assert groups.try_mark_sent(stale["Item"]["group"], SONG, 2) == {2, 3}
 
 
-def test_retry_after_total_failure_has_distinct_broadcast_id(dynamo, community, monkeypatch):
+def test_retry_after_total_failure_logs_each_attempt_without_broadcast_id(dynamo, community, monkeypatch):
     rows = []
     monkeypatch.setattr(lf, "saveLog", lambda u, e, req, resp: rows.append((e, resp)))
     community.bot.send_message = AsyncMock(side_effect=NetworkError("timeout"))
     run_send(dynamo, community, 1)
     run_send(dynamo, community, 1)
     sends = [r for e, r in rows if e == "COMMUNITY_SEND"]
-    assert len(sends) == 2 and len({r["broadcast_id"] for r in sends}) == 2
-    for sent in sends:
-        linked = [r for e, r in rows if r.get("broadcast_id") == sent["broadcast_id"]]
-        assert len(linked) == 5  # send, two receive attempts, two errors
+    assert len(sends) == 2
+    assert all(r["status"] == "attempted" and r["recipient_count"] == 2 for r in sends)
+    assert sum(e == "COMMUNITY_RECEIVE" for e, _ in rows) == 4
+    assert sum(e == "ERROR" for e, _ in rows) == 4
+    assert len(rows) == 10
+    assert all("broadcast_id" not in r for _, r in rows)
+    assert {r["community_id"] for _, r in rows} == {active_group(dynamo, 1)}
+    assert all(r["sender_id"] == 1 for e, r in rows if e != "COMMUNITY_SEND")
 
 
 def test_one_event_query_returns_attempted_and_blocked_sends(dynamo, community, monkeypatch):
@@ -301,3 +355,42 @@ def test_one_event_query_returns_attempted_and_blocked_sends(dynamo, community, 
     assert len(rows) == 2
     assert {r["response"]["status"] for r in rows} == {"attempted", "blocked"}
     assert all(r["request"] == SONG for r in rows)
+
+
+@pytest.mark.parametrize("failed,expected", [
+    (set(), "✅ Sent to 2 members"),
+    ({3}, "✅ Sent to 1 member"),
+    ({2, 3}, "📢 Send to Community"),
+])
+def test_send_button_shows_progress_and_final_result(dynamo, community, failed, expected):
+    other = InlineKeyboardButton("Chords", callback_data=f"CHORDS {SONG}")
+    query = FakeQuery(InlineKeyboardMarkup([
+        [other], [InlineKeyboardButton(templates.group_send_button, callback_data=f"GROUP_SEND {SONG}")],
+    ]))
+    community.bot.fail_for = failed
+    send = community.bot.send_message
+
+    async def checked_send(chat_id, text, **kwargs):
+        assert query.message.reply_markup.inline_keyboard[1][0].text == templates.group_send_sending
+        await send(chat_id, text, **kwargs)
+
+    community.bot.send_message = checked_send
+    asyncio.run(lf.group_send(SimpleNamespace(callback_query=query), community, user(1), db_user(dynamo, 1), SONG))
+    assert [m.inline_keyboard[1][0].text for m in query.edits] == [templates.group_send_sending, expected]
+    assert all(m.inline_keyboard[0][0] == other for m in query.edits)
+    assert all(m.inline_keyboard[1][0].callback_data == f"GROUP_SEND {SONG}" for m in query.edits)
+    if len(failed) == 2:
+        assert groups.try_mark_sent(active_group(dynamo, 1), SONG, 1) is not None
+
+
+def test_button_edit_failure_does_not_prevent_sends_or_invitations(dynamo, community, monkeypatch):
+    query = FakeQuery(InlineKeyboardMarkup([
+        [InlineKeyboardButton(templates.group_send_button, callback_data=f"GROUP_SEND {SONG}")],
+    ]))
+    query.edit_message_reply_markup = AsyncMock(side_effect=BadRequest("message cannot be edited"))
+    invite = AsyncMock(return_value=0)
+    monkeypatch.setattr(groups, "invite_recent_searchers", invite)
+    asyncio.run(lf.group_send(SimpleNamespace(callback_query=query), community, user(1), db_user(dynamo, 1), SONG))
+    assert {uid for uid, _ in community.bot.sent} == {2, 3}
+    assert query.answers[-1] == ("Sent to 2 members", False)
+    invite.assert_awaited_once()

@@ -39,7 +39,7 @@ logger = logging.getLogger()
 GROUP_FORMATION_THRESHOLD = int(os.getenv("GROUP_FORMATION_THRESHOLD", "3"))
 RECENTS_TTL_SECONDS = int(os.getenv("RECENTS_TTL_SECONDS", "60"))
 GROUP_TTL_SECONDS = int(os.getenv("GROUP_TTL_SECONDS", "3600"))
-SENT_TAG_TTL_SECONDS = int(os.getenv("SENT_TAG_TTL_SECONDS", "600"))
+SENT_TAG_TTL_SECONDS = int(os.getenv("SENT_TAG_TTL_SECONDS", str(RECENTS_TTL_SECONDS)))
 _log_retry_at = 0.0
 
 
@@ -181,13 +181,30 @@ def leave_group(user_id, group_id, save_log=None, user=None, reason="user_reques
                  {"community_id": group_id, "reason": reason})
 
 
+def close_if_single_member(user_id, group_id):
+    """Close only the singleton snapshot; a completed concurrent join wins."""
+    try:
+        table("groups").delete_item(
+            Key={"id": group_id},
+            ConditionExpression="#u = :only",
+            ExpressionAttributeNames={"#u": "users"},
+            ExpressionAttributeValues={":only": {user_id}},
+        )
+    except ClientError as error:
+        if _is_condition_failure(error):
+            return False
+        raise
+    _clear_membership(user_id, group_id)
+    return True
+
+
 # --------------------------------------------------------------------------- #
 # Broadcast
 # --------------------------------------------------------------------------- #
 def try_mark_sent(group_id, song_number, sender_id):
-    """Marks song as sent and refreshes the group's TTL; returns the member id
-    set, or None if inactive, already sent, or sender is no longer a member.
-    One atomic conditional write, so two simultaneous taps can't both win."""
+    """Reserve a song and return members; None means inactive or already sent.
+    A singleton snapshot is returned for closure without reserving the song.
+    The atomic claim checks membership and prevents duplicate broadcasts."""
     now = int(time.time())
     try:
         response = table("groups").update_item(
@@ -195,6 +212,7 @@ def try_mark_sent(group_id, song_number, sender_id):
             UpdateExpression="ADD #s :s SET #ttl = :ttl",
             ConditionExpression=(
                 "attribute_exists(id) AND #ttl > :now AND contains(#u, :sender) "
+                "AND size(#u) > :one "
                 "AND (attribute_not_exists(#s) OR NOT contains(#s, :song))"
             ),
             ExpressionAttributeNames={"#s": "sent", "#ttl": "ttl", "#u": "users"},
@@ -204,11 +222,17 @@ def try_mark_sent(group_id, song_number, sender_id):
                 ":now": Decimal(now),
                 ":song": song_number,
                 ":sender": sender_id,
+                ":one": 1,
             },
             ReturnValues="ALL_NEW",
+            ReturnValuesOnConditionCheckFailure="ALL_OLD",
         )
     except ClientError as e:
         if _is_condition_failure(e):
+            old = {k: TypeDeserializer().deserialize(v)
+                   for k, v in e.response.get("Item", {}).items()}
+            if old.get("users") == {sender_id} and old.get("ttl", 0) > now:
+                return {sender_id}
             return None
         raise
     return {int(u) for u in response["Attributes"].get("users", set())}
@@ -358,12 +382,31 @@ async def process_search_event(context, saveLog, user, song_number, active_group
     if active_group_id:
         return  # members' own searches never affect anyone else
     now = int(time.time())
-    row = _record_search(song_number, user.id, now)
-    group_id = row.get("group")
-    if group_id:
-        # The song was broadcast to a group recently: join straight away.
-        await community_join(context, saveLog, user.id, song_number, group_id,
-                             reason="invitation", user=user)
+    for _ in range(2):
+        row = _record_search(song_number, user.id, now)
+        group_id = row.get("group")
+        if not group_id:
+            break
+        if await community_join(context, saveLog, user.id, song_number, group_id,
+                                reason="invitation", user=user):
+            return
+        # Only a failed join needs this read. Replace dead invitations lazily;
+        # searches from a closed Community must not re-invite its old members.
+        group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item")
+        if group and group.get("ttl", 0) > now:
+            return
+        try:
+            table("recents").put_item(
+                Item={"song": song_number, "timestamp": Decimal(now),
+                      "ttl": Decimal(now + RECENTS_TTL_SECONDS), "users": {user.id}},
+                ConditionExpression="#g = :g",
+                ExpressionAttributeNames={"#g": "group"},
+                ExpressionAttributeValues={":g": group_id},
+            )
+        except ClientError as error:
+            if not _is_condition_failure(error):
+                raise
+    else:
         return
     users = {int(u) for u in row.get("users", set())}
     if len(users) < GROUP_FORMATION_THRESHOLD:

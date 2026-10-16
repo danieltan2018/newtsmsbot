@@ -465,8 +465,97 @@ def test_competing_broadcast_preserves_invitation_without_retry_writes(dynamo, m
     spy = Mock(wraps=recents)
     original = groups.table
     monkeypatch.setattr(groups, "table", lambda name: spy if name == "recents" else original(name))
-    assert groups.tag_sent_song("community-b", SONG, 1590) == set()
+    assert groups.tag_sent_song("community-b", SONG, 1000 + groups.SENT_TAG_TTL_SECONDS - 10) == set()
     assert recents.get_item(Key={"song": SONG})["Item"] == before
-    assert before["ttl"] == 1600
+    assert before["ttl"] == 1000 + groups.SENT_TAG_TTL_SECONDS
     assert spy.update_item.call_count == 1
     spy.put_item.assert_not_called()
+
+
+@pytest.mark.parametrize("seconds,joins", [(59, True), (60, False), (61, False)])
+def test_one_minute_broadcast_join_boundary(dynamo, monkeypatch, seconds, joins):
+    register(dynamo, 1, 2, 3, 9)
+    now = int(time.time())
+    monkeypatch.setattr(groups.time, "time", lambda: now)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    broadcast(dynamo, ctx, 1, "HGG 12")
+    monkeypatch.setattr(groups.time, "time", lambda: now + seconds)
+    assert search(dynamo, ctx, 9, song="HGG 12") == (gid if joins else None)
+
+
+def test_closed_invitation_starts_fresh_without_readding_old_members(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3)
+    now = int(time.time())
+    monkeypatch.setattr(groups.time, "time", lambda: now)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    old = active_group(dynamo, 1)
+    groups.leave_group(2, old)
+    groups.leave_group(3, old)
+    assert groups.close_if_single_member(1, old)
+    ctx.bot.sent.clear()
+    assert search(dynamo, ctx, 1) is None
+    assert ctx.bot.sent == []  # old searchers must not be re-added
+    assert search(dynamo, ctx, 2) is None
+    new = search(dynamo, ctx, 3)
+    assert new and new != old  # distinct lifecycles even for same song/second
+    assert {active_group(dynamo, uid) for uid in (1, 2, 3)} == {new}
+
+
+def test_pending_join_rolls_back_if_singleton_closes_first(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3, 4)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    groups.leave_group(2, gid)
+    groups.leave_group(3, gid)
+    real_add = groups._add_to_group
+
+    def close_before_add(uid, group_id):
+        assert groups.close_if_single_member(1, gid)
+        return real_add(uid, group_id)
+
+    monkeypatch.setattr(groups, "_add_to_group", close_before_add)
+    assert not asyncio.run(groups.community_join(ctx, save_log, 4, SONG, gid))
+    assert active_group(dynamo, 4) is None
+    assert active_group(dynamo, 1) is None
+
+
+def test_closing_old_group_preserves_newer_membership_pointer(dynamo):
+    register(dynamo, 1)
+    dynamo.Table("test_groups").put_item(Item={"id": "old", "users": {1}})
+    dynamo.Table("test_groups").put_item(Item={"id": "new", "users": {1}, "ttl": int(time.time()) + 60})
+    dynamo.Table("test_users").update_item(
+        Key={"id": 1}, UpdateExpression="SET #g = :g",
+        ExpressionAttributeNames={"#g": "group"}, ExpressionAttributeValues={":g": "new"})
+    assert groups.close_if_single_member(1, "old")
+    assert active_group(dynamo, 1) == "new"
+
+
+def test_stale_invitation_recovery_preserves_a_new_live_invitation(dynamo, monkeypatch):
+    from unittest.mock import Mock
+    register(dynamo, 1, 2)
+    now = int(time.time())
+    recents = dynamo.Table("test_recents")
+    recents.put_item(Item={"song": SONG, "group": "deleted", "users": {2}, "ttl": now + 60})
+    dynamo.Table("test_groups").put_item(Item={"id": "new", "users": {1}, "ttl": now + 3600})
+    assert groups._claim_membership(1, "new")
+    spy = Mock(wraps=recents)
+
+    def replacement(**kwargs):
+        # Another broadcast wins ownership before this request clears the old tag.
+        recents.put_item(Item={"song": SONG, "group": "new", "users": {1}, "ttl": now + 60})
+        return recents.put_item(**kwargs)
+
+    spy.put_item.side_effect = replacement
+    original = groups.table
+    monkeypatch.setattr(groups, "table", lambda name: spy if name == "recents" else original(name))
+    ctx = make_ctx()
+    search(dynamo, ctx, 2)
+    assert active_group(dynamo, 2) == "new"
+    assert recents.get_item(Key={"song": SONG})["Item"]["group"] == "new"

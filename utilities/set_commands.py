@@ -11,8 +11,8 @@ import os
 from telegram import Bot, BotCommand
 
 COMMANDS = [
-    BotCommand("start", "Register or see how to search"),
-    BotCommand("help", "Search tips and the list of hymnbooks"),
+    BotCommand("start", "Register (new users only)"),
+    BotCommand("help", "How to use the bot"),
 ]
 if os.getenv("COMMUNITY_ENABLED", "false").lower() == "true":
     COMMANDS.append(BotCommand("leave", "Leave your current Community"))

@@ -10,7 +10,6 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
 from urllib.parse import quote
-from uuid import uuid4
 
 import ai
 import boto3
@@ -251,7 +250,7 @@ async def send_song(
         keyboard.extend(make_button(song_number, True, "PPT", "💻 Generate PowerPoint"))
         keyboard.extend(make_button(song_number, True, "EXPLAIN", "💭 Explain Song"))
     keyboard.extend(
-        make_button(song_number, active_group_id is not None, "GROUP_SEND", "📢 Send to Community")
+        make_button(song_number, active_group_id is not None, "GROUP_SEND", templates.group_send_button)
     )
     await update.effective_chat.send_message(
         text=lyrics, parse_mode=constants.ParseMode.HTML,
@@ -441,6 +440,28 @@ CALLBACK_LOOKUP = {
 }
 
 
+async def update_community_button(query, song_number, text):
+    message = getattr(query, "message", None)
+    markup = getattr(message, "reply_markup", None)
+    if not markup:
+        return
+    callback = f"GROUP_SEND {song_number}"
+    if not any(button.callback_data == callback for row in markup.inline_keyboard for button in row):
+        return
+    keyboard = [
+        [InlineKeyboardButton(text, callback_data=callback)
+         if button.callback_data == callback else button for button in row]
+        for row in markup.inline_keyboard
+    ]
+    try:
+        await query.edit_message_reply_markup(
+            reply_markup=InlineKeyboardMarkup(keyboard),
+            connect_timeout=2, read_timeout=2, write_timeout=2, pool_timeout=2,
+        )
+    except TelegramError:
+        logger.warning("Could not update Community button song=%s", song_number)
+
+
 async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, dbUser, song_number) -> None:
     query = update.callback_query
     if not COMMUNITY_ENABLED:
@@ -448,13 +469,13 @@ async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, d
         logger.info("Community action disabled user=%s action=GROUP_SEND song=%s", user.id, song_number)
         return
     active_group_id = groups.get_active_group(user.id, dbUser)
-    correlation = {"broadcast_id": uuid4().hex}
+    community_context = {}
     if active_group_id:
-        correlation["community_id"] = active_group_id
+        community_context["community_id"] = active_group_id
 
-    async def blocked(reason, text):
+    async def blocked(reason, text, **details):
         groups.safe_log(saveLog, user, "COMMUNITY_SEND", song_number,
-                        {**correlation, "status": "blocked", "reason": reason})
+                        {**community_context, "status": "blocked", "reason": reason, **details})
         await query.answer(text=text, show_alert=True)
 
     if active_group_id is None:
@@ -471,21 +492,23 @@ async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, d
         return
     recipients = members - {user.id}
     if not recipients:
-        groups.unmark_sent(active_group_id, song_number)
-        await blocked("NO_RECIPIENTS", templates.group_send_nobody)
+        closed = groups.close_if_single_member(user.id, active_group_id)
+        await blocked("NO_RECIPIENTS",
+                      templates.group_closed if closed else templates.group_send_nobody,
+                      community_closed=closed)
         return
 
     # Counts describe the membership snapshot, not confirmed delivery.
     groups.safe_log(saveLog, user, "COMMUNITY_SEND", song_number,
-                    {**correlation, "status": "attempted", "recipient_count": len(recipients)})
-    sender = {**correlation, "sender_id": user.id, "sender_name": user.full_name,
+                    {**community_context, "status": "attempted", "recipient_count": len(recipients)})
+    delivery_context = {**community_context, "sender_id": user.id}
+    sender = {**delivery_context, "sender_name": user.full_name,
               "sender_username": user.username}
 
     async def send_to_member(member_id):
         recipient = groups.log_user(member_id)
-        details = sender
         # This records an attempt, not confirmed delivery or a read receipt.
-        groups.safe_log(saveLog, recipient, "COMMUNITY_RECEIVE", song_number, details)
+        groups.safe_log(saveLog, recipient, "COMMUNITY_RECEIVE", song_number, sender)
         try:
             await context.bot.send_message(
                 chat_id=member_id,
@@ -497,7 +520,7 @@ async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, d
             logger.warning("Community send attempt failed user=%s song=%s error=%s",
                            member_id, song_number, type(error).__name__)
             groups.safe_log(saveLog, recipient, "ERROR", song_number, {
-                **details, "action": "COMMUNITY_RECEIVE",
+                **delivery_context, "action": "COMMUNITY_RECEIVE",
                 "error": type(error).__name__,
             })
             if isinstance(error, Forbidden):
@@ -508,15 +531,19 @@ async def group_send(update: Update, context: ContextTypes.DEFAULT_TYPE, user, d
                 except Exception as cleanup_error:
                     logger.exception("Failed to remove unavailable Community member %s", member_id)
                     groups.safe_log(saveLog, recipient, "ERROR", song_number, {
-                        **details, "action": "COMMUNITY_REMOVE",
+                        **delivery_context, "action": "COMMUNITY_REMOVE",
                         "error": type(cleanup_error).__name__,
                     })
             return False
         return True
 
+    await update_community_button(query, song_number, templates.group_send_sending)
     delivered = sum(await asyncio.gather(*(send_to_member(m) for m in sorted(recipients))))
     if delivered == 0:
         groups.unmark_sent(active_group_id, song_number)
+    label = (templates.group_send_sent.format(n=delivered, s="" if delivered == 1 else "s")
+             if delivered else templates.group_send_button)
+    await update_community_button(query, song_number, label)
     try:
         await query.answer(text=templates.group_send_done.format(n=delivered, s="" if delivered == 1 else "s"))
     except TelegramError:
