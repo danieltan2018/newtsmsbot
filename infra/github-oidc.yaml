@@ -67,7 +67,7 @@ Resources:
                   - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:changeSet/*/*"
               - Sid: Artifacts
                 Effect: Allow
-                Action: [s3:CreateBucket, s3:PutObject, s3:GetObject, s3:ListBucket, s3:GetBucketLocation, s3:PutPublicAccessBlock, s3:PutLifecycleConfiguration]
+                Action: [s3:CreateBucket, s3:PutObject, s3:GetObject, s3:ListBucket, s3:GetBucketLocation, s3:PutBucketPublicAccessBlock, s3:PutLifecycleConfiguration]
                 Resource:
                   - !Sub "arn:aws:s3:::${StackName}-artifacts-${AWS::AccountId}-${AWS::Region}"
                   - !Sub "arn:aws:s3:::${StackName}-artifacts-${AWS::AccountId}-${AWS::Region}/*"

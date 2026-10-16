@@ -104,7 +104,6 @@ def test_join_wins_against_lone_member_closure(dynamo, community, monkeypatch, a
     real_close = groups.close_if_single_member
 
     def joined_before_close(uid, group_id):
-        assert groups._claim_membership(2, gid)
         assert groups._add_to_group(2, gid)
         return real_close(uid, group_id)
 

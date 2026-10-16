@@ -231,8 +231,9 @@ def test_concurrent_formation_race_yields_one_group(dynamo, offset):
     now = int(time.time())
     for uid in (1, 2, 3):
         groups._record_search(SONG, uid, now)
-    first = groups._form_group(SONG, now)
-    second = groups._form_group(SONG, now + offset)  # same-second contenders must also yield safely
+    first, claimed = groups._form_group(SONG, now)
+    second, other_claimed = groups._form_group(SONG, now + offset)  # same-second contenders must also yield safely
+    assert claimed == {1, 2, 3} and other_claimed == set()
     assert first == second
     assert [g["id"] for g in dynamo.Table("test_groups").scan()["Items"]] == [first]
     # the winner's request then joins everyone in the window; the loser's joins itself
@@ -377,9 +378,12 @@ def test_stale_expiry_preserves_new_membership(dynamo):
 
 def test_formation_loser_does_not_log_creation(dynamo):
     now = int(time.time())
-    groups._record_search(SONG, 1, now)
-    winner = groups._form_group(SONG, now, save_log, user(1))
-    assert groups._form_group(SONG, now, save_log, user(2)) == winner
+    register(dynamo, 1, 2, 3)
+    for uid in (1, 2, 3):
+        groups._record_search(SONG, uid, now)
+    winner, claimed = groups._form_group(SONG, now, save_log, user(1))
+    assert claimed == {1, 2, 3}
+    assert groups._form_group(SONG, now, save_log, user(2)) == (winner, set())
     assert len(LOGS) == 1 and LOGS[0][1] == "COMMUNITY_CREATE"
 
 
@@ -406,7 +410,8 @@ def test_join_logged_before_notification_starts(dynamo):
     register(dynamo, 1)
     now = int(time.time())
     groups._record_search(SONG, 1, now)
-    gid = groups._form_group(SONG, now)
+    gid = "notification-test"
+    dynamo.Table("test_groups").put_item(Item={"id": gid, "ttl": now + 3600})
     ctx = make_ctx()
 
     async def interrupted_send(**kwargs):
@@ -544,7 +549,7 @@ def test_stale_invitation_recovery_preserves_a_new_live_invitation(dynamo, monke
     recents = dynamo.Table("test_recents")
     recents.put_item(Item={"song": SONG, "group": "deleted", "users": {2}, "ttl": now + 60})
     dynamo.Table("test_groups").put_item(Item={"id": "new", "users": {1}, "ttl": now + 3600})
-    assert groups._claim_membership(1, "new")
+    assert groups._add_to_group(1, "new")
     spy = Mock(wraps=recents)
 
     def replacement(**kwargs):
@@ -575,3 +580,134 @@ def test_join_message_title_preserves_apostrophe_casing(dynamo, monkeypatch, tit
         search(dynamo, ctx, uid)
     assert len(ctx.bot.sent) == 3
     assert all(f"<b>{expected}</b>" in text for _, text in ctx.bot.sent)
+
+
+def test_recent_searchers_in_other_communities_do_not_meet_threshold(dynamo):
+    register(dynamo, 1, 2, 3, 4, 5, 6)
+    ctx = make_ctx()
+    for uid in (1, 2):
+        search(dynamo, ctx, uid, SONG)
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid, 'TSMS 29')
+    ctx.bot.sent.clear()
+    LOGS.clear()
+    assert search(dynamo, ctx, 4, SONG) is None
+    assert ctx.bot.sent == [] and LOGS == []
+    assert len(dynamo.Table('test_groups').scan()['Items']) == 1
+    assert search(dynamo, ctx, 5, SONG) is None
+    gid = search(dynamo, ctx, 6, SONG)
+    assert {active_group(dynamo, u) for u in (4, 5, 6)} == {gid}
+    assert {uid for uid, _ in ctx.bot.sent} == {4, 5, 6}
+
+
+def test_join_then_concurrent_leave_never_leaves_ghost_recipient(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3, 4)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    real_transact = groups._transact
+
+    def leave_after_commit(items):
+        result = real_transact(items)
+        monkeypatch.setattr(groups, '_transact', real_transact)
+        # This is the earliest moment another request can observe membership.
+        assert active_group(dynamo, 4) == gid
+        groups.leave_group(4, gid)
+        return result
+
+    monkeypatch.setattr(groups, '_transact', leave_after_commit)
+    assert asyncio.run(groups.community_join(ctx, save_log, 4, SONG, gid))
+    assert active_group(dynamo, 4) is None
+    assert groups.try_mark_sent(gid, 'TSMS 29', 1) == {1, 2, 3}
+
+
+def test_failed_join_has_no_user_pointer(dynamo):
+    register(dynamo, 1)
+    assert not groups._add_to_group(1, 'missing')
+    assert 'group' not in db_user(dynamo, 1)['Item']
+    assert 'Item' not in dynamo.Table('test_groups').get_item(Key={'id': 'missing'})
+
+
+def test_expiry_cleanup_loses_to_concurrent_ttl_refresh(dynamo, monkeypatch):
+    register(dynamo, 1)
+    now = int(time.time())
+    users = dynamo.Table('test_users')
+    gt = dynamo.Table('test_groups')
+    users.put_item(Item={'id': 1, 'group': 'g'})
+    gt.put_item(Item={'id': 'g', 'ttl': now - 1, 'users': {1, 2}})
+    real_transact = groups._transact
+
+    def refreshed_before_cleanup(items):
+        gt.update_item(Key={'id': 'g'}, UpdateExpression='SET #t = :t',
+                       ExpressionAttributeNames={'#t': 'ttl'},
+                       ExpressionAttributeValues={':t': now + 3600})
+        return real_transact(items)
+
+    monkeypatch.setattr(groups, '_transact', refreshed_before_cleanup)
+    assert active_group(dynamo, 1) == 'g'
+    assert db_user(dynamo, 1)['Item']['group'] == 'g'
+
+
+def test_membership_lookup_ignores_eventually_consistent_missing_snapshot(dynamo, monkeypatch):
+    from unittest.mock import Mock
+    register(dynamo, 1)
+    dynamo.Table('test_users').put_item(Item={'id': 1, 'group': 'g'})
+    gt = dynamo.Table('test_groups')
+    gt.put_item(Item={'id': 'g', 'users': {1}, 'ttl': int(time.time()) + 3600})
+    spy = Mock(wraps=gt)
+    spy.get_item.side_effect = lambda **kwargs: gt.get_item(**kwargs) if kwargs.get('ConsistentRead') else {}
+    original = groups.table
+    monkeypatch.setattr(groups, 'table', lambda name: spy if name == 'groups' else original(name))
+    assert active_group(dynamo, 1) == 'g'
+    assert db_user(dynamo, 1)['Item']['group'] == 'g'
+
+
+def test_formation_claim_failure_rolls_back_group_tag_and_other_users(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3)
+    now = int(time.time())
+    for uid in (1, 2, 3):
+        groups._record_search(SONG, uid, now)
+    dynamo.Table('test_groups').put_item(Item={'id': 'other', 'users': {9}, 'ttl': now + 3600})
+    real_transact = groups._transact
+
+    def competing_join(items):
+        monkeypatch.setattr(groups, '_transact', real_transact)
+        assert groups._add_to_group(1, 'other')
+        return real_transact(items)
+
+    monkeypatch.setattr(groups, '_transact', competing_join)
+    assert groups._form_group(SONG, now, save_log, user(3)) == (None, set())
+    assert LOGS == []
+    assert 'group' not in db_user(dynamo, 2)['Item']
+    assert 'group' not in db_user(dynamo, 3)['Item']
+    assert 'group' not in dynamo.Table('test_recents').get_item(Key={'song': SONG})['Item']
+    assert [r['id'] for r in dynamo.Table('test_groups').scan()['Items']] == ['other']
+
+
+def test_transaction_service_failure_is_not_treated_as_contention(dynamo, monkeypatch):
+    from botocore.exceptions import ClientError
+    client = dynamo.meta.client
+    def unavailable(**kwargs):
+        raise ClientError({'Error': {'Code': 'TransactionCanceledException'},
+                           'CancellationReasons': [{'Code': 'ProvisionedThroughputExceeded'}]},
+                          'TransactWriteItems')
+    monkeypatch.setattr(client, 'transact_write_items', unavailable)
+    with pytest.raises(ClientError):
+        groups._add_to_group(1, 'g')
+
+
+def test_replaced_formation_window_does_not_join_old_searchers(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3, 4, 5, 6)
+    now = int(time.time())
+    for uid in (1, 2, 3):
+        groups._record_search(SONG, uid, now)
+    real_transact = groups._transact
+    def replace_before_commit(items):
+        dynamo.Table('test_recents').put_item(Item={
+            'song': SONG, 'users': {4, 5, 6}, 'timestamp': now + 1, 'ttl': now + 61})
+        return real_transact(items)
+    monkeypatch.setattr(groups, '_transact', replace_before_commit)
+    assert groups._form_group(SONG, now) == (None, set())
+    assert dynamo.Table('test_groups').scan()['Items'] == []
+    assert all('group' not in db_user(dynamo, uid)['Item'] for uid in range(1, 7))

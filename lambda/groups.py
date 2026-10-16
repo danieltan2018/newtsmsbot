@@ -48,6 +48,33 @@ def _is_condition_failure(e):
     return e.response["Error"]["Code"] == "ConditionalCheckFailedException"
 
 
+def _transact(items):
+    """False only for a failed condition; service failures must remain visible."""
+    for attempt in range(3):
+        try:
+            table("users").meta.client.transact_write_items(TransactItems=items)
+            return True
+        except ClientError as error:
+            if error.response["Error"]["Code"] != "TransactionCanceledException":
+                raise
+            codes = {r["Code"] for r in error.response.get("CancellationReasons", [])}
+            if codes <= {"None", "ConditionalCheckFailed"} and "ConditionalCheckFailed" in codes:
+                return False
+            if codes <= {"None", "TransactionConflict"} and attempt < 2:
+                continue
+            raise
+
+
+def _membership_update(user_id, group_id):
+    return {"Update": {
+        "TableName": table("users").name, "Key": {"id": user_id},
+        "UpdateExpression": "SET #g = :g",
+        "ConditionExpression": "attribute_exists(id) AND attribute_not_exists(#g)",
+        "ExpressionAttributeNames": {"#g": "group"},
+        "ExpressionAttributeValues": {":g": group_id},
+    }}
+
+
 def log_user(user_id):
     """An affected user's identity without a database lookup for display names."""
     return SimpleNamespace(id=user_id, full_name=None, username=None)
@@ -77,13 +104,31 @@ def get_active_group(user_id, dbUser):
     group_id = dbUser["Item"].get("group")
     if not group_id:
         return None
-    group = table("groups").get_item(Key={"id": group_id}).get("Item")
-    if not group or int(group.get("ttl", 0)) <= int(time.time()):
-        if _clear_membership(user_id, group_id):
-            logger.info("Community membership cleared user=%s reason=%s", user_id,
-                        "expired" if group else "missing_group")
+    group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item")
+    now = int(time.time())
+    if group and int(group.get("ttl", 0)) > now:
+        return group_id
+    cleared = _transact([
+        {"ConditionCheck": {
+            "TableName": table("groups").name, "Key": {"id": group_id},
+            "ConditionExpression": "attribute_not_exists(id) OR attribute_not_exists(#ttl) OR #ttl <= :now",
+            "ExpressionAttributeNames": {"#ttl": "ttl"},
+            "ExpressionAttributeValues": {":now": now},
+        }},
+        {"Update": {
+            "TableName": table("users").name, "Key": {"id": user_id},
+            "UpdateExpression": "REMOVE #g", "ConditionExpression": "#g = :g",
+            "ExpressionAttributeNames": {"#g": "group"},
+            "ExpressionAttributeValues": {":g": group_id},
+        }},
+    ])
+    if cleared:
+        logger.info("Community membership cleared user=%s reason=expired_or_missing", user_id)
         return None
-    return group_id
+    # A broadcast may have refreshed the group between the read and cleanup.
+    current = table("users").get_item(Key={"id": user_id}, ConsistentRead=True).get("Item", {})
+    group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item", {})
+    return group_id if current.get("group") == group_id and group.get("ttl", 0) > int(time.time()) else None
 
 
 def _clear_membership(user_id, group_id):
@@ -102,51 +147,32 @@ def _clear_membership(user_id, group_id):
         raise
 
 
-def _claim_membership(user_id, group_id):
-    """Points the user at group_id if they exist and are not in any group.
-    Returns False when they already have a group (this one or another) or no
-    longer have a user row."""
-    try:
-        table("users").update_item(
-            Key={"id": user_id},
-            UpdateExpression="SET #g = :g",
-            ConditionExpression="attribute_exists(id) AND attribute_not_exists(#g)",
-            ExpressionAttributeNames={"#g": "group"},
-            ExpressionAttributeValues={":g": group_id},
-        )
-        return True
-    except ClientError as e:
-        if _is_condition_failure(e):
-            return False
-        raise
-
-
 def _add_to_group(user_id, group_id):
-    """Add to a live group; False if the group is gone or expired."""
-    try:
-        table("groups").update_item(
-            Key={"id": group_id},
-            UpdateExpression="ADD #u :u",
-            ConditionExpression="attribute_exists(id) AND #ttl > :now",
-            ExpressionAttributeNames={"#u": "users", "#ttl": "ttl"},
-            ExpressionAttributeValues={":u": {user_id}, ":now": Decimal(int(time.time()))},
-        )
-        return True
-    except ClientError as e:
-        if _is_condition_failure(e):
-            return False
-        raise
+    """Claim both sides of membership together, or neither."""
+    return _transact([
+        _membership_update(user_id, group_id),
+        {"Update": {
+            "TableName": table("groups").name, "Key": {"id": group_id},
+            "UpdateExpression": "ADD #u :u",
+            "ConditionExpression": "attribute_exists(id) AND #ttl > :now",
+            "ExpressionAttributeNames": {"#u": "users", "#ttl": "ttl"},
+            "ExpressionAttributeValues": {":u": {user_id}, ":now": int(time.time())},
+        }},
+    ])
 
 
 async def community_join(context, saveLog, user_id, song_number, group_id,
                          reason="formation", user=None):
     """Joins one user to a group and tells them. Idempotent: existing members
     and users in another group are left untouched and get no message."""
-    if not _claim_membership(user_id, group_id):
-        return False
     if not _add_to_group(user_id, group_id):
-        _clear_membership(user_id, group_id)
         return False
+    await _notify_join(context, saveLog, user_id, song_number, group_id, reason, user)
+    return True
+
+
+async def _notify_join(context, saveLog, user_id, song_number, group_id,
+                       reason="formation", user=None):
     safe_log(saveLog, user or log_user(user_id), "COMMUNITY_JOIN", song_number,
              {"community_id": group_id, "reason": reason})
     # Keep apostrophes inside words so DON'T becomes Don't, not Don'T.
@@ -168,21 +194,27 @@ async def community_join(context, saveLog, user_id, song_number, group_id,
 
 
 def leave_group(user_id, group_id, save_log=None, user=None, reason="user_request"):
-    removed = False
-    try:
-        table("groups").update_item(
-            Key={"id": group_id},
-            UpdateExpression="DELETE #u :u",
-            ConditionExpression="attribute_exists(id) AND contains(#u, :uid)",
-            ExpressionAttributeNames={"#u": "users"},
-            ExpressionAttributeValues={":u": {user_id}, ":uid": user_id},
-        )
-        removed = True
-    except ClientError as e:
-        if not _is_condition_failure(e):
-            raise  # group already expired/gone: nothing to remove them from
-    cleared = _clear_membership(user_id, group_id)
-    if save_log and (removed or cleared):
+    removed = _transact([
+        {"Update": {
+            "TableName": table("groups").name, "Key": {"id": group_id},
+            "UpdateExpression": "DELETE #u :u",
+            "ConditionExpression": "attribute_exists(id)",
+            "ExpressionAttributeNames": {"#u": "users"},
+            "ExpressionAttributeValues": {":u": {user_id}},
+        }},
+        {"Update": {
+            "TableName": table("users").name, "Key": {"id": user_id},
+            "UpdateExpression": "REMOVE #g", "ConditionExpression": "#g = :g",
+            "ExpressionAttributeNames": {"#g": "group"},
+            "ExpressionAttributeValues": {":g": group_id},
+        }},
+    ])
+    if not removed:
+        # Deleted group IDs are never reused. Avoid recreating an empty group.
+        group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item")
+        if not group:
+            removed = _clear_membership(user_id, group_id)
+    if save_log and removed:
         safe_log(save_log, user or log_user(user_id), "COMMUNITY_LEAVE", None,
                  {"community_id": group_id, "reason": reason})
 
@@ -352,36 +384,55 @@ def tag_sent_song(group_id, song_number, now):
     return set()
 
 
-def _form_group(song_number, now, save_log=None, user=None):
-    """Creates a group for the song's window and claims the row's tag. If a
-    concurrent request claimed it first, returns the winner's id instead."""
-    # Each contender must own a different row, even within the same second.
-    # Otherwise the losing request can overwrite/delete the winning group.
-    group_id = f"{song_number}-{now}-{uuid4().hex}"
-    table("groups").put_item(
-        Item={"id": group_id, "song": song_number, "created": Decimal(now),
-              "ttl": Decimal(now + GROUP_TTL_SECONDS)},
-        ConditionExpression="attribute_not_exists(id)",
-    )
-    try:
-        table("recents").update_item(
-            Key={"song": song_number},
-            UpdateExpression="SET #g = :g",
-            ConditionExpression="attribute_not_exists(#g)",
-            ExpressionAttributeNames={"#g": "group"},
-            ExpressionAttributeValues={":g": group_id},
-        )
-        if save_log:
-            safe_log(save_log, user, "COMMUNITY_CREATE", song_number,
-                     {"community_id": group_id})
-        return group_id
-    except ClientError as e:
-        if not _is_condition_failure(e):
-            raise
-    # Lost the race: drop our unused group row and use the winner's.
-    table("groups").delete_item(Key={"id": group_id})
-    winner = table("recents").get_item(Key={"song": song_number}, ConsistentRead=True)
-    return winner.get("Item", {}).get("group")
+def _form_group(song_number, now, save_log=None, user=None, window=None):
+    """Publish the invitation and its minimum membership in one transaction.
+
+    Re-read on contention: candidates may have joined another Community or
+    the search window may have been replaced. No partial group is published.
+    """
+    for _ in range(3):
+        row = table("recents").get_item(Key={"song": song_number}, ConsistentRead=True).get("Item", {})
+        if row.get("ttl", 0) <= int(time.time()):
+            return None, set()
+        if window is None:
+            window = row
+        if any(row.get(key) != window.get(key) for key in ("timestamp", "ttl")):
+            return None, set()
+        if row.get("group"):
+            return row["group"], set()
+        eligible = []
+        for uid in sorted(row.get("users", set())):
+            candidate = table("users").get_item(Key={"id": uid}, ConsistentRead=True).get("Item")
+            if candidate and not candidate.get("group"):
+                eligible.append(int(uid))
+                if len(eligible) == GROUP_FORMATION_THRESHOLD:
+                    break
+        if len(eligible) < GROUP_FORMATION_THRESHOLD:
+            return None, set()
+        group_id = f"{song_number}-{now}-{uuid4().hex}"
+        claimed = set(eligible)
+        items = [
+            {"Put": {
+                "TableName": table("groups").name,
+                "Item": {"id": group_id, "song": song_number, "created": now,
+                         "ttl": now + GROUP_TTL_SECONDS, "users": claimed},
+                "ConditionExpression": "attribute_not_exists(id)",
+            }},
+            {"Update": {
+                "TableName": table("recents").name, "Key": {"song": song_number},
+                "UpdateExpression": "SET #g = :g",
+                "ConditionExpression": "attribute_not_exists(#g) AND #ts = :ts AND #ttl = :ttl AND #ttl > :now",
+                "ExpressionAttributeNames": {"#g": "group", "#ts": "timestamp", "#ttl": "ttl"},
+                "ExpressionAttributeValues": {":g": group_id, ":ts": row["timestamp"],
+                                              ":ttl": row["ttl"], ":now": now},
+            }},
+            *(_membership_update(uid, group_id) for uid in eligible),
+        ]
+        if _transact(items):
+            if save_log:
+                safe_log(save_log, user, "COMMUNITY_CREATE", song_number, {"community_id": group_id})
+            return group_id, claimed
+    return None, set()
 
 
 async def process_search_event(context, saveLog, user, song_number, active_group_id):
@@ -417,14 +468,16 @@ async def process_search_event(context, saveLog, user, song_number, active_group
     users = {int(u) for u in row.get("users", set())}
     if len(users) < GROUP_FORMATION_THRESHOLD:
         return
-    group_id = _form_group(song_number, now, saveLog, user)
+    group_id, claimed = _form_group(song_number, now, saveLog, user, window=row)
     if not group_id:
         return
     # Everyone in the window joins; users already in another group are skipped
     # inside community_join.
     results = await asyncio.gather(
+        *(_notify_join(context, saveLog, uid, song_number, group_id,
+                       user=user if uid == user.id else None) for uid in sorted(claimed)),
         *(community_join(context, saveLog, uid, song_number, group_id,
-                         user=user if uid == user.id else None) for uid in sorted(users))
+                         user=user if uid == user.id else None) for uid in sorted(users - claimed)),
     )
     logger.info("community %s: %d joined for %s", group_id, sum(results), song_number)
 

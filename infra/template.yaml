@@ -73,6 +73,7 @@ Parameters:
     Type: Number
     Default: 3
     MinValue: 1
+    MaxValue: 98
     Description: >-
       Distinct users required within the shared Community window to form a
       Community. Use 2 in staging for testing; production defaults to 3.
@@ -216,6 +217,7 @@ Resources:
                   - dynamodb:DeleteItem
                   - dynamodb:Query
                   - dynamodb:BatchWriteItem
+                  - dynamodb:ConditionCheckItem
                 Resource:
                   - !GetAtt UsersTable.Arn
                   - !GetAtt LogsTable.Arn
