@@ -6,17 +6,16 @@ In order to prevent the distribution of copyright material, your phone number wi
 
 allowed_phone = ("65", "61", "60")
 
-current_version = 3
+current_version = 4
 
 changelog = """
 <b>Welcome back to the TSMS bot!</b>
 
 We've made some changes since your last use. This latest version includes:
 
-- Added new songs & content (visit /help for more information)
-- Re-enabled choir recording videos
-- Grouping of files when multiple scores/soundtracks are available
-- General system improvements & updates
+- General improvements including fixing typo errors across all books
+- Added full lyrics for Hymns of Grace (HOG)
+- Introducing <i>Communities</i>, a new feature for group singspiration. Search for the same song with 3 or more people to try it out!
 """
 
 welcome = """
