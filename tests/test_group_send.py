@@ -66,6 +66,29 @@ def test_second_send_of_same_song_is_blocked(dynamo, community):
     assert text == templates.group_send_already and alert
 
 
+def test_broadcast_invites_searchers_of_another_edition_and_preserves_payload(dynamo, community, monkeypatch):
+    register(dynamo, 9, 10)
+    assert search(dynamo, community, 9, "TSMS 579") is None
+    rows = []
+    monkeypatch.setattr(lf, "saveLog", lambda u, e, req, resp: rows.append((e, req, resp)))
+    text, alert = run_send(dynamo, community, 1, "HGG 500")
+    assert text == "Sent to 2 members" and not alert
+    assert all(body.startswith("HGG 500") for uid, body in community.bot.sent if uid in (2, 3))
+    assert active_group(dynamo, 9) == active_group(dynamo, 1)
+    assert search(dynamo, community, 10, "TSMS 579") == active_group(dynamo, 1)
+    sends = [(req, resp) for event, req, resp in rows if event == "COMMUNITY_SEND"]
+    assert len(sends) == 1 and sends[0][0] == "HGG 500"
+    assert run_send(dynamo, community, 2, "TSMS 579") == (templates.group_send_already, True)
+
+
+def test_failed_broadcast_can_retry_using_another_edition(dynamo, community):
+    send = community.bot.send_message
+    community.bot.send_message = AsyncMock(side_effect=NetworkError("timeout"))
+    assert run_send(dynamo, community, 1, "HGG 500")[0] == "Sent to 0 members"
+    community.bot.send_message = send
+    assert run_send(dynamo, community, 1, "TSMS 579") == ("Sent to 2 members", False)
+
+
 def test_not_in_community(dynamo):
     register(dynamo, 7)
     text, alert = run_send(dynamo, make_ctx(), 7)
@@ -268,6 +291,23 @@ def test_simultaneous_broadcasts_have_one_winner(dynamo, community, monkeypatch)
     assert len([r for r in rows if r[1] == "COMMUNITY_SEND" and r[2]["status"] == "attempted"]) == 1
     assert len([r for r in rows if r[1] == "COMMUNITY_SEND" and r[2]["status"] == "blocked"]) == 1
     assert len([r for r in rows if r[1] == "COMMUNITY_RECEIVE"]) == 2
+    assert len(community.bot.sent) == 2
+
+
+def test_simultaneous_equivalent_edition_broadcasts_have_one_winner(dynamo, community, monkeypatch):
+    rows = []
+    monkeypatch.setattr(lf, "saveLog", lambda u, e, req, resp: rows.append((e, req, resp)))
+
+    async def send_both():
+        await asyncio.gather(*(
+            lf.group_send(SimpleNamespace(callback_query=FakeQuery()), community,
+                          user(uid), db_user(dynamo, uid), song)
+            for uid, song in [(1, "TSMS 579"), (2, "HGG 500")]
+        ))
+
+    asyncio.run(send_both())
+    assert len([r for r in rows if r[0] == "COMMUNITY_SEND" and r[2]["status"] == "attempted"]) == 1
+    assert len([r for r in rows if r[0] == "COMMUNITY_SEND" and r[2]["status"] == "blocked"]) == 1
     assert len(community.bot.sent) == 2
 
 

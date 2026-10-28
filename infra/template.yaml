@@ -79,7 +79,7 @@ Parameters:
       Community. Use 2 in staging for testing; production defaults to 3.
   SentTagWindowSeconds:
     Type: Number
-    Default: 60
+    Default: 120
     MinValue: 1
     Description: Shared window in seconds for Community formation and joining after a broadcast.
   KeepWarmSchedule:
@@ -357,6 +357,104 @@ Resources:
         - "${Name}-alarms"
         - Name: !FindInMap [Env, !Ref Environment, FunctionName]
 
+  # Separate input/output topics prevent alarm-email feedback loops.
+  AlarmEventsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub "${AWS::StackName}-alarm-events"
+
+  AlertFailuresQueue:
+    Type: AWS::SQS::Queue
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      QueueName: !Sub "${AWS::StackName}-alert-failures"
+      MessageRetentionPeriod: 1209600  # 14 days to recover failed notifications
+      SqsManagedSseEnabled: true
+
+  AlertLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${AWS::StackName}-alert-notifier"
+      RetentionInDays: !Ref LogRetentionDays
+
+  AlertRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${AWS::StackName}-alert-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: alarm-emails
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: logs:FilterLogEvents
+                Resource: !GetAtt LogGroup.Arn
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !GetAtt AlertLogGroup.Arn
+              - Effect: Allow
+                Action: sns:Publish
+                Resource: !Ref AlarmTopic
+              - Effect: Allow
+                Action: sqs:SendMessage
+                Resource: !GetAtt AlertFailuresQueue.Arn
+
+  AlertNotifier:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-alert-notifier"
+      Runtime: python3.14
+      Architectures: [arm64]
+      Handler: alert_notifications.handler
+      Role: !GetAtt AlertRole.Arn
+      Code: ../build/function
+      # Uses only the runtime's boto3 and standard library, with no bot imports
+      # or dependency layer needed to initialize the notifier.
+      MemorySize: 128
+      Timeout: 60
+      DeadLetterConfig:
+        TargetArn: !GetAtt AlertFailuresQueue.Arn
+      LoggingConfig:
+        LogFormat: JSON
+        LogGroup: !Ref AlertLogGroup
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          BOT_FUNCTION: !FindInMap [Env, !Ref Environment, FunctionName]
+          BOT_LOG_GROUP: !Ref LogGroup
+          EMAIL_TOPIC_ARN: !Ref AlarmTopic
+
+  AlertInvokeConfig:
+    Type: AWS::Lambda::EventInvokeConfig
+    Properties:
+      FunctionName: !Ref AlertNotifier
+      Qualifier: $LATEST
+      MaximumRetryAttempts: 2
+      MaximumEventAgeInSeconds: 3600
+
+  AlertPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref AlertNotifier
+      Action: lambda:InvokeFunction
+      Principal: sns.amazonaws.com
+      SourceArn: !Ref AlarmEventsTopic
+
+  AlertSubscription:
+    Type: AWS::SNS::Subscription
+    DependsOn: [AlertPermission, AlertInvokeConfig]
+    Properties:
+      TopicArn: !Ref AlarmEventsTopic
+      Protocol: lambda
+      Endpoint: !GetAtt AlertNotifier.Arn
+
   AlarmSubscription:
     Type: AWS::SNS::Subscription
     Condition: HasAlarmEmail
@@ -367,6 +465,7 @@ Resources:
 
   ErrorsAlarm:
     Type: AWS::CloudWatch::Alarm
+    DependsOn: AlertSubscription
     Properties:
       AlarmName: !Sub
         - "${Name}-errors"
@@ -381,10 +480,11 @@ Resources:
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
       TreatMissingData: notBreaching
-      AlarmActions: [!Ref AlarmTopic]
+      AlarmActions: [!Ref AlarmEventsTopic]
 
   ThrottlesAlarm:
     Type: AWS::CloudWatch::Alarm
+    DependsOn: AlertSubscription
     Properties:
       AlarmName: !Sub
         - "${Name}-throttles"
@@ -399,7 +499,7 @@ Resources:
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
       TreatMissingData: notBreaching
-      AlarmActions: [!Ref AlarmTopic]
+      AlarmActions: [!Ref AlarmEventsTopic]
 
   # Handled exceptions are logged by on_error / lambda_handler, not counted as
   # Lambda Errors, so watch the log for them too.
@@ -416,11 +516,12 @@ Resources:
 
   HandledErrorsAlarm:
     Type: AWS::CloudWatch::Alarm
+    DependsOn: AlertSubscription
     Properties:
       AlarmName: !Sub
         - "${Name}-handled-errors"
         - Name: !FindInMap [Env, !Ref Environment, FunctionName]
-      AlarmDescription: The bot logged an ERROR (handler exception caught by on_error)
+      AlarmDescription: The bot logged at least one ERROR in 5 minutes (including Explain Song failures)
       Namespace: !Sub "TSMSBot/${Environment}"
       MetricName: HandledErrors
       Statistic: Sum
@@ -429,7 +530,7 @@ Resources:
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
       TreatMissingData: notBreaching
-      AlarmActions: [!Ref AlarmTopic]
+      AlarmActions: [!Ref AlarmEventsTopic]
 
 Outputs:
   FunctionName:
@@ -441,3 +542,6 @@ Outputs:
     Value: !GetAtt Function.Arn
   AlarmTopicArn:
     Value: !Ref AlarmTopic
+  AlertFailuresQueueUrl:
+    Description: Failed alarm events retained for manual recovery after notifier retries
+    Value: !Ref AlertFailuresQueue

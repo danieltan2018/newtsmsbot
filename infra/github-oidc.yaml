@@ -79,6 +79,14 @@ Resources:
                   - events:*
                   - cloudwatch:*
                   - sns:*
+                  - sqs:CreateQueue
+                  - sqs:DeleteQueue
+                  - sqs:GetQueueAttributes
+                  - sqs:GetQueueUrl
+                  - sqs:SetQueueAttributes
+                  - sqs:TagQueue
+                  - sqs:UntagQueue
+                  - sqs:ListQueueTags
                   - dynamodb:Describe*
                   - dynamodb:List*
                   - dynamodb:UpdateTable
@@ -104,6 +112,8 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:iam::${AWS::AccountId}:role/${StackName}-role"
                   - !Sub "arn:aws:iam::${AWS::AccountId}:role/${StackName}-staging-role"
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/${StackName}-alert-role"
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/${StackName}-staging-alert-role"
               - Sid: Identity
                 Effect: Allow
                 Action: sts:GetCallerIdentity

@@ -10,8 +10,9 @@ Design (see docs/COMMUNITY_LOGGING.md and tests/test_groups.py):
   * Broadcasting a song to a group tags that song's row with the group for
     SENT_TAG_TTL_SECONDS. Anyone without a group who looks the song up while
     the tag is live joins that group at once; people who searched it in the
-    minute before the broadcast are joined too. Only broadcasts create
-    invitations, never browsing.
+    current search window before the broadcast are joined too. Formation
+    publishes an invitation for the remainder of its search window; members'
+    browsing never creates invitations.
   * A user is in at most one group; joins are skipped for users who already
     have one. Groups live GROUP_TTL_SECONDS, refreshed by every broadcast.
   * A song can be broadcast to a group once.
@@ -32,16 +33,27 @@ from botocore.exceptions import ClientError
 from boto3.dynamodb.types import TypeDeserializer
 from cache import TITLES
 from db import community_log_write, table
+from lookup import COMMUNITY_SONG_KEYS
 from telegram import constants
 from telegram.error import TelegramError
 
 logger = logging.getLogger()
 
 GROUP_FORMATION_THRESHOLD = int(os.getenv("GROUP_FORMATION_THRESHOLD", "3"))
-RECENTS_TTL_SECONDS = int(os.getenv("RECENTS_TTL_SECONDS", "60"))
+RECENTS_TTL_SECONDS = int(os.getenv("RECENTS_TTL_SECONDS", "120"))
 GROUP_TTL_SECONDS = int(os.getenv("GROUP_TTL_SECONDS", "3600"))
 SENT_TAG_TTL_SECONDS = int(os.getenv("SENT_TAG_TTL_SECONDS", str(RECENTS_TTL_SECONDS)))
 _log_retry_at = 0.0
+
+# Generated directly from the normalized title groups in TITLES_LOOKUP.
+# Keep original song IDs in messages and logs; only coordination keys are shared.
+_song_families = {}
+for _edition, _canonical in COMMUNITY_SONG_KEYS.items():
+    _song_families.setdefault(_canonical, set()).add(_edition)
+
+
+def community_song_key(song_number):
+    return COMMUNITY_SONG_KEYS.get(song_number, song_number)
 
 
 def _is_condition_failure(e):
@@ -243,6 +255,13 @@ def try_mark_sent(group_id, song_number, sender_id):
     """Reserve a song and return members; None means inactive or already sent.
     A singleton snapshot is returned for closure without reserving the song.
     The atomic claim checks membership and prevents duplicate broadcasts."""
+    original_song = song_number
+    song_number = community_song_key(song_number)
+    # Existing groups may contain a marker written under an older edition ID.
+    # Check every equivalent ID in the same atomic claim, without another read.
+    editions = sorted(_song_families.get(song_number, {original_song}))
+    sent_values = {f":edition{i}": edition for i, edition in enumerate(editions)}
+    unsent = " AND ".join(f"NOT contains(#s, {key})" for key in sent_values)
     now = int(time.time())
     try:
         response = table("groups").update_item(
@@ -251,14 +270,14 @@ def try_mark_sent(group_id, song_number, sender_id):
             ConditionExpression=(
                 "attribute_exists(id) AND #ttl > :now AND contains(#u, :sender) "
                 "AND size(#u) > :one "
-                "AND (attribute_not_exists(#s) OR NOT contains(#s, :song))"
+                f"AND (attribute_not_exists(#s) OR ({unsent}))"
             ),
             ExpressionAttributeNames={"#s": "sent", "#ttl": "ttl", "#u": "users"},
             ExpressionAttributeValues={
                 ":s": {song_number},
                 ":ttl": Decimal(now + GROUP_TTL_SECONDS),
                 ":now": Decimal(now),
-                ":song": song_number,
+                **sent_values,
                 ":sender": sender_id,
                 ":one": 1,
             },
@@ -284,7 +303,7 @@ def unmark_sent(group_id, song_number):
             UpdateExpression="DELETE #s :s",
             ConditionExpression="attribute_exists(id)",
             ExpressionAttributeNames={"#s": "sent"},
-            ExpressionAttributeValues={":s": {song_number}},
+            ExpressionAttributeValues={":s": {community_song_key(song_number)}},
         )
     except ClientError as e:
         if not _is_condition_failure(e):
@@ -297,6 +316,7 @@ def unmark_sent(group_id, song_number):
 def _record_search(song_number, user_id, now):
     """Atomically adds the user to the song's current window and returns the
     row as it is after the write. A window that has expired is replaced."""
+    song_number = community_song_key(song_number)
     names = {"#u": "users", "#ttl": "ttl", "#ts": "timestamp"}
     values = {":u": {user_id}, ":now": Decimal(now), ":ttl": Decimal(now + RECENTS_TTL_SECONDS)}
     expr = "ADD #u :u SET #ts = if_not_exists(#ts, :now), #ttl = if_not_exists(#ttl, :ttl)"
@@ -336,6 +356,7 @@ def tag_sent_song(group_id, song_number, now):
     for SENT_TAG_TTL_SECONDS (first live tag wins) and returns the ids of
     people who looked the song up in the current window, so they can be
     joined. An expired row is replaced so stale searchers are never invited."""
+    song_number = community_song_key(song_number)
     recents = table("recents")
     for _ in range(2):
         try:
@@ -390,8 +411,9 @@ def _form_group(song_number, now, save_log=None, user=None, window=None):
     Re-read on contention: candidates may have joined another Community or
     the search window may have been replaced. No partial group is published.
     """
+    song_key = community_song_key(song_number)
     for _ in range(3):
-        row = table("recents").get_item(Key={"song": song_number}, ConsistentRead=True).get("Item", {})
+        row = table("recents").get_item(Key={"song": song_key}, ConsistentRead=True).get("Item", {})
         if row.get("ttl", 0) <= int(time.time()):
             return None, set()
         if window is None:
@@ -419,7 +441,7 @@ def _form_group(song_number, now, save_log=None, user=None, window=None):
                 "ConditionExpression": "attribute_not_exists(id)",
             }},
             {"Update": {
-                "TableName": table("recents").name, "Key": {"song": song_number},
+                "TableName": table("recents").name, "Key": {"song": song_key},
                 "UpdateExpression": "SET #g = :g",
                 "ConditionExpression": "attribute_not_exists(#g) AND #ts = :ts AND #ttl = :ttl AND #ttl > :now",
                 "ExpressionAttributeNames": {"#g": "group", "#ts": "timestamp", "#ttl": "ttl"},
@@ -454,7 +476,7 @@ async def process_search_event(context, saveLog, user, song_number, active_group
             return
         try:
             table("recents").put_item(
-                Item={"song": song_number, "timestamp": Decimal(now),
+                Item={"song": community_song_key(song_number), "timestamp": Decimal(now),
                       "ttl": Decimal(now + RECENTS_TTL_SECONDS), "users": {user.id}},
                 ConditionExpression="#g = :g",
                 ExpressionAttributeNames={"#g": "group"},

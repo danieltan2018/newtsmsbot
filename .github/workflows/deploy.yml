@@ -11,6 +11,7 @@ on:
       - "books/**"
       - "media/**"
       - "utilities/cacheloader.py"
+      - "utilities/title_lookup.py"
       - "requirements.txt"
       - "requirements-dev.txt"
       - "tests/**"

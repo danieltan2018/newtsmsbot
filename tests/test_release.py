@@ -48,6 +48,23 @@ def test_search_with_community_off_preserves_hit_log(release):
     lf.groups.process_search_event.assert_not_called()
 
 
+@pytest.mark.parametrize("title,expected,other_results", [
+    ("We plough the fields", "TSMS 729", "1 results"),
+    ("We plough the fields, and scatter", "HGG 704", None),
+])
+def test_title_wordings_keep_existing_song_choices(release, monkeypatch, title, expected, other_results):
+    update, ctx, logs = release
+    update.message.text = title
+    send_song = AsyncMock()
+    monkeypatch.setattr(lf, "send_song", send_song)
+    asyncio.run(lf.search(update, ctx))
+    assert send_song.await_args.args[2] == expected
+    if other_results:
+        assert ("SEARCH_ALSO_FOUND", title, other_results) in logs
+    else:
+        assert not any(event == "SEARCH_ALSO_FOUND" for event, _, _ in logs)
+
+
 def test_old_community_button_is_rejected_without_group_access(release):
     update, ctx, logs = release
     update.callback_query.data = "GROUP_SEND TSMS 28"

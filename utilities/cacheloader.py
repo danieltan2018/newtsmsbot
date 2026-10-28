@@ -1,9 +1,9 @@
 import json
 import os
 import re
-from collections import defaultdict
 
 from unidecode import unidecode
+from title_lookup import build_title_lookup
 
 f = open("./lambda/cache.py", "w", encoding="UTF-8")
 
@@ -191,21 +191,15 @@ f.write("SGM_LINKS = " + json.dumps(sgm_links, ensure_ascii=False) + "\n")
 
 d = open("./lambda/lookup.py", "w", encoding="UTF-8")
 alpha = re.compile("[^a-zA-Z ]")
-titles_decoded = defaultdict(list)
 songs_decoded = {}
-for song_number, song_title in titles.items():
-    title = unidecode(song_title).strip().upper()
-    title = alpha.sub("", title)
-    if song_number.startswith("TSMS"):
-        titles_decoded[title].insert(0, song_number)
-    else:
-        titles_decoded[title].append(song_number)
+titles_decoded, community_song_keys = build_title_lookup(titles)
 for song_number, song_lyrics in songs.items():
     lyrics = unidecode(song_lyrics).replace("\n", " ").strip().upper()
     lyrics = alpha.sub("", lyrics)
     songs_decoded[song_number] = lyrics
 
 d.write("TITLES_LOOKUP = " + json.dumps(titles_decoded, ensure_ascii=False) + "\n")
+d.write("COMMUNITY_SONG_KEYS = " + json.dumps(community_song_keys, ensure_ascii=False) + "\n")
 d.write("SONGS_LOOKUP = " + json.dumps(songs_decoded, ensure_ascii=False) + "\n")
 
 f.close()

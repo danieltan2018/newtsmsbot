@@ -1,10 +1,10 @@
 """Behavioural tests for the Community (groups) feature against a DynamoDB mock.
 
 They encode the intended design:
-  * 3 different users searching the same song within 60 s form a group
+  * 3 different users searching the same song within a fixed 120 s form a group
   * a song broadcast to a group is an invitation: anyone without a group who
     looks it up within the invitation window joins immediately, and people
-    who looked it up in the minute before the broadcast are joined too
+    who looked it up in the current search window before the broadcast join too
   * members' own searches never affect anyone else
   * a user is in at most one group at a time
   * a song can be broadcast to a group once; the sender is not a recipient
@@ -136,6 +136,56 @@ def test_fourth_late_searcher_joins_existing_group(dynamo):
     assert search(dynamo, ctx, 4) == g
 
 
+@pytest.mark.parametrize("editions", [
+    ("TSMS 24", "HGG 523", "TSMS 24"),
+    ("HGG 500", "TSMS 579", "HGG 500"),
+    ("TSMS 607", "TSMS 652", "TSMS 607"),
+])
+def test_equivalent_editions_form_and_join_one_community(dynamo, editions):
+    register(dynamo, 1, 2, 3, 4)
+    ctx = make_ctx()
+    for uid, edition in enumerate(editions, 1):
+        gid = search(dynamo, ctx, uid, edition)
+    assert gid
+    assert {active_group(dynamo, uid) for uid in (1, 2, 3)} == {gid}
+    assert search(dynamo, ctx, 4, editions[1]) == gid
+    assert len(dynamo.Table("test_recents").scan()["Items"]) == 1
+    # Analytics continue to record the requested edition, not the shared key.
+    assert [row[2] for row in LOGS if row[1] == "COMMUNITY_CREATE"] == [editions[2]]
+    assert [row[2] for row in LOGS if row[1] == "COMMUNITY_JOIN"][-1] == editions[1]
+
+
+def test_different_title_wordings_do_not_reach_formation_threshold(dynamo):
+    register(dynamo, 1, 2, 3)
+    ctx = make_ctx()
+    for uid, song in [(1, "TSMS 729"), (2, "HGG 704"), (3, "TSMS 729")]:
+        assert search(dynamo, ctx, uid, song) is None
+
+
+def test_equivalent_edition_formation_contenders_reuse_one_group(dynamo):
+    register(dynamo, 1, 2, 3)
+    now = int(time.time())
+    for uid, song in [(1, "TSMS 24"), (2, "HGG 523"), (3, "TSMS 24")]:
+        groups._record_search(song, uid, now)
+    gid, claimed = groups._form_group("HGG 523", now)
+    other, other_claimed = groups._form_group("TSMS 24", now)
+    assert gid == other and claimed == {1, 2, 3} and not other_claimed
+    assert len(dynamo.Table("test_groups").scan()["Items"]) == 1
+
+
+def test_equivalent_edition_claim_checks_legacy_markers(dynamo):
+    register(dynamo, 1, 2, 3)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    dynamo.Table("test_groups").update_item(
+        Key={"id": gid}, UpdateExpression="SET sent = :sent",
+        ExpressionAttributeValues={":sent": {"HGG 500"}},
+    )
+    assert groups.try_mark_sent(gid, "TSMS 579", 1) is None
+
+
 def broadcast(dynamo, ctx, sender, song):
     """The tail of group_send: mark sent, then open the invitation."""
     g = active_group(dynamo, sender)
@@ -150,7 +200,7 @@ def test_member_searches_do_not_invite_anyone(dynamo):
     for uid in (1, 2, 3): search(dynamo, ctx, uid)
     search(dynamo, ctx, 1, song="HGG 12")                              # member just browsing
     assert search(dynamo, ctx, 9, song="HGG 12") is None
-    row = dynamo.Table("test_recents").get_item(Key={"song": "HGG 12"})["Item"]
+    row = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 12")})["Item"]
     assert "group" not in row and {int(u) for u in row["users"]} == {9}   # member not even counted
 
 
@@ -194,7 +244,7 @@ def test_expired_row_with_old_tag_is_replaced_on_broadcast(dynamo, monkeypatch):
     for uid in (4, 5, 6): search(dynamo, ctx, uid, song="TSMS 2")
     g2 = active_group(dynamo, 4)
     assert broadcast(dynamo, ctx, 4, "HGG 12") == 0                    # stale searcher 8 not invited
-    row = dynamo.Table("test_recents").get_item(Key={"song": "HGG 12"})["Item"]
+    row = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 12")})["Item"]
     assert row["group"] == g2 and "users" not in row
 
 
@@ -477,8 +527,43 @@ def test_competing_broadcast_preserves_invitation_without_retry_writes(dynamo, m
     spy.put_item.assert_not_called()
 
 
-@pytest.mark.parametrize("seconds,joins", [(59, True), (60, False), (61, False)])
-def test_one_minute_broadcast_join_boundary(dynamo, monkeypatch, seconds, joins):
+@pytest.mark.parametrize("seconds,forms", [(60, True), (107, True), (119, True), (120, False), (121, False)])
+def test_two_minute_formation_boundary(dynamo, monkeypatch, seconds, forms):
+    register(dynamo, 1, 2, 3)
+    now = int(time.time())
+    monkeypatch.setattr(groups.time, "time", lambda: now)
+    ctx = make_ctx()
+    assert search(dynamo, ctx, 1) is None
+    monkeypatch.setattr(groups.time, "time", lambda: now + 59)
+    assert search(dynamo, ctx, 2) is None
+    monkeypatch.setattr(groups.time, "time", lambda: now + seconds)
+    gid = search(dynamo, ctx, 3)
+    assert bool(gid) is forms
+    if forms:
+        assert {active_group(dynamo, uid) for uid in (1, 2, 3)} == {gid}
+    else:
+        assert active_group(dynamo, 1) is active_group(dynamo, 2) is None
+        assert dynamo.Table("test_recents").get_item(Key={"song": SONG})["Item"]["users"] == {3}
+
+
+@pytest.mark.parametrize("seconds,joins", [(107, True), (119, True), (120, False)])
+def test_formation_invitation_keeps_original_two_minute_window(dynamo, monkeypatch, seconds, joins):
+    register(dynamo, 1, 2, 3, 9)
+    now = int(time.time())
+    monkeypatch.setattr(groups.time, "time", lambda: now)
+    ctx = make_ctx()
+    search(dynamo, ctx, 1)
+    monkeypatch.setattr(groups.time, "time", lambda: now + 30)
+    search(dynamo, ctx, 2)
+    gid = search(dynamo, ctx, 3)
+    assert gid
+    monkeypatch.setattr(groups.time, "time", lambda: now + seconds)
+    assert search(dynamo, ctx, 9) == (gid if joins else None)
+    assert active_group(dynamo, 1) == gid
+
+
+@pytest.mark.parametrize("seconds,joins", [(60, True), (107, True), (119, True), (120, False), (121, False)])
+def test_two_minute_broadcast_join_boundary(dynamo, monkeypatch, seconds, joins):
     register(dynamo, 1, 2, 3, 9)
     now = int(time.time())
     monkeypatch.setattr(groups.time, "time", lambda: now)

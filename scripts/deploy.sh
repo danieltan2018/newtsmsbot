@@ -42,11 +42,11 @@ aws cloudformation package \
 
 # `aws cloudformation deploy` keeps the previous value of every parameter that
 # is not overridden here (secrets survive routine redeploys).
-# Migrate existing stacks from the old 600-second join window to the shared minute.
+# Apply the shared two-minute window to existing stacks as well as new stacks.
 OVERRIDES=("Environment=$ENV" "$@")
 case " $* " in
   *" SentTagWindowSeconds="*) ;;
-  *) OVERRIDES+=("SentTagWindowSeconds=60");;
+  *) OVERRIDES+=("SentTagWindowSeconds=120");;
 esac
 
 echo "==> Deploying stack $STACK ($ENV) in $REGION"

@@ -106,3 +106,37 @@ def test_error_handler_notifies_and_logs(monkeypatch):
     asyncio.run(lf.on_error(upd, NS(error=KeyError("TSMS 1"))))
     assert answered == [lf.templates.generic_error]
     assert logged == [(9, "ERROR", "SCORE TSMS 1", "KeyError: 'TSMS 1' -> ALERT")]
+
+
+def test_bot_rejects_alarm_sns_events_without_processing_telegram(harness, monkeypatch):
+    from unittest.mock import Mock
+    import alert_notifications
+    monkeypatch.setenv("ALARM_EVENTS_TOPIC_ARN", "arn:aws:sns:eu-west-2:1:alarm-events")
+    handle = Mock(return_value={"statusCode": 200})
+    monkeypatch.setattr(alert_notifications, "handler", handle)
+    event = {"Records": [{"EventSource": "aws:sns", "Sns": {
+        "TopicArn": "arn:aws:sns:eu-west-2:1:alarm-events", "Message": "{}"}}]}
+    assert lf.lambda_handler(event, CTX) == {"statusCode": 401}
+    handle.assert_not_called()
+    assert harness[0] == [] and harness[1].calls == []
+
+
+def test_alarm_shaped_http_request_cannot_bypass_webhook_secret(harness, monkeypatch):
+    from unittest.mock import Mock
+    import alert_notifications
+    handle = Mock()
+    monkeypatch.setattr(alert_notifications, "handler", handle)
+    event = {"body": "{}", "Records": [{"EventSource": "aws:sns"}]}
+    assert lf.lambda_handler(event, CTX) == {"statusCode": 401}
+    handle.assert_not_called()
+
+
+def test_untrusted_sns_topic_is_rejected(harness, monkeypatch):
+    from unittest.mock import Mock
+    import alert_notifications
+    monkeypatch.setenv("ALARM_EVENTS_TOPIC_ARN", "expected-topic")
+    handle = Mock()
+    monkeypatch.setattr(alert_notifications, "handler", handle)
+    assert lf.lambda_handler({"Records": [{"EventSource": "aws:sns", "Sns": {
+        "TopicArn": "other-topic"}}]}, CTX) == {"statusCode": 401}
+    handle.assert_not_called()
