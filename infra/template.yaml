@@ -393,6 +393,11 @@ Resources:
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
+              # Group actions require an ARN without :* from April 26, 2027.
+              # Keep the existing ARN grant during the regional rollout.
+              - Effect: Allow
+                Action: logs:FilterLogEvents
+                Resource: !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroup}"
               - Effect: Allow
                 Action: logs:FilterLogEvents
                 Resource: !GetAtt LogGroup.Arn
