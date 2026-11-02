@@ -1,21 +1,19 @@
-# newtsmsbot
- TSMS Bot v2.0
+# TSMS Bot (v2.0)
 
-Community matching reuses the generated title lookup. All editions under the
-same normalized title share a Community identity, regardless of lyric differences.
-There are no manual equivalence exceptions. Different title wordings remain
-separate, following the existing search lookup. Regenerate the lookup with
-`python3 utilities/cacheloader.py` after changing the song catalog.
-Messages, resources and log requests retain the selected edition. Formation,
-invitations and duplicate-broadcast protection use the shared identity, with no
-additional database calls.
+A serverless Telegram bot for church members to search for song lyrics, musical scores and audio recordings across a catalog of over 3,700 songs and several hymnbooks.
 
-Alarm emails run in a separate notifier Lambda, so bot initialization failures
-do not prevent notification delivery. The notifier retries failed publications
-twice after the initial invocation. Exhausted or expired notifications enter an
-encrypted SQS dead-letter queue retained for 14 days; its URL is exported as
-`AlertFailuresQueueUrl`. After fixing delivery, replay the original SNS event
-from the queue to the notifier and remove it only after confirming publication.
-Queue recovery is manual. Bot update retries remain disabled to avoid replaying
-Telegram side effects. Existing GitHub deployment roles need the updated
-`infra/github-oidc.yaml` permissions before deploying these additional resources.
+## Key Capabilities
+
+- **Search & Lookups**: Instant search by songbook number or fuzzy lyric matching across editions.
+- **Worship Media**: On-demand delivery of sheet music scores, piano/choral MP3s, chords, and choir video links.
+- **PowerPoint Generation**: Generates projection-ready `.pptx` lyric slides on the fly.
+- **AI Song Explanations**: Devotional insights and theological context powered by Google Gemini.
+- **Communities**: Real-time co-worship groups formed when users browse songs together, featuring song broadcasting, invitation windows, and auto-rollover.
+
+## Architecture & Stack
+
+- **Compute**: AWS Lambda running Python 3.14 on `arm64`, exposed via Lambda Function URLs with asynchronous self-invocation for Telegram webhooks.
+- **Storage**: AWS DynamoDB for user state, live Community sessions, search recents, and audit logs.
+- **Monitoring**: CloudWatch alarms with an isolated notification Lambda, retry backoff, and an encrypted dead-letter queue.
+- **CI/CD**: GitHub Actions using AWS OIDC authentication — auto-deploying to staging on push to `main` and manually dispatched to production.
+- **Testing**: Comprehensive automated suite (`pytest tests`) with mocked AWS and Telegram services.
