@@ -680,8 +680,7 @@ def _extract_update(event):
     """Returns (telegram_update_dict, secret_token_header_or_None).
 
     Supports both the Lambda Function URL / HTTP API envelope ({"body": ...,
-    "headers": ...}) and the legacy REST API non-proxy integration, which
-    passes the raw Telegram update as the event itself.
+    "headers": ...}) and bare update payloads (useful for direct invoke / testing).
     """
     if "body" not in event:
         return event, None
@@ -742,8 +741,8 @@ def lambda_handler(event, context):
         return {"statusCode": 401}
     if not isinstance(update, dict) or "update_id" not in update:
         return {"statusCode": 400}
-    # Only Function URL requests need the handoff; the legacy REST API already
-    # invokes asynchronously (its event has no "body" envelope).
+    # Only Function URL requests need the handoff; direct / test invocations
+    # without a body envelope process inline.
     if ASYNC_HANDOFF and "body" in event and context is not None and _handoff(update, context):
         return {"statusCode": 200}
     _process(update)

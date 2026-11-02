@@ -40,7 +40,6 @@ Parameters:
     Description: >-
       Random string (1-256 chars, A-Za-z0-9_-) passed as secret_token to
       setWebhook. Requests without the matching header are rejected with 401.
-      Leave empty only while the legacy API Gateway integration is still in use.
   VideosUrlPrefix:
     Type: String
     Default: https://rtl-hymns.s3.eu-west-2.amazonaws.com/

@@ -65,9 +65,9 @@ def test_handoff_failure_falls_back_to_inline(harness, monkeypatch):
     assert processed == [5]
 
 
-def test_legacy_raw_update_is_processed_inline(harness, monkeypatch):
+def test_raw_update_without_envelope_is_processed_inline(harness, monkeypatch):
     processed, fake = harness
-    monkeypatch.setattr(lf, "WEBHOOK_SECRET", "")               # legacy API Gateway path has no headers
+    monkeypatch.setattr(lf, "WEBHOOK_SECRET", "")               # direct/raw invocation has no headers
     assert lf.lambda_handler(dict(UPDATE), CTX) == {"statusCode": 200}
     assert processed == [5] and fake.calls == []
 

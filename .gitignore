@@ -27,5 +27,3 @@ build/
 /docs/
 /infra/README.md
 /infra/import/
-/scripts/migrate-params.sh
-/scripts/decommission-legacy.sh
