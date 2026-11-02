@@ -82,6 +82,11 @@ Parameters:
     Default: 120
     MinValue: 1
     Description: Shared window in seconds for Community formation and joining after a broadcast.
+  GroupLifetimeSeconds:
+    Type: Number
+    Default: 1200
+    MinValue: 60
+    Description: Inactivity lifetime in seconds for a Community before it dissolves.
   KeepWarmSchedule:
     Type: String
     Default: rate(5 minutes)
@@ -283,6 +288,7 @@ Resources:
           GROUP_FORMATION_THRESHOLD: !Ref GroupFormationThreshold
           RECENTS_TTL_SECONDS: !Ref SentTagWindowSeconds
           SENT_TAG_TTL_SECONDS: !Ref SentTagWindowSeconds
+          GROUP_TTL_SECONDS: !Ref GroupLifetimeSeconds
 
   # Keep-warm pings and the async handoff are both async invocations: never
   # retry them (a retry would replay an update's side effects).

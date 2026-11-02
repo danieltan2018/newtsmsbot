@@ -198,10 +198,10 @@ def test_member_searches_do_not_invite_anyone(dynamo):
     register(dynamo, 1, 2, 3, 9)
     ctx = make_ctx()
     for uid in (1, 2, 3): search(dynamo, ctx, uid)
-    search(dynamo, ctx, 1, song="HGG 12")                              # member just browsing
+    search(dynamo, ctx, 1, song="HGG 12")                              # member browsing
     assert search(dynamo, ctx, 9, song="HGG 12") is None
     row = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 12")})["Item"]
-    assert "group" not in row and {int(u) for u in row["users"]} == {9}   # member not even counted
+    assert "group" not in row and {int(u) for u in row["users"]} == {1, 9}   # recorded, but browsing doesn't tag group
 
 
 def test_broadcast_song_invites_later_searchers(dynamo):
@@ -546,8 +546,8 @@ def test_two_minute_formation_boundary(dynamo, monkeypatch, seconds, forms):
         assert dynamo.Table("test_recents").get_item(Key={"song": SONG})["Item"]["users"] == {3}
 
 
-@pytest.mark.parametrize("seconds,joins", [(107, True), (119, True), (120, False)])
-def test_formation_invitation_keeps_original_two_minute_window(dynamo, monkeypatch, seconds, joins):
+@pytest.mark.parametrize("seconds,joins", [(107, True), (119, True), (149, True), (150, False)])
+def test_formation_invitation_gives_fresh_two_minute_window(dynamo, monkeypatch, seconds, joins):
     register(dynamo, 1, 2, 3, 9)
     now = int(time.time())
     monkeypatch.setattr(groups.time, "time", lambda: now)
@@ -796,3 +796,132 @@ def test_replaced_formation_window_does_not_join_old_searchers(dynamo, monkeypat
     assert groups._form_group(SONG, now) == (None, set())
     assert dynamo.Table('test_groups').scan()['Items'] == []
     assert all('group' not in db_user(dynamo, uid)['Item'] for uid in range(1, 7))
+
+
+def test_group_rollover_when_threshold_members_search_new_song(dynamo):
+    register(dynamo, 1, 2, 3, 4)
+    ctx = make_ctx()
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    assert gid
+
+    # Member 1 searches new song
+    search(dynamo, ctx, 1, song="HGG 52")
+    recents = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 52")})["Item"]
+    assert "group" not in recents
+
+    # Member 2 searches new song
+    search(dynamo, ctx, 2, song="HGG 52")
+    recents = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 52")})["Item"]
+    assert "group" not in recents
+
+    # Member 3 searches new song -> threshold reached! Rollover triggers!
+    search(dynamo, ctx, 3, song="HGG 52")
+    recents = dynamo.Table("test_recents").get_item(Key={"song": groups.community_song_key("HGG 52")})["Item"]
+    assert recents.get("group") == gid
+
+    # Existing members stay in the same group
+    assert {active_group(dynamo, u) for u in (1, 2, 3)} == {gid}
+
+    # An ungrouped newcomer searches HGG 52 and joins the existing community via invitation
+    assert search(dynamo, ctx, 4, song="HGG 52") == gid
+    members = {int(u) for u in dynamo.Table("test_groups").get_item(Key={"id": gid})["Item"]["users"]}
+    assert members == {1, 2, 3, 4}
+
+    # Verify rollover log
+    rollovers = [l for l in LOGS if l[1] == "COMMUNITY_ROLLOVER"]
+    assert len(rollovers) == 1
+    assert rollovers[0][2] == "HGG 52" and rollovers[0][3] == {"community_id": gid}
+
+
+def test_group_rollover_extends_group_ttl(dynamo, monkeypatch):
+    register(dynamo, 1, 2, 3)
+    ctx = make_ctx()
+    now = int(time.time())
+    monkeypatch.setattr(groups.time, "time", lambda: now)
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+    group_row = dynamo.Table("test_groups").get_item(Key={"id": gid})["Item"]
+    assert int(group_row["ttl"]) == now + groups.GROUP_TTL_SECONDS
+
+    # 10 minutes later, members search a new song
+    later = now + 600
+    monkeypatch.setattr(groups.time, "time", lambda: later)
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid, song="TSMS 50")
+
+    refreshed_row = dynamo.Table("test_groups").get_item(Key={"id": gid})["Item"]
+    assert int(refreshed_row["ttl"]) == later + groups.GROUP_TTL_SECONDS
+
+
+def test_group_ttl_default_is_twenty_minutes():
+    assert groups.GROUP_TTL_SECONDS == 1200
+
+
+def test_formation_contention_retry_observes_winning_group_despite_extended_ttl(dynamo):
+    register(dynamo, 1, 2, 3, 4)
+    now = int(time.time())
+    for uid in (1, 2):
+        groups._record_search(SONG, uid, now)
+    r3 = groups._record_search(SONG, 3, now)
+    r4 = groups._record_search(SONG, 4, now)
+
+    # User 3 forms the group first, extending recents row TTL
+    gid3, claimed3 = groups._form_group(SONG, now, window=r3)
+    assert gid3 and claimed3 == {1, 2, 3}
+
+    # User 4 held a snapshot r4 from before User 3's formation extended TTL.
+    # User 4's retry must recognize the group formed in the same window.
+    gid4, claimed4 = groups._form_group(SONG, now, window=r4)
+    assert gid4 == gid3 and claimed4 == set()
+
+
+def test_rollover_invites_earlier_ungrouped_searcher(dynamo):
+    register(dynamo, 1, 2, 3, 9)
+    ctx = make_ctx()
+    # Form Group G
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid)
+    gid = active_group(dynamo, 1)
+
+    # Ungrouped User 9 searches the new song FIRST
+    search(dynamo, ctx, 9, song="HGG 80")
+    assert active_group(dynamo, 9) is None
+
+    # Group members 1, 2, 3 search the new song -> triggers rollover
+    search(dynamo, ctx, 1, song="HGG 80")
+    search(dynamo, ctx, 2, song="HGG 80")
+    search(dynamo, ctx, 3, song="HGG 80")
+
+    # User 9 who searched earlier must be invited and joined into Group G
+    assert active_group(dynamo, 9) == gid
+    members = {int(u) for u in dynamo.Table("test_groups").get_item(Key={"id": gid})["Item"]["users"]}
+    assert members == {1, 2, 3, 9}
+
+
+def test_rollover_excludes_members_of_other_active_groups(dynamo):
+    register(dynamo, 1, 2, 3, 4, 5, 6)
+    ctx = make_ctx()
+    # Form Group A (1, 2, 3) and Group B (4, 5, 6)
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid, song="TSMS 1")
+    gid_a = active_group(dynamo, 1)
+
+    for uid in (4, 5, 6):
+        search(dynamo, ctx, uid, song="TSMS 2")
+    gid_b = active_group(dynamo, 4)
+
+    # Member of Group B searches a song
+    search(dynamo, ctx, 4, song="TSMS 10")
+
+    # Group A members search TSMS 10 -> triggers rollover for Group A
+    for uid in (1, 2, 3):
+        search(dynamo, ctx, uid, song="TSMS 10")
+
+    # Group B member 4 must remain in Group B, not joined to Group A
+    assert active_group(dynamo, 4) == gid_b
+    assert active_group(dynamo, 1) == gid_a
+
+

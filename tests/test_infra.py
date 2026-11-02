@@ -59,6 +59,40 @@ fi
     assert parameters == [expected]
 
 
+def test_group_lifetime_setting_configured():
+    template = yaml.load((ROOT / "infra/template.yaml").read_text(), Loader=yaml.BaseLoader)
+    settings = template["Resources"]["Function"]["Properties"]["Environment"]["Variables"]
+    assert settings["GROUP_TTL_SECONDS"] == "GroupLifetimeSeconds"
+    assert template["Parameters"]["GroupLifetimeSeconds"]["Default"] == "1200"
+
+
+@pytest.mark.parametrize("overrides,expected", [
+    ([], "GroupLifetimeSeconds=1200"),
+    (["GroupLifetimeSeconds=1800"], "GroupLifetimeSeconds=1800"),
+])
+def test_deploy_migrates_group_lifetime_unless_explicitly_overridden(tmp_path, overrides, expected):
+    script = tmp_path / "scripts/deploy.sh"
+    script.parent.mkdir()
+    script.write_text((ROOT / "scripts/deploy.sh").read_text())
+    (tmp_path / "build/function").mkdir(parents=True)
+    capture = tmp_path / "deploy-args"
+    aws = tmp_path / "aws"
+    aws.write_text('''#!/usr/bin/env bash
+if [ "$1" = sts ]; then echo 123456789012; fi
+if [ "$1" = cloudformation ] && [ "$2" = deploy ]; then
+  printf '%s\n' "$@" > "$CAPTURE"
+fi
+''')
+    aws.chmod(0o755)
+    env = {**os.environ, "PATH": str(tmp_path) + os.pathsep + os.environ["PATH"],
+           "ENV": "staging", "CAPTURE": str(capture)}
+    subprocess.run(["bash", str(script), *overrides],
+                   env=env, check=True, capture_output=True, text=True)
+    parameters = [arg for arg in capture.read_text().splitlines()
+                  if arg.startswith("GroupLifetimeSeconds=")]
+    assert parameters == [expected]
+
+
 def test_alarm_notifier_is_independent_and_preserves_telegram_retry_policy():
     template = yaml.load((ROOT / "infra/template.yaml").read_text(), Loader=yaml.BaseLoader)
     resources = template["Resources"]

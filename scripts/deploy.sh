@@ -42,11 +42,15 @@ aws cloudformation package \
 
 # `aws cloudformation deploy` keeps the previous value of every parameter that
 # is not overridden here (secrets survive routine redeploys).
-# Apply the shared two-minute window to existing stacks as well as new stacks.
+# Apply the shared two-minute window and 20-minute lifetime to existing stacks as well as new stacks.
 OVERRIDES=("Environment=$ENV" "$@")
 case " $* " in
   *" SentTagWindowSeconds="*) ;;
   *) OVERRIDES+=("SentTagWindowSeconds=120");;
+esac
+case " $* " in
+  *" GroupLifetimeSeconds="*) ;;
+  *) OVERRIDES+=("GroupLifetimeSeconds=1200");;
 esac
 
 echo "==> Deploying stack $STACK ($ENV) in $REGION"

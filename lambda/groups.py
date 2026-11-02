@@ -41,7 +41,7 @@ logger = logging.getLogger()
 
 GROUP_FORMATION_THRESHOLD = int(os.getenv("GROUP_FORMATION_THRESHOLD", "3"))
 RECENTS_TTL_SECONDS = int(os.getenv("RECENTS_TTL_SECONDS", "120"))
-GROUP_TTL_SECONDS = int(os.getenv("GROUP_TTL_SECONDS", "3600"))
+GROUP_TTL_SECONDS = int(os.getenv("GROUP_TTL_SECONDS", "1200"))
 SENT_TAG_TTL_SECONDS = int(os.getenv("SENT_TAG_TTL_SECONDS", str(RECENTS_TTL_SECONDS)))
 _log_retry_at = 0.0
 
@@ -418,7 +418,7 @@ def _form_group(song_number, now, save_log=None, user=None, window=None):
             return None, set()
         if window is None:
             window = row
-        if any(row.get(key) != window.get(key) for key in ("timestamp", "ttl")):
+        if row.get("timestamp") != window.get("timestamp"):
             return None, set()
         if row.get("group"):
             return row["group"], set()
@@ -442,11 +442,12 @@ def _form_group(song_number, now, save_log=None, user=None, window=None):
             }},
             {"Update": {
                 "TableName": table("recents").name, "Key": {"song": song_key},
-                "UpdateExpression": "SET #g = :g",
+                "UpdateExpression": "SET #g = :g, #ttl = :new_ttl",
                 "ConditionExpression": "attribute_not_exists(#g) AND #ts = :ts AND #ttl = :ttl AND #ttl > :now",
                 "ExpressionAttributeNames": {"#g": "group", "#ts": "timestamp", "#ttl": "ttl"},
                 "ExpressionAttributeValues": {":g": group_id, ":ts": row["timestamp"],
-                                              ":ttl": row["ttl"], ":now": now},
+                                              ":ttl": row["ttl"], ":now": now,
+                                              ":new_ttl": Decimal(now + SENT_TAG_TTL_SECONDS)},
             }},
             *(_membership_update(uid, group_id) for uid in eligible),
         ]
@@ -457,39 +458,111 @@ def _form_group(song_number, now, save_log=None, user=None, window=None):
     return None, set()
 
 
+def _refresh_group_ttl(group_id, now):
+    try:
+        table("groups").update_item(
+            Key={"id": group_id},
+            UpdateExpression="SET #ttl = :ttl",
+            ConditionExpression="attribute_exists(id) AND #ttl > :now",
+            ExpressionAttributeNames={"#ttl": "ttl"},
+            ExpressionAttributeValues={
+                ":ttl": Decimal(now + GROUP_TTL_SECONDS),
+                ":now": Decimal(now),
+            },
+        )
+    except ClientError as e:
+        if not _is_condition_failure(e):
+            raise
+
+
+async def invite_recent_searchers(context, saveLog, group_id, song_number, exclude=frozenset()):
+    """Called after a broadcast or rollover: opens the invitation and joins anyone who
+    looked the song up in the last window but is not in a group yet.
+    `exclude` is the membership at broadcast/rollover time (including anyone dropped
+    during delivery), who must not be (re)invited."""
+    now = int(time.time())
+    candidates = tag_sent_song(group_id, song_number, now) - set(exclude)
+    if not candidates:
+        return 0
+    results = await asyncio.gather(
+        *(community_join(context, saveLog, uid, song_number, group_id,
+                         reason="invitation") for uid in sorted(candidates))
+    )
+    return sum(results)
+
+
 async def process_search_event(context, saveLog, user, song_number, active_group_id):
-    if active_group_id:
-        return  # members' own searches never affect anyone else
     now = int(time.time())
     for _ in range(2):
         row = _record_search(song_number, user.id, now)
         group_id = row.get("group")
         if not group_id:
             break
-        if await community_join(context, saveLog, user.id, song_number, group_id,
-                                reason="invitation", user=user):
+        if active_group_id and active_group_id == group_id:
             return
-        # Only a failed join needs this read. Replace dead invitations lazily;
-        # searches from a closed Community must not re-invite its old members.
-        group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item")
-        if group and group.get("ttl", 0) > now:
+        if not active_group_id:
+            if await community_join(context, saveLog, user.id, song_number, group_id,
+                                    reason="invitation", user=user):
+                return
+            # Only a failed join needs this read. Replace dead invitations lazily;
+            # searches from a closed Community must not re-invite its old members.
+            group = table("groups").get_item(Key={"id": group_id}, ConsistentRead=True).get("Item")
+            if group and group.get("ttl", 0) > now:
+                return
+            try:
+                table("recents").put_item(
+                    Item={"song": community_song_key(song_number), "timestamp": Decimal(now),
+                          "ttl": Decimal(now + RECENTS_TTL_SECONDS), "users": {user.id}},
+                    ConditionExpression="#g = :g",
+                    ExpressionAttributeNames={"#g": "group"},
+                    ExpressionAttributeValues={":g": group_id},
+                )
+            except ClientError as error:
+                if not _is_condition_failure(error):
+                    raise
+        else:
             return
-        try:
-            table("recents").put_item(
-                Item={"song": community_song_key(song_number), "timestamp": Decimal(now),
-                      "ttl": Decimal(now + RECENTS_TTL_SECONDS), "users": {user.id}},
-                ConditionExpression="#g = :g",
-                ExpressionAttributeNames={"#g": "group"},
-                ExpressionAttributeValues={":g": group_id},
-            )
-        except ClientError as error:
-            if not _is_condition_failure(error):
-                raise
     else:
         return
     users = {int(u) for u in row.get("users", set())}
     if len(users) < GROUP_FORMATION_THRESHOLD:
         return
+
+    # Check candidates for live group memberships
+    group_candidates = {}
+    ungrouped = []
+    for uid in sorted(users):
+        u = table("users").get_item(Key={"id": uid}, ConsistentRead=True).get("Item", {})
+        gid = u.get("group")
+        if not gid:
+            ungrouped.append(uid)
+            continue
+        g = table("groups").get_item(Key={"id": gid}, ConsistentRead=True).get("Item", {})
+        if g and g.get("ttl", 0) > now:
+            group_candidates.setdefault(gid, []).append(uid)
+        else:
+            ungrouped.append(uid)
+
+    rollover_gid = None
+    for gid, members in group_candidates.items():
+        if len(members) >= GROUP_FORMATION_THRESHOLD:
+            rollover_gid = gid
+            break
+
+    if rollover_gid:
+        _refresh_group_ttl(rollover_gid, now)
+        invited = await invite_recent_searchers(
+            context, saveLog, rollover_gid, song_number,
+            exclude=set().union(*group_candidates.values())
+        )
+        if saveLog:
+            safe_log(saveLog, user, "COMMUNITY_ROLLOVER", song_number, {"community_id": rollover_gid})
+        logger.info("community %s: rolled over to %s with %d invited", rollover_gid, song_number, invited)
+        return
+
+    if len(ungrouped) < GROUP_FORMATION_THRESHOLD:
+        return
+
     group_id, claimed = _form_group(song_number, now, saveLog, user, window=row)
     if not group_id:
         return
@@ -502,19 +575,3 @@ async def process_search_event(context, saveLog, user, song_number, active_group
                          user=user if uid == user.id else None) for uid in sorted(users - claimed)),
     )
     logger.info("community %s: %d joined for %s", group_id, sum(results), song_number)
-
-
-async def invite_recent_searchers(context, saveLog, group_id, song_number, exclude=frozenset()):
-    """Called after a broadcast: opens the invitation and joins anyone who
-    looked the song up in the last window but is not in a group yet.
-    `exclude` is the membership at broadcast time (including anyone dropped
-    during delivery), who must not be (re)invited."""
-    now = int(time.time())
-    candidates = tag_sent_song(group_id, song_number, now) - set(exclude)
-    if not candidates:
-        return 0
-    results = await asyncio.gather(
-        *(community_join(context, saveLog, uid, song_number, group_id,
-                         reason="invitation") for uid in sorted(candidates))
-    )
-    return sum(results)
