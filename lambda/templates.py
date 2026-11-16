@@ -90,7 +90,7 @@ Search by typing any of the following:
 <b>Revival Hymns & Choruses</b> (RHC 1-567)
 <b>Hymns of Grace</b> (HOG 1-444)
 <b>The Wilds Songbook 9th ed.</b> (WILDS 1-209)
-<b>Children's Ministry</b> (CM 1-80)
+<b>Children's Ministry</b> (CM 1-81)
 <b>Word in Song - Bukit Arang Church</b> (WIS)
 <b>CityAlight</b> (CA)
 <b>Getty Music</b> (G)
